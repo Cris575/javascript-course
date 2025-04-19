@@ -41,19 +41,51 @@
 //! Fucntion dlecaration
 //* Tine Hosting, lo que significa que puede ser llamada antes de su declaración en el código
 
-function calcAge1(birthYear) {
-  return 2037 - birthYear;
-}
+// function calcAge1(birthYear) {
+//   return 2037 - birthYear;
+// }
 
-const age1 = calcAge1(1991);
+// const age1 = calcAge1(1991);
 
 //! Function expression
 //* No tiene hoisting. Si intentas llamarla antes de su declaración, habrá un error:
 
-const calcAge2 = function (birthYear) {
-  return 2037 - birthYear;
-};
+// const calcAge2 = function (birthYear) {
+//   return 2037 - birthYear;
+// };
 
-const age2 = calcAge2(1991);
+// const age2 = calcAge2(1991);
 
-console.log(age1, age2);
+// console.log(age1, age2);
+
+//! Arrow function
+
+// const age1 = (birthYear) => 2037 - birthYear;
+// const age3 = age1(2000);
+// console.log(age3);
+
+// const yearUntilRetirament = (birthYear, firstName) => {
+//   const age = 2037 - birthYear;
+//   const retirement = 65 - age;
+//   //return retirement;
+//   return `${firstName} retires in ${retirement} years`;
+// };
+
+// console.log(yearUntilRetirament(1991, "Pepe"));
+// console.log(yearUntilRetirament(1980, "Bob"));
+
+//! Functions Calling Other Functions
+
+function cutFruitPieces(fruit) {
+  return fruit * 3;
+}
+
+function fruitProcessor(apples, oranges) {
+  const applePieces = cutFruitPieces(apples);
+  const orangesPieces = cutFruitPieces(oranges);
+
+  const juice = `Juice with ${applePieces} apples pieces and ${orangesPieces} oranges pieces.`;
+  return juice;
+}
+
+console.log(fruitProcessor(2, 3));
