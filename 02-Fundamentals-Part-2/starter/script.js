@@ -14,25 +14,46 @@
 
 // Functions
 
-function logger() {
-  console.log("My name is Cris");
+// function logger() {
+//   console.log("My name is Cris");
+// }
+
+//!Invocacion de la función
+
+// logger();
+// logger();
+// logger();
+
+// function fruitProcessor(apples, oranges) {
+//   console.log(apples, oranges);
+//   const juice = `Jiice with ${apples} apples and ${oranges} oranges.`;
+//   return juice;
+// }
+
+//!Por defecto las fucniones devuelven undefined
+
+// const appleJuice = fruitProcessor(1, 2);
+// console.log(appleJuice);
+
+// const appleOrangeJuice = fruitProcessor(2, 2);
+// console.log(appleOrangeJuice);
+
+//! Fucntion dlecaration
+//* Tine Hosting, lo que significa que puede ser llamada antes de su declaración en el código
+
+function calcAge1(birthYear) {
+  return 2037 - birthYear;
 }
 
-//Invocacion de la función
-logger();
-logger();
-logger();
+const age1 = calcAge1(1991);
 
-function fruitProcessor(apples, oranges) {
-  console.log(apples, oranges);
-  const juice = `Jiice with ${apples} apples and ${oranges} oranges.`;
-  return juice;
-}
+//! Function expression
+//* No tiene hoisting. Si intentas llamarla antes de su declaración, habrá un error:
 
-//Por defecto las fucniones devuelven undefined
+const calcAge2 = function (birthYear) {
+  return 2037 - birthYear;
+};
 
-const appleJuice = fruitProcessor(1, 2);
-console.log(appleJuice);
+const age2 = calcAge2(1991);
 
-const appleOrangeJuice = fruitProcessor(2, 2);
-console.log(appleOrangeJuice);
+console.log(age1, age2);
