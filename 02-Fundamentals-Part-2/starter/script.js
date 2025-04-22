@@ -18,7 +18,7 @@
 //   console.log("My name is Cris");
 // }
 
-//!Invocacion de la función
+//! Invocación de la función
 
 // logger();
 // logger();
@@ -26,11 +26,11 @@
 
 // function fruitProcessor(apples, oranges) {
 //   console.log(apples, oranges);
-//   const juice = `Jiice with ${apples} apples and ${oranges} oranges.`;
+//   const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
 //   return juice;
 // }
 
-//!Por defecto las fucniones devuelven undefined
+//! Por defecto las funciones devuelven undefined
 
 // const appleJuice = fruitProcessor(1, 2);
 // console.log(appleJuice);
@@ -38,8 +38,8 @@
 // const appleOrangeJuice = fruitProcessor(2, 2);
 // console.log(appleOrangeJuice);
 
-//! Fucntion dlecaration
-//* Tine Hosting, lo que significa que puede ser llamada antes de su declaración en el código
+//! Function declaration
+//* Tiene hoisting, lo que significa que puede ser llamada antes de su declaración en el código
 
 // function calcAge1(birthYear) {
 //   return 2037 - birthYear;
@@ -64,15 +64,15 @@
 // const age3 = age1(2000);
 // console.log(age3);
 
-// const yearUntilRetirament = (birthYear, firstName) => {
+// const yearsUntilRetirement = (birthYear, firstName) => {
 //   const age = 2037 - birthYear;
 //   const retirement = 65 - age;
-//   //return retirement;
+//   // return retirement;
 //   return `${firstName} retires in ${retirement} years`;
 // };
 
-// console.log(yearUntilRetirament(1991, "Pepe"));
-// console.log(yearUntilRetirament(1980, "Bob"));
+// console.log(yearsUntilRetirement(1991, "Pepe"));
+// console.log(yearsUntilRetirement(1980, "Bob"));
 
 //! Functions Calling Other Functions
 
@@ -82,33 +82,32 @@
 
 // function fruitProcessor(apples, oranges) {
 //   const applePieces = cutFruitPieces(apples);
-//   const orangesPieces = cutFruitPieces(oranges);
+//   const orangePieces = cutFruitPieces(oranges);
 
-//   const juice = `Juice with ${applePieces} apples pieces and ${orangesPieces} oranges pieces.`;
+//   const juice = `Juice with ${applePieces} apple pieces and ${orangePieces} orange pieces.`;
 //   return juice;
 // }
 
 // console.log(fruitProcessor(2, 3));
 
-function calAge(birthYear) {
+function calcAge(birthYear) {
   return 2037 - birthYear;
 }
 
-const calRetirement = function (age) {
+const calcRetirement = function (age) {
   return 65 - age;
 };
 
-const yearUntilRetirament = function (birthYear, firstName) {
-  const age = calAge(birthYear);
-  const retirement = calRetirement(age);
+const yearsUntilRetirement = function (birthYear, firstName) {
+  const age = calcAge(birthYear);
+  const retirement = calcRetirement(age);
 
   if (retirement > 0) {
-    return retirement;
+    return `${firstName} retires in ${retirement} years.`;
   } else {
-    return -1;
+    return `${firstName} is already retired.`;
   }
-  //return `${firstName} retires in ${retirement} years`;
 };
 
-console.log(yearUntilRetirament(1991, "Pedro"));
-console.log(yearUntilRetirament(1950, "Mike"));
+console.log(yearsUntilRetirement(1991, "Pedro"));
+console.log(yearsUntilRetirement(1950, "Mike"));
