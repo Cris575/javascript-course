@@ -208,3 +208,20 @@ console.log(friends.indexOf("Bob"));
 console.log(friends.includes("Peter"));
 console.log(friends.includes("Bob"));
 console.log(friends.includes("peter"));
+
+const bills = [125, 555, 44];
+const totals = [];
+
+const calcTip = (tips) => {
+  if (tips >= 50 && tips <= 300) {
+    return tips * 0.15;
+  } else {
+    return tips * 0.2;
+  }
+};
+
+for (let i = 0; i < bills.length; i++) {
+  totals.push(calcTip(bills[i]) + bills[i]);
+}
+
+console.log(totals);
