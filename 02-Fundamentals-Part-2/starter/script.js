@@ -19,6 +19,7 @@
 // }
 
 //! Invocación de la función
+//* Por defecto las funciones devuelven undefined
 
 // logger();
 // logger();
@@ -29,8 +30,6 @@
 //   const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
 //   return juice;
 // }
-
-//! Por defecto las funciones devuelven undefined
 
 // const appleJuice = fruitProcessor(1, 2);
 // console.log(appleJuice);
@@ -114,22 +113,55 @@
 
 /* Write your code below. Good luck! 🙂 */
 
-const calcAverage = (score1, score2, score3) => {
-  const avg = (score1 + score2 + score3) / 3;
-  return avg;
+// const calcAverage = (score1, score2, score3) => {
+//   const avg = (score1 + score2 + score3) / 3;
+//   return avg;
+// };
+
+// const scoreDolphins = calcAverage(85, 54, 41);
+// const scoreKoalas = calcAverage(23, 34, 27);
+
+// function checkWinner(scoreDolphins, scoreKoalas) {
+//   if (scoreDolphins >= 2 * scoreKoalas) {
+//     console.log(`Dolphins win (${scoreDolphins} vs. ${scoreKoalas})`);
+//   } else if (scoreKoalas >= 2 * scoreDolphins) {
+//     console.log(`Koalas win (${scoreKoalas} vs. ${scoreDolphins})`);
+//   } else {
+//     console.log("No team wins...");
+//   }
+// }
+
+// checkWinner(scoreDolphins, scoreKoalas);
+
+//! Arrays
+
+const friend1 = "Michael";
+const friend2 = "Steven";
+const friend3 = "Peter";
+
+const friends = ["Michael", "Steven", "Peter"];
+console.log(friends);
+
+// const years = new Array(1991, 1992, 1993, 1994);
+
+console.log(friends[0]);
+console.log(friends[2]);
+
+console.log(friends.length);
+console.log(friends[friends.length - 1]);
+
+friends[2] = "Miguel";
+console.log(friends);
+
+const cris = ["Jonas", "Dev", 2000];
+console.log(cris);
+
+const calcAge = function (birthYear) {
+  return 2037 - birthYear;
 };
 
-const scoreDolphins = calcAverage(85, 54, 41);
-const scoreKoalas = calcAverage(23, 34, 27);
+const years = [1991, 1992, 1993, 1994];
 
-function checkWinner(scoreDolphins, scoreKoalas) {
-  if (scoreDolphins >= 2 * scoreKoalas) {
-    console.log(`Dolphins win (${scoreDolphins} vs. ${scoreKoalas})`);
-  } else if (scoreKoalas >= 2 * scoreDolphins) {
-    console.log(`Koalas win (${scoreKoalas} vs. ${scoreDolphins})`);
-  } else {
-    console.log("No team wins...");
-  }
+for (let index = 0; index < years.length; index++) {
+  console.log(calcAge(years[index]));
 }
-
-checkWinner(scoreDolphins, scoreKoalas);
