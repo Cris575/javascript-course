@@ -135,33 +135,76 @@
 
 //! Arrays
 
-const friend1 = "Michael";
-const friend2 = "Steven";
-const friend3 = "Peter";
+// const friend1 = "Michael";
+// const friend2 = "Steven";
+// const friend3 = "Peter";
+
+// const friends = ["Michael", "Steven", "Peter"];
+// console.log(friends);
+
+// // const years = new Array(1991, 1992, 1993, 1994);
+
+// console.log(friends[0]);
+// console.log(friends[2]);
+
+// console.log(friends.length);
+// console.log(friends[friends.length - 1]);
+
+// friends[2] = "Miguel";
+// console.log(friends);
+
+// const cris = ["Jonas", "Dev", 2000];
+// console.log(cris);
+
+// const calcAge = function (birthYear) {
+//   return 2037 - birthYear;
+// };
+
+// const years = [1991, 1992, 1993, 1994];
+
+// for (let index = 0; index < years.length; index++) {
+//   console.log(calcAge(years[index]));
+// }
+
+//! Array methods
+
+//* Push
+//* Agrega un elemento al final del array y retorna la nueva longitud de array
 
 const friends = ["Michael", "Steven", "Peter"];
+let newLength = friends.push("Jay");
 console.log(friends);
+console.log(newLength);
 
-// const years = new Array(1991, 1992, 1993, 1994);
+//* unshift
+//* Agrega un elemento al principio del array y retorna la nueva longitud de array
 
-console.log(friends[0]);
-console.log(friends[2]);
-
-console.log(friends.length);
-console.log(friends[friends.length - 1]);
-
-friends[2] = "Miguel";
+newLength = friends.unshift("Jhon");
 console.log(friends);
+console.log(newLength);
 
-const cris = ["Jonas", "Dev", 2000];
-console.log(cris);
+//* pop
+//* Elimina un elemento al final del array y retorna el elemento eleimnado de array
 
-const calcAge = function (birthYear) {
-  return 2037 - birthYear;
-};
+newLength = friends.pop();
+console.log(friends);
+console.log(newLength);
 
-const years = [1991, 1992, 1993, 1994];
+//* pop
+//* Elimina un elemento al princicpio del array y retorna el elemento eleimnado de array
 
-for (let index = 0; index < years.length; index++) {
-  console.log(calcAge(years[index]));
-}
+newLength = friends.shift();
+console.log(friends);
+console.log(newLength);
+
+//* indecOf
+//*De vuelve la ubicaicon del elemento, si no lo encutra retorna -1
+console.log(friends.indexOf("Peter"));
+console.log(friends.indexOf("Bob"));
+
+//* include
+//* Localiza el elemento dentro de la matriz true si lo contiene false si no
+//* Uitliza el operador es estricta igualdad ===
+console.log(friends.includes("Peter"));
+console.log(friends.includes("Bob"));
+console.log(friends.includes("peter"));
