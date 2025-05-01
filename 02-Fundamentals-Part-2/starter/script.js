@@ -171,57 +171,176 @@
 //* Push
 //* Agrega un elemento al final del array y retorna la nueva longitud de array
 
-const friends = ["Michael", "Steven", "Peter"];
-let newLength = friends.push("Jay");
-console.log(friends);
-console.log(newLength);
+// const friends = ["Michael", "Steven", "Peter"];
+// let newLength = friends.push("Jay");
+// console.log(friends);
+// console.log(newLength);
 
 //* unshift
 //* Agrega un elemento al principio del array y retorna la nueva longitud de array
 
-newLength = friends.unshift("Jhon");
-console.log(friends);
-console.log(newLength);
+// newLength = friends.unshift("Jhon");
+// console.log(friends);
+// console.log(newLength);
 
 //* pop
 //* Elimina un elemento al final del array y retorna el elemento eleimnado de array
 
-newLength = friends.pop();
-console.log(friends);
-console.log(newLength);
+// newLength = friends.pop();
+// console.log(friends);
+// console.log(newLength);
 
-//* pop
+//* shift
 //* Elimina un elemento al princicpio del array y retorna el elemento eleimnado de array
 
-newLength = friends.shift();
-console.log(friends);
-console.log(newLength);
+// newLength = friends.shift();
+// console.log(friends);
+// console.log(newLength);
 
 //* indecOf
 //*De vuelve la ubicaicon del elemento, si no lo encutra retorna -1
-console.log(friends.indexOf("Peter"));
-console.log(friends.indexOf("Bob"));
+// console.log(friends.indexOf("Peter"));
+// console.log(friends.indexOf("Bob"));
 
 //* include
 //* Localiza el elemento dentro de la matriz true si lo contiene false si no
 //* Uitliza el operador es estricta igualdad ===
-console.log(friends.includes("Peter"));
-console.log(friends.includes("Bob"));
-console.log(friends.includes("peter"));
+// console.log(friends.includes("Peter"));
+// console.log(friends.includes("Bob"));
+// console.log(friends.includes("peter"));
 
-const bills = [125, 555, 44];
-const totals = [];
+// const bills = [125, 555, 44];
+// const totals = [];
 
-const calcTip = (tips) => {
-  if (tips >= 50 && tips <= 300) {
-    return tips * 0.15;
-  } else {
-    return tips * 0.2;
-  }
+// const calcTip = (tips) => {
+//   if (tips >= 50 && tips <= 300) {
+//     return tips * 0.15;
+//   } else {
+//     return tips * 0.2;
+//   }
+// };
+
+// for (let i = 0; i < bills.length; i++) {
+//   totals.push(calcTip(bills[i]) + bills[i]);
+// }
+
+// console.log(totals);
+
+//! Objetos
+
+// const crisArray = [
+//   "Cristian",
+//   "González",
+//   2037 - 1991,
+//   "Alumno",
+//   ["A", "B", "C"],
+// ];
+
+// const cristian = {
+//   firstName: "Cristian",
+//   lastName: "González",
+//   age: 2037 - 1991,
+//   position: "Alumno",
+//   array: ["A", "B", "C"],
+// };
+
+// const cristian = {
+//   firstName: "Jonas",
+//   lastName: "González",
+//   age: 2037 - 1991,
+//   job: "Alumno",
+//   array: ["Michel", "B", "C"],
+// };
+
+// console.log(cristian);
+
+// console.log(cristian.lastName);
+// console.log(cristian["lastName"]);
+
+// const nameKey = "Name";
+// console.log(cristian["first" + nameKey]);
+// console.log(cristian["last" + nameKey]);
+
+// const inetresetesIn = prompt("Que queires saber sobre mi?");
+
+// if (cristian[inetresetesIn]) {
+//   console.log(cristian[inetresetesIn]);
+// } else {
+//   console.log("Wrong request!");
+// }
+
+// cristian.location = "mexico";
+// cristian["test"] = "mexico";
+
+// console.log(
+//   `${cristian.firstName} has ${cristian.array.length} friends, and his best friend is callled ${cristian.array[0]}`
+// );
+
+// const jonas = {
+//   fisrtName: "Jonas",
+//   lastName: "Schmedtmann",
+//   birthYear: 1991,
+//   job: "teacher",
+//   friends: ["Michel", "Peter", "Steven"],
+//   hasDriverLicense: false,
+
+// calcAge: function (this.birthYear) {
+//   return 2037 - birthYeah;
+// },
+
+// calcAge: function () {
+//   console.log(this);
+//   return 2037 - this.birthYear;
+// },
+
+//   calcAge: function () {
+//     this.age = 2037 - this.birthYear;
+//     return this.age;
+//   },
+
+//   getSumary: function () {
+//     return `Jonas is a ${this.age}-year old ${this.job}, he has ${
+//       this.hasDriverLicense ? "a" : "no"
+//     } driver's license`;
+//   },
+// };
+
+// console.log(jonas.calcAge());
+// console.log(jonas);
+
+// console.log(jonas.getSumary());
+
+/* Write your code below. Good luck! 🙂 */
+
+const mark = {
+  fullName: "Mark Miller ",
+  mass: 78,
+  height: 1.69,
+  calcBIM: function () {
+    this.bim = this.mass / (this.height * this.height);
+    return this.bim;
+  },
 };
 
-for (let i = 0; i < bills.length; i++) {
-  totals.push(calcTip(bills[i]) + bills[i]);
-}
+const john = {
+  fullName: "John Smith's ",
+  mass: 92,
+  height: 1.95,
+  calcBIM: function () {
+    this.bim = this.mass / (this.height * this.height);
+    return this.bim;
+  },
+};
 
-console.log(totals);
+mark.calcBIM();
+john.calcBIM();
+
+if (john.bim > mark.bim) {
+  console.log(
+    `${john.fullName} bim (${john.bim}) is higher than ${mark.fullName} (${mark.bim}!)`
+  );
+} else if (mark.bim > john.bim) {
+  console.log(
+    `${mark.fullName} bim (${mark.bim}) is higher than ${john.fullName} (${john.bim}!)`
+  );
+}
