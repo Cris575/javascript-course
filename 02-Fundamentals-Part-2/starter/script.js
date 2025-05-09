@@ -312,6 +312,11 @@
 
 /* Write your code below. Good luck! 🙂 */
 
+//! ¿Cuándo usar cada uno?
+// Usa for cuando necesitas control total sobre el índice o quieres iterar de manera no secuencial.
+// Usa forEach para operaciones simples en arrays donde no necesitas interrumpir el bucle.
+// Usa for...of cuando trabajas con cualquier iterable y necesitas un código limpio, además de ser compatible con asincronía.
+
 const mark = {
   fullName: "Mark Miller ",
   mass: 78,
