@@ -320,6 +320,7 @@
 //   },
 // };
 
+<<<<<<< HEAD
 // const john = {
 //   fullName: "John Smith's ",
 //   mass: 92,
@@ -329,6 +330,22 @@
 //     return this.bim;
 //   },
 // };
+=======
+//! ¿Cuándo usar cada uno?
+// Usa for cuando necesitas control total sobre el índice o quieres iterar de manera no secuencial.
+// Usa forEach para operaciones simples en arrays donde no necesitas interrumpir el bucle.
+// Usa for...of cuando trabajas con cualquier iterable y necesitas un código limpio, además de ser compatible con asincronía.
+
+const mark = {
+  fullName: "Mark Miller ",
+  mass: 78,
+  height: 1.69,
+  calcBIM: function () {
+    this.bim = this.mass / (this.height * this.height);
+    return this.bim;
+  },
+};
+>>>>>>> 7db84e9a8f803b663758cb806234e9c91f77cd38
 
 // mark.calcBIM();
 // john.calcBIM();
