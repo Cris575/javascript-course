@@ -310,37 +310,102 @@
 
 // console.log(jonas.getSumary());
 
-/* Write your code below. Good luck! 🙂 */
+// const mark = {
+//   fullName: "Mark Miller ",
+//   mass: 78,
+//   height: 1.69,
+//   calcBIM: function () {
+//     this.bim = this.mass / (this.height * this.height);
+//     return this.bim;
+//   },
+// };
 
-const mark = {
-  fullName: "Mark Miller ",
-  mass: 78,
-  height: 1.69,
-  calcBIM: function () {
-    this.bim = this.mass / (this.height * this.height);
-    return this.bim;
-  },
-};
+// const john = {
+//   fullName: "John Smith's ",
+//   mass: 92,
+//   height: 1.95,
+//   calcBIM: function () {
+//     this.bim = this.mass / (this.height * this.height);
+//     return this.bim;
+//   },
+// };
 
-const john = {
-  fullName: "John Smith's ",
-  mass: 92,
-  height: 1.95,
-  calcBIM: function () {
-    this.bim = this.mass / (this.height * this.height);
-    return this.bim;
-  },
-};
+// mark.calcBIM();
+// john.calcBIM();
 
-mark.calcBIM();
-john.calcBIM();
+// if (john.bim > mark.bim) {
+//   console.log(
+//     `${john.fullName} bim (${john.bim}) is higher than ${mark.fullName} (${mark.bim}!)`
+//   );
+// } else if (mark.bim > john.bim) {
+//   console.log(
+//     `${mark.fullName} bim (${mark.bim}) is higher than ${john.fullName} (${john.bim}!)`
+//   );
+// }
 
-if (john.bim > mark.bim) {
-  console.log(
-    `${john.fullName} bim (${john.bim}) is higher than ${mark.fullName} (${mark.bim}!)`
-  );
-} else if (mark.bim > john.bim) {
-  console.log(
-    `${mark.fullName} bim (${mark.bim}) is higher than ${john.fullName} (${john.bim}!)`
-  );
+// function test() {
+//   console.log(this);
+// }
+
+// test();
+
+//! Loops
+
+// for (let index = 1; index <= 10; index++) {
+//   console.log(`Lifting weights repetition ${index} 🏋️`);
+// }
+
+// const crisArray = [
+//   "Cristian",
+//   "González",
+//   2037 - 1991,
+//   "Alumno",
+//   ["A", "B", "C"],
+// ];
+
+// let types = [];
+
+// for (let index = 0; index < crisArray.length; index++) {
+//   types[index] = typeof crisArray[index];
+// }
+
+// console.log(types);
+
+//! Continues y brack
+
+// for (let index = 0; index < crisArray.length; index++) {
+//   if (typeof crisArray[index] !== "string") continue;
+
+//   console.log(crisArray[index]);
+// }
+
+// for (let index = 0; index < crisArray.length; index++) {
+//   if (typeof crisArray[index] === "number") break;
+
+//   console.log(crisArray[index]);
+// }
+
+const crisArray = [
+  "Cristian",
+  "González",
+  2037 - 1991,
+  "Alumno",
+  ["A", "B", "C"],
+];
+
+for (let index = crisArray.length - 1; index >= 0; index--) {
+  console.log(crisArray[index]);
+}
+
+console.log(crisArray.reverse());
+
+const crisArray2 = [
+  ["A", "B", "C"],
+  ["1", "2", "3"],
+];
+
+for (let i = 0; i < crisArray2.length; i++) {
+  for (let a = 0; a < crisArray2[i].length; a++) {
+    console.log(crisArray2[i][a]);
+  }
 }
