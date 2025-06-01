@@ -12,5 +12,10 @@ const $$ = elements => document.querySelectorAll(elements);
 let count = 0;
 
 $('.check').addEventListener('click', function () {
-  $('.guess').value = count += 1;
+  const guess = Number($('.guess').value);
+  console.log(guess, typeof guess);
+
+  if (!guess) {
+    $('.message').textContent = 'No number! 😒';
+  }
 });
