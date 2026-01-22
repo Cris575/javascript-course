@@ -1,21 +1,13 @@
 'use strict';
 
-const $ = element => document.querySelector(element);
-const $$ = elements => document.querySelectorAll(elements);
+console.log(document.querySelector('.message').textContent);
+document.querySelector('.message').textContent = '🥳 Correct Number!';
+console.log(document.querySelector('.message').textContent);
 
-// $('.number').textContent = '13';
-// $('.score').textContent = '10';
-// console.log($('.guess').value);
-// $('.guess').value = 23;
-// console.log($('.guess').value);
 
-let count = 0;
+document.querySelector('.number').textContent = 13;
+document.querySelector('.score').textContent = 10;
 
-$('.check').addEventListener('click', function () {
-  const guess = Number($('.guess').value);
-  console.log(guess, typeof guess);
+document.querySelector('.guess').value = 23;
+console.log(document.querySelector('.guess').value);
 
-  if (!guess) {
-    $('.message').textContent = 'No number! 😒';
-  }
-});
