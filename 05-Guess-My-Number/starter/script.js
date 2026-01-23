@@ -17,36 +17,49 @@ const randomNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 const message = document.querySelector('.message');
 
-
 console.log(randomNumber);
 
-document.querySelector('.check').addEventListener('click', function(){
-    const guess = Number(document.querySelector(".guess").value);
-    
-    if(!guess){
-        message.textContent = '⛔ No number';
-        return;
-    }
+document.querySelector('.again').addEventListener('click', resetGame);
 
-    if(score === 0){
-        message.textContent = '💥 You lost the game!';
-        return;
-    }
+document.querySelector('.check').addEventListener('click', function () {
+  const guess = Number(document.querySelector('.guess').value);
 
-    if(guess === randomNumber){
-        message.textContent = '🎉 Correct Number!';
-        return;
-    }
+  if (!guess) {
+    message.textContent = '⛔ No number';
+    return;
+  }
 
-    guess > randomNumber 
-    ? message.textContent = '📈 Too high!'
-    : message.textContent = '📉 Too low!';
+  if (score === 0) {
+    message.textContent = '💥 You lost the game!';
+    return;
+  }
 
-    updateScore();
+  if (guess === randomNumber) {
+    message.textContent = '🎉 Correct Number!';
+    showCorrectNumber();
+    return;
+  }
 
-})
+  guess > randomNumber
+    ? (message.textContent = '📈 Too high!')
+    : (message.textContent = '📉 Too low!');
 
-function updateScore(){
-    score--;
-    document.querySelector('.score').textContent = score;
+  updateScore();
+});
+
+function updateScore() {
+  score--;
+  document.querySelector('.score').textContent = score;
+}
+
+function showCorrectNumber() {
+  document.querySelector('.number').textContent = randomNumber;
+}
+
+function resetGame() {
+  score = 20;
+  document.querySelector('.score').textContent = score;
+  message.textContent = 'Start guessing...';
+  document.querySelector('.number').textContent = '?';
+  document.querySelector('.guess').value = '';
 }
