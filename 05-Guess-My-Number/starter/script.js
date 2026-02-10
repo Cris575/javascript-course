@@ -16,6 +16,7 @@ console.log(document.querySelector('.guess').value);
 let randomNumber = generateRandomNumber();
 let highscore = 0;
 let score = 20;
+
 const displayMessage = function (message) {
   document.querySelector('.message').textContent = message;
 };
