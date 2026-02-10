@@ -13,11 +13,10 @@ document.querySelector('.guess').value = 23;
 console.log(document.querySelector('.guess').value);
 */
 
-const randomNumber = Math.trunc(Math.random() * 20) + 1;
+let randomNumber;
+let highscore = 0;
 let score = 20;
 const message = document.querySelector('.message');
-
-console.log(randomNumber);
 
 document.querySelector('.again').addEventListener('click', resetGame);
 
@@ -36,7 +35,10 @@ document.querySelector('.check').addEventListener('click', function () {
 
   if (guess === randomNumber) {
     message.textContent = '🎉 Correct Number!';
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector(".number").style.width = "30rem";
     showCorrectNumber();
+  setHighscore();
     return;
   }
 
@@ -56,10 +58,24 @@ function showCorrectNumber() {
   document.querySelector('.number').textContent = randomNumber;
 }
 
+function generateRandomNumber() {
+  randomNumber = Math.trunc(Math.random() * 20) + 1;
+  console.log(randomNumber);
+}
+
 function resetGame() {
-  score = 20;
-  document.querySelector('.score').textContent = score;
+  document.querySelector('.score').textContent = 20;
   message.textContent = 'Start guessing...';
   document.querySelector('.number').textContent = '?';
   document.querySelector('.guess').value = '';
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.number').style.width = '15rem';
+  generateRandomNumber();
+}
+
+function setHighscore() {
+  if(score > highscore)
+    highscore = score;
+  
+  document.querySelector('.highscore').textContent = highscore;
 }
