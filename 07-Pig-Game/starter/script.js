@@ -39,7 +39,13 @@ const init = function () {
   currentScore[0].innerText = 0;
   currentScore[1].innerText = 0;
 
-  ToggleSacreen();
+  playerScreen[0].classList.remove('player--winner');
+  playerScreen[1].classList.remove('player--winner');
+
+  playerScreen[0].classList.add('player--active');
+  playerScreen[1].classList.remove('player--active');
+
+  diceElement.classList.add('hiden');
 };
 
 const GetRandomNumber = function () {
@@ -81,6 +87,7 @@ const EndGame = function (playerNumber) {
 $('.btn--roll').addEventListener('click', function () {
   diceFace = GetRandomNumber();
   diceValue += diceFace;
+  diceElement.classList.remove('hiden');
 
   if (diceFace == 1) {
     diceValue = 0;
