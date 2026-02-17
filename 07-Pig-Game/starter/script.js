@@ -3,18 +3,7 @@
 const $ = $class => document.querySelector($class);
 const $$ = $$class => document.querySelectorAll($$class);
 
-// const score = [0, 0];
-const player = {
-  0: {
-    numaberPlayer: 1,
-    score: 0,
-  },
-  1: {
-    numaberPlayer: 2,
-    score: 0,
-  },
-};
-// const numaberPlayer = [1, 2];
+const player = [0, 0];
 const diceElement = $('.dice');
 const currentScore = [$('#current--0'), $('#current--1')];
 const score = [$('#score--0'), $('#score--1')];
@@ -22,7 +11,6 @@ const playerScreen = [$('.player--0'), $('.player--1')];
 
 let diceFace = 0;
 let diceValue = 0;
-// let numberOfAttempts = 0;
 let currentPlayer = 0;
 
 const init = function () {
@@ -30,8 +18,8 @@ const init = function () {
   diceValue = 0;
   currentPlayer = 0;
 
-  player[0].score = 0;
-  player[1].score = 0;
+  player[0] = 0;
+  player[1] = 0;
 
   score[0].innerText = 0;
   score[1].innerText = 0;
@@ -49,7 +37,8 @@ const init = function () {
 };
 
 const GetRandomNumber = function () {
-  return Math.floor(Math.random() * (6 - 1 + 1) + 1);
+  // return Math.trunc(Math.random() * (6 - 1 + 1) + 1);
+  return Math.floor(Math.random() * 6) + 1;
 };
 
 const SetDiceImage = function (value) {
@@ -57,20 +46,19 @@ const SetDiceImage = function (value) {
 };
 
 const SetValueOfDice = function (playerNumber, value) {
-  console.log(value);
   currentScore[playerNumber].innerText = value;
 };
 
 const SaveValueOfDice = function (playerNumber, saveValue) {
-  player[playerNumber].score += saveValue;
+  player[playerNumber] += saveValue;
 };
 
 const SetEcoreOfPlayer = function (playerNumber) {
-  score[playerNumber].innerText = player[playerNumber].score;
+  score[playerNumber].innerText = player[playerNumber];
 };
 
 const ChangePlayerTurn = function () {
-  currentPlayer = currentPlayer == 1 ? 0 : 1;
+  currentPlayer === 0 ? (currentPlayer = 1) : (currentPlayer = 0);
   ToggleSacreen();
   diceValue = 0;
 };
@@ -102,15 +90,16 @@ $('.btn--roll').addEventListener('click', function () {
 });
 
 $('.btn--hold').addEventListener('click', function () {
+  SaveValueOfDice(currentPlayer, diceValue);
+  SetValueOfDice(currentPlayer, 0);
+  SetEcoreOfPlayer(currentPlayer);
+
   if (EndGame(currentPlayer)) {
     playerScreen[currentPlayer].classList.remove('player--active');
     playerScreen[currentPlayer].classList.add('player--winner');
     return;
   }
 
-  SaveValueOfDice(currentPlayer, diceValue);
-  SetValueOfDice(currentPlayer, 0);
-  SetEcoreOfPlayer(currentPlayer);
   ChangePlayerTurn();
 });
 
