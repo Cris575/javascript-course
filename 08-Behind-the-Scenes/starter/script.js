@@ -16,7 +16,7 @@ function calAge(birthYear) {
         return a + b;
       }
 
-      output = 'New ';
+      output = 'New output';
     }
     // console.log(str);
     console.log(millenial);
