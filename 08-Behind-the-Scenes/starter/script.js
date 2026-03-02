@@ -52,11 +52,11 @@ function addDecl(a, b) {
   return a + b;
 }
 
-const addExpr = function (a, b) {
-  return a + b;
-};
+// const addExpr = function (a, b) {
+//   return a + b;
+// };
 
-var addArrow = (a, b) => a + b;
+// var addArrow = (a, b) => a + b;
 
 //Example
 //console.log(numProducts);
@@ -77,7 +77,7 @@ function deleteShoppingCart() {
 // console.log(y == window.y);
 // console.log(z == window.z);
 
-console.log(this);
+//console.log(this);
 
 const calcAge = function (birthYear) {
   console.log(2037 - birthYear);
@@ -93,25 +93,68 @@ const calcAgeArrow = birthYear => {
 
 //calcAgeArrow(1980);
 
+// const jonas = {
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+// };
+
+// //jonas.calAge();
+
+// const matilda = {
+//   year: 2018,
+// };
+
+// matilda.calcAge = jonas.calcAge;
+// matilda.calcAge();
+
+// //console.log(matilda);
+
+// const f = jonas.calcAge;
+
+// f();
+
+// var firstName = 'Cristian';
+
 const jonas = {
+  firstName: 'jonas',
   year: 1991,
   calcAge: function () {
     console.log(this);
     console.log(2037 - this.year);
+
+    // const self = this;
+    // const isMillenial = function () {
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+
+    const isMillenial = () => {
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+
+    isMillenial();
+  },
+
+  greet: () => {
+    console.log(this);
+    console.log(`Hey ${this.firstName}`);
   },
 };
 
-//jonas.calAge();
+jonas.greet();
+jonas.calcAge();
 
-const matilda = {
-  year: 2018,
+// Arguments keyword
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
 };
+addExpr(1, 3, 8, 12);
 
-matilda.calcAge = jonas.calcAge;
-matilda.calcAge();
-
-//console.log(matilda);
-
-const f = jonas.calcAge;
-
-f();
+var addArrow = (a, b) => {
+  console.log(arguments);
+  return a + b;
+};
+addArrow(1, 2);
