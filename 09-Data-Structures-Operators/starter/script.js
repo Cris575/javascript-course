@@ -44,4 +44,43 @@ const restaurant = {
       close: 24,
     },
   },
+
+  order: function (statedIndex, mainIndex) {
+    return [this.starterMenu[statedIndex], this.mainMenu[mainIndex]];
+  },
 };
+
+const arr = [2, 3, 4];
+const a = arr[0];
+const b = arr[1];
+const c = arr[2];
+
+const [x, y, z] = arr;
+console.log(x, y, z);
+
+// let [main, , secondary] = restaurant.categories;
+// console.log(main, secondary);
+
+//Cambio de variables
+// const temp = main;
+// main = secondary;
+// secondary = temp;
+// console.log(main, secondary);
+
+// [main, secondary] = [secondary, main];
+
+// console.log(main, secondary);
+
+//Recivir 2 valores de retorno
+const [started, main] = restaurant.order(2, 0);
+console.log(started, main);
+
+//Destructuracion Anidada
+const nested = [2, 4, [5, 6]];
+// const [i, , j] = nested;
+// console.log(nested);
+const [i, j, [k, l]] = nested;
+console.log(i, j, k, l);
+
+const [p, q, r = 0] = [8, 9];
+console.log(p, q, r);
