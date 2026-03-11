@@ -58,117 +58,168 @@ const restaurant = {
   },
 };
 
+
+//! ======================================
+//! SPREAD OPERATOR (...)
+//! ======================================
+//? Permite expandir elementos de un iterable (array, string, etc.)
+
+//* Copiar y expandir arrays
 // const arr = [7, 8, 9];
 // const newArr = [1, 2, ...arr];
 // console.log(newArr);
+// Nota: ...arr expande los valores → [1,2,7,8,9]
 
+//* Expandir elementos
 // console.log(...newArr);
+// Nota: imprime cada elemento separado
 
+//* Agregar elementos a un array
 // const newMenu = [...restaurant.mainMenu, 'Gnocci'];
-// console.log(newMenu);
+// Nota: se puede añadir al inicio o final
 
-//Copiar array
+//* Copiar un array
 // const mainMenuCopy = [...restaurant.mainMenu];
-// console.log(mainMenuCopy);
+// Nota: copia superficial (shallow copy)
 
-//Unir dos arrays
+//* Unir dos arrays
 // const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-// console.log(menu);
+// Nota: muy usado para concatenar arrays
 
-//Iterables: arrays, strings, maps, sets. NOT objects
+//? Iterables: arrays, strings, maps, sets (NO objetos)
+
 // const str = 'jonas';
-// const letter = [...str, '', 'S.'];
-// console.log(letter);
-// console.log(...str);
-// console.log(`${...str}}`);
+// const letters = [...str, ' ', 'S.'];
+// console.log(letters);
+// Nota: convierte string en array de letras
 
-// const ingredients = [prompt("Let's"), prompt("Let's"), prompt("Let's")];
 
-// console.log(ingredients);
+//! ======================================
+//! FUNCIONES CON SPREAD
+//! ======================================
+
+// const ingredients = [
+//   prompt("Ingrediente 1"),
+//   prompt("Ingrediente 2"),
+//   prompt("Ingrediente 3"),
+// ];
 
 // restaurant.orderPasta(...ingredients);
+// Nota: spread separa el array en argumentos
 
-//Objetos
 
-// const newRestaurant = { founderIn: 1998, ...restaurant, founder: 'Guiseppe' };
+//! ======================================
+//! SPREAD EN OBJETOS
+//! ======================================
 
-// console.log(newRestaurant);
+//* Crear nuevo objeto copiando propiedades
+// const newRestaurant = {
+//   foundedIn: 1998,
+//   ...restaurant,
+//   founder: 'Guiseppe',
+// };
 
+// Nota: spread copia propiedades del objeto
+
+//* Copiar objeto
 // const restaurantCopy = { ...restaurant };
 // restaurantCopy.name = 'Roma';
+// Nota: también es copia superficial
 
-// console.log(restaurantCopy);
 
-// restaurant.orderDelivery({
-//   time: '22:30',
-//   addess: 'Zamora',
-//   mainIndex: 2,
-//   startedIndex: 1,
-// });
+//! ======================================
+//! DESTRUCTURING DE OBJETOS
+//! ======================================
+//? Permite extraer propiedades fácilmente
 
-// Valores por defecto
 // const { name, openingHours, categories } = restaurant;
-// console.log(name, openingHours, categories);
+// Nota: crea variables con esos nombres
 
+//* Renombrar variables
 // const {
 //   name: restaurantName,
 //   openingHours: hours,
 //   categories: tags,
 // } = restaurant;
 
-// console.log(restaurantName, hours, tags);
+// Nota: name → restaurantName
 
-// const { menu = [], starterMenu: started = {} } = restaurant;
-// console.log(menu, started);
+//* Valores por defecto
+// const { menu = [], starterMenu: starter = {} } = restaurant;
+// Nota: se usan si la propiedad no existe
 
-//Mutacion de variables
+
+//! ======================================
+//! MUTACIÓN DE VARIABLES
+//! ======================================
+
 // let a = 111;
 // let b = 999;
 
 // const obj = { a: 23, b: 7, c: 14 };
 
 // ({ a, b } = obj);
-// a = obj.a;
-// b = obj.b;
-// console.log(a, b);
+// Nota: se usan paréntesis para evitar error de sintaxis
 
-//Anidamiento de objetos
+
+//! ======================================
+//! DESTRUCTURING ANIDADO
+//! ======================================
+
 // const {
 //   fri: { open: o, close: c },
 // } = openingHours;
-// console.log(o, c);
+
+// Nota: extrae propiedades dentro de objetos anidados
+
+
+//! ======================================
+//! ARRAY DESTRUCTURING
+//! ======================================
 
 // const arr = [2, 3, 4];
-// const a = arr[0];
-// const b = arr[1];
-// const c = arr[2];
-
 // const [x, y, z] = arr;
-// console.log(x, y, z);
 
+// Nota: asigna cada posición a una variable
+
+//* Saltar elementos
 // let [main, , secondary] = restaurant.categories;
-// console.log(main, secondary);
+// Nota: la coma salta un elemento
 
-//Cambio de variables
-// const temp = main;
-// main = secondary;
-// secondary = temp;
-// console.log(main, secondary);
+
+//! ======================================
+//! INTERCAMBIAR VARIABLES
+//! ======================================
 
 // [main, secondary] = [secondary, main];
+// Nota: forma moderna de swap sin variable temporal
 
-// console.log(main, secondary);
 
-//Recivir 2 valores de retorno
-// const [started, main] = restaurant.order(2, 0);
-// console.log(started, main);
+//! ======================================
+//! MÚLTIPLES VALORES DE RETORNO
+//! ======================================
 
-//Destructuracion Anidada
+// const [starter, mainCourse] = restaurant.order(2, 0);
+// Nota: útil cuando una función devuelve un array
+
+
+//! ======================================
+//! DESTRUCTURING ANIDADO EN ARRAYS
+//! ======================================
+
 // const nested = [2, 4, [5, 6]];
+
 // const [i, , j] = nested;
-// console.log(nested);
 // const [i, j, [k, l]] = nested;
-// console.log(i, j, k, l);
+
+// Nota: permite acceder a arrays dentro de arrays
+
+
+//! ======================================
+//! VALORES POR DEFECTO
+//! ======================================
 
 // const [p, q, r = 0] = [8, 9];
 // console.log(p, q, r);
+
+// Nota: si no existe valor → usa el default
