@@ -1,206 +1,306 @@
 'use strict';
 
-function calAge(birthYear) {
-  const age = 2037 - birthYear;
+///////////////////////////////////////
+//* Scoping en la práctica
+
+function calcAge(birthYear) {
+
+  const age = 2037 - birthYear; //? variable local del scope de la función
+
   function printAge() {
-    let output = `${firstName}, you are ${age}, born in ${birthYear}`;
+
+    //* Cadena de scopes (scope chain)
+    //? printAge puede acceder a birthYear, age y firstName del scope externo
+
+    let output = `${firstName}, tienes ${age}, naciste en ${birthYear}`;
     console.log(output);
 
     if (birthYear >= 1981 && birthYear <= 1996) {
+
+      //! var ignora el block scope (vive en el scope de la función)
       var millenial = true;
+
+      //* Shadowing de variable
+      //? se crea una nueva variable con el mismo nombre que la externa
       const firstName = 'Steven';
-      const str = `Oh, and you're a millenial, ${firstName}`;
+
+      //* Reasignación de variable del scope superior
+      output = 'NEW OUTPUT!';
+
+      const str = `Oh, y eres millenial, ${firstName}`;
       console.log(str);
 
+      //* Función dentro de un bloque
+      //? en strict mode solo existe dentro de este bloque
       function add(a, b) {
         return a + b;
       }
-
-      output = 'New output';
     }
-    // console.log(str);
-    console.log(millenial);
-    // console.log(add(2, 2));
+
+    //console.log(str); //! Error: solo existe dentro del if
+    console.log(millenial); //! funciona porque var no respeta block scope
+
+    //console.log(add(2,3)); //! error en strict mode
+
     console.log(output);
   }
+
   printAge();
+
   return age;
 }
 
-// const firstName = 'Jonas';
-// calAge(1991);
-//console.log(age);
-//printAge();
+const firstName = 'Jonas';
+calcAge(1991);
 
-// console.log(me);
-// console.log(job);
-// console.log(year);
+
+///////////////////////////////////////
+//* Hoisting y TDZ en la práctica
+
+//* Variables
+
+console.log(me); //? var se eleva (hoisting) con valor undefined
+//console.log(job); //! Error: está en TDZ
+//console.log(year); //! Error: está en TDZ
 
 var me = 'Jonas';
 let job = 'teacher';
 const year = 1991;
 
-// Finctions
 
-// console.log(addDecl(1, 2));
-// console.log(addExpr(1, 2));
-// console.log(addArrow(1, 2));
-// addExpr(1, 2);
-// addArrow(1, 2);
+//* Funciones
 
-function addDecl(a, b) {
+console.log(addDecl(2,3)); //! function declaration se eleva completamente
+//console.log(addExpr(2,3)); //! no se puede usar antes de declararla
+console.log(addArrow); //? undefined por hoisting de var
+//console.log(addArrow(2,3)); //! error si aún no se asigna
+
+function addDecl(a,b){
   return a + b;
 }
 
-// const addExpr = function (a, b) {
-//   return a + b;
-// };
+const addExpr = function(a,b){
+  return a + b;
+};
 
-// var addArrow = (a, b) => a + b;
+var addArrow = (a,b)=> a + b;
 
-//Example
-//console.log(numProducts);
 
-//if (!numProducts) deleteShoppingCart();
+//* Ejemplo clásico de bug con var
+
+console.log(undefined);
+
+if(!numProducts) deleteShoppingCart(); //! undefined se evalúa como false
 
 var numProducts = 10;
 
-function deleteShoppingCart() {
-  console.log('All produts deleted!');
+function deleteShoppingCart(){
+  console.log('Todos los productos eliminados!');
 }
 
-// var x = 1;
-// let y = 2;
-// const z = 3;
 
-// console.log(x == window.x);
-// console.log(y == window.y);
-// console.log(z == window.z);
+//* Variables en el objeto window
 
-//console.log(this);
+var x = 1;
+let y = 2;
+const z = 3;
 
-const calcAge = function (birthYear) {
+console.log(x === window.x); //! true
+console.log(y === window.y); //! false
+console.log(z === window.z); //! false
+
+
+///////////////////////////////////////
+//* La palabra clave this en la práctica
+
+console.log(this); //? en navegador apunta a window
+
+const calcAge = function(birthYear){
+
   console.log(2037 - birthYear);
+
+  //! en strict mode this es undefined en funciones normales
   console.log(this);
+
 };
 
-//calcAge(1991);
+calcAge(1991);
+
 
 const calcAgeArrow = birthYear => {
+
   console.log(2037 - birthYear);
+
+  //! arrow functions no tienen this propio
+  //! heredan el this del contexto donde se crean
   console.log(this);
+
 };
 
-//calcAgeArrow(1980);
+calcAgeArrow(1980);
 
-// const jonas = {
-//   year: 1991,
-//   calcAge: function () {
-//     console.log(this);
-//     console.log(2037 - this.year);
-//   },
-// };
 
-// //jonas.calAge();
+const jonas = {
 
-// const matilda = {
-//   year: 2018,
-// };
+  year:1991,
 
-// matilda.calcAge = jonas.calcAge;
-// matilda.calcAge();
+  calcAge:function(){
 
-// //console.log(matilda);
+    console.log(this); //? el objeto que llama el método
 
-// const f = jonas.calcAge;
+    console.log(2037 - this.year);
 
-// f();
+  }
 
-// var firstName = 'Cristian';
+};
 
-// const jonas = {
-//   firstName: 'jonas',
-//   year: 1991,
-//   calcAge: function () {
-//     console.log(this);
-//     console.log(2037 - this.year);
+jonas.calcAge();
 
-//     // const self = this;
-//     // const isMillenial = function () {
-//     //   console.log(self.year >= 1981 && self.year <= 1996);
-//     // };
 
-//     const isMillenial = () => {
-//       console.log(this.year >= 1981 && this.year <= 1996);
-//     };
+const matilda = {
 
-//     isMillenial();
-//   },
+  year:2017
 
-//   greet: () => {
-//     console.log(this);
-//     console.log(`Hey ${this.firstName}`);
-//   },
-// };
+};
 
-// jonas.greet();
-// jonas.calcAge();
+matilda.calcAge = jonas.calcAge;
 
-// // Arguments keyword
-// const addExpr = function (a, b) {
-//   console.log(arguments);
-//   return a + b;
-// };
-// addExpr(1, 3, 8, 12);
+matilda.calcAge(); //? ahora this apunta a matilda
 
-// var addArrow = (a, b) => {
-//   console.log(arguments);
-//   return a + b;
-// };
-// addArrow(1, 2);
+
+const f = jonas.calcAge;
+
+f(); //! this se pierde (undefined en strict mode)
+
+
+
+///////////////////////////////////////
+//* Funciones normales vs arrow functions
+
+const jonas = {
+
+  firstName:'Jonas',
+  year:1991,
+
+  calcAge:function(){
+
+    console.log(2037 - this.year);
+
+    //* Arrow function hereda el this del método
+
+    const isMillenial = ()=>{
+
+      console.log(this);
+
+      console.log(this.year >= 1981 && this.year <= 1996);
+
+    };
+
+    isMillenial();
+
+  },
+
+
+  //! Error común
+  //! Arrow functions no deben usarse como métodos de objeto
+
+  greet:()=>{
+
+    console.log(this);
+
+    console.log(`Hey ${this.firstName}`);
+
+  }
+
+};
+
+jonas.greet();
+jonas.calcAge();
+
+
+//* keyword arguments
+
+const addExpr = function(a,b){
+
+  console.log(arguments); //? disponible solo en funciones normales
+
+  return a + b;
+
+};
+
+addExpr(2,5);
+addExpr(2,5,8,12);
+
+
+var addArrow = (a,b)=>{
+
+  //! arrow functions no tienen arguments
+  console.log(arguments);
+
+  return a + b;
+
+};
+
+addArrow(2,5,8);
+
+
+
+///////////////////////////////////////
+//* Referencias de objetos (Shallow vs Deep Copy)
 
 const jessica1 = {
-  firstName: 'Jessica',
-  lastName: 'Williams',
-  age: 27,
+
+  firstName:'Jessica',
+  lastName:'Williams',
+  age:27
+
 };
 
-function marryPerson(orginalPerson, newLastName) {
-  orginalPerson.lastName = newLastName;
-  return orginalPerson;
+
+//? Los objetos se pasan por referencia
+
+function marryPerson(originalPerson,newLastName){
+
+  //! se modifica el objeto original
+  originalPerson.lastName = newLastName;
+
+  return originalPerson;
+
 }
 
-const marriedJessica = marryPerson(jessica1, 'Davis');
+const marriedJessica = marryPerson(jessica1,'Davis');
 
-// const marriedJessica = jessica;
-// marriedJessica.lastName = 'Davis';
+console.log('Antes:',jessica1);
+console.log('Después:',marriedJessica);
 
-console.log('Before:', jessica1);
-console.log('After:', marriedJessica);
 
 const jessica = {
-  firstName: 'Jessica',
-  lastName: 'Williams',
-  age: 27,
-  family: ['Alice', 'Bob'],
+
+  firstName:'Jessica',
+  lastName:'Williams',
+  age:27,
+  familiy:['Alice','Bob']
+
 };
 
-// Shallow copy
-const jessicaCopy = { ...jessica };
 
-jessica.lastName = 'Davis';
+//* Shallow Copy
 
-// jessicaCopy.family.push('Mary');
-// jessicaCopy.family.push('John');
+//? copia solo el primer nivel del objeto
 
-// console.log('Before:', jessica);
-// console.log('After:', jessicaCopy);
+const jessicaCopy = {...jessica};
 
-//Deep copy/clone
+jessicaCopy.lastName = 'Davis';
+
+
+//* Deep Copy
+
+//? structuredClone crea una copia profunda
+
 const jessicaClone = structuredClone(jessica);
 
-jessicaClone.family.push('Mary');
-jessicaClone.family.push('John');
+jessicaClone.familiy.push('Mary');
+jessicaClone.familiy.push('John');
 
-console.log('Before:', jessica);
-console.log('After:', jessicaClone);
+console.log('Original:',jessica);
+console.log('Clon:',jessicaClone);
