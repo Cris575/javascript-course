@@ -52,46 +52,91 @@ const restaurant = {
   orderDelivery: function ({ startedIndex = 0, mainIndex = 1, time, addess }) {
     console.log(startedIndex, mainIndex, time, addess);
   },
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(ing1, ing2, ing3);
+  },
 };
 
-restaurant.orderDelivery({
-  time: '22:30',
-  addess: 'Zamora',
-  mainIndex: 2,
-  startedIndex: 1,
-});
+const arr = [7, 8, 9];
+const newArr = [1, 2, ...arr];
+// console.log(newArr);
+
+// console.log(...newArr);
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+// console.log(newMenu);
+
+//Copiar array
+const mainMenuCopy = [...restaurant.mainMenu];
+// console.log(mainMenuCopy);
+
+//Unir dos arrays
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu);
+
+//Iterables: arrays, strings, maps, sets. NOT objects
+const str = 'jonas';
+const letter = [...str, '', 'S.'];
+console.log(letter);
+console.log(...str);
+// console.log(`${...str}}`);
+
+// const ingredients = [prompt("Let's"), prompt("Let's"), prompt("Let's")];
+
+// console.log(ingredients);
+
+// restaurant.orderPasta(...ingredients);
+
+//Objetos
+
+const newRestaurant = { founderIn: 1998, ...restaurant, founder: 'Guiseppe' };
+
+console.log(newRestaurant);
+
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Roma';
+
+console.log(restaurantCopy);
+
+// restaurant.orderDelivery({
+//   time: '22:30',
+//   addess: 'Zamora',
+//   mainIndex: 2,
+//   startedIndex: 1,
+// });
 
 // Valores por defecto
-const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+// const { name, openingHours, categories } = restaurant;
+// console.log(name, openingHours, categories);
 
-const {
-  name: restaurantName,
-  openingHours: hours,
-  categories: tags,
-} = restaurant;
+// const {
+//   name: restaurantName,
+//   openingHours: hours,
+//   categories: tags,
+// } = restaurant;
 
-console.log(restaurantName, hours, tags);
+// console.log(restaurantName, hours, tags);
 
-const { menu = [], starterMenu: started = {} } = restaurant;
-console.log(menu, started);
+// const { menu = [], starterMenu: started = {} } = restaurant;
+// console.log(menu, started);
 
 //Mutacion de variables
-let a = 111;
-let b = 999;
+// let a = 111;
+// let b = 999;
 
-const obj = { a: 23, b: 7, c: 14 };
+// const obj = { a: 23, b: 7, c: 14 };
 
-({ a, b } = obj);
+// ({ a, b } = obj);
 // a = obj.a;
 // b = obj.b;
-console.log(a, b);
+// console.log(a, b);
 
 //Anidamiento de objetos
-const {
-  fri: { open: o, close: c },
-} = openingHours;
-console.log(o, c);
+// const {
+//   fri: { open: o, close: c },
+// } = openingHours;
+// console.log(o, c);
 
 // const arr = [2, 3, 4];
 // const a = arr[0];
