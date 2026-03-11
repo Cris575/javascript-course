@@ -58,28 +58,28 @@ const restaurant = {
   },
 };
 
-const arr = [7, 8, 9];
-const newArr = [1, 2, ...arr];
+// const arr = [7, 8, 9];
+// const newArr = [1, 2, ...arr];
 // console.log(newArr);
 
 // console.log(...newArr);
 
-const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+// const newMenu = [...restaurant.mainMenu, 'Gnocci'];
 // console.log(newMenu);
 
 //Copiar array
-const mainMenuCopy = [...restaurant.mainMenu];
+// const mainMenuCopy = [...restaurant.mainMenu];
 // console.log(mainMenuCopy);
 
 //Unir dos arrays
-const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-console.log(menu);
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// console.log(menu);
 
 //Iterables: arrays, strings, maps, sets. NOT objects
-const str = 'jonas';
-const letter = [...str, '', 'S.'];
-console.log(letter);
-console.log(...str);
+// const str = 'jonas';
+// const letter = [...str, '', 'S.'];
+// console.log(letter);
+// console.log(...str);
 // console.log(`${...str}}`);
 
 // const ingredients = [prompt("Let's"), prompt("Let's"), prompt("Let's")];
@@ -90,14 +90,14 @@ console.log(...str);
 
 //Objetos
 
-const newRestaurant = { founderIn: 1998, ...restaurant, founder: 'Guiseppe' };
+// const newRestaurant = { founderIn: 1998, ...restaurant, founder: 'Guiseppe' };
 
-console.log(newRestaurant);
+// console.log(newRestaurant);
 
-const restaurantCopy = { ...restaurant };
-restaurantCopy.name = 'Roma';
+// const restaurantCopy = { ...restaurant };
+// restaurantCopy.name = 'Roma';
 
-console.log(restaurantCopy);
+// console.log(restaurantCopy);
 
 // restaurant.orderDelivery({
 //   time: '22:30',
