@@ -61,6 +61,73 @@ const restaurant = {
 };
 
 //! ======================================
+//! SHORT CIRCUITING (||)
+//! ======================================
+
+//! OR devuelve el primer valor truthy
+// console.log(3 || 'Cris');
+
+//? '' es falsy → devuelve el siguiente valor
+// console.log('' || 'Cris');
+
+//? true es truthy → se detiene ahí
+// console.log(true || 0);
+
+//? ambos falsy → devuelve el último
+// console.log(undefined || null);
+
+//? recorre hasta encontrar el primer truthy
+// console.log(false || false || true);
+
+//? 'Hello' es el primer truthy
+// console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+//! ======================================
+//! VALORES POR DEFECTO
+//! ======================================
+
+// restaurant.numGuests = 0;
+
+//? operador ternario
+//? si numGuests es truthy usa ese valor
+//? si no usa 10
+// const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+// console.log(guests1);
+
+//? OR usado como valor por defecto
+//? si numGuests es falsy usa 10
+// const guests2 = restaurant.numGuests || 10;
+
+// console.log(guests2);
+
+//! ======================================
+//! SHORT CIRCUITING (&&)
+//! ======================================
+
+//! AND devuelve el primer valor falsy
+// console.log(0 && 'Cris');
+
+//? ambos truthy → devuelve el último
+// console.log(7 && 'Cris');
+
+//? null es el primer falsy → se detiene ahí
+// console.log('Kello' && 23 && null && 'Cris');
+
+//! ======================================
+//! EJECUCIÓN CONDICIONAL DE FUNCIONES
+//! ======================================
+
+//? forma clásica de comprobar si existe la función
+// if (restaurant.orderPizza) {
+//   restaurant.orderPizza('Peperoni', 'cheese');
+// }
+
+//? forma corta usando AND
+//? si orderPizza existe se ejecuta
+// restaurant.orderPizza && restaurant.orderPizza('Peperoni', 'cheese');
+
+//! ======================================
 //! REST PATTERN (...)
 //! ======================================
 
