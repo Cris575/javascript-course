@@ -48,7 +48,6 @@ const restaurant = {
   order: function (statedIndex, mainIndex) {
     return [this.starterMenu[statedIndex], this.mainMenu[mainIndex]];
   },
-
   orderDelivery: function ({ startedIndex = 0, mainIndex = 1, time, addess }) {
     console.log(startedIndex, mainIndex, time, addess);
   },
@@ -56,47 +55,118 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(ing1, ing2, ing3);
   },
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient, otherIngredients);
+  },
 };
 
+//! ======================================
+//! REST PATTERN (...)
+//! ======================================
+
+//? SPREAD: cuando ... está en el lado DERECHO del =
+// const arr = [1, 2, ...[3, 4]];
+//? Expande los valores → [1,2,3,4]
+
+//? REST: cuando ... está en el lado IZQUIERDO del =
+// const [a, b, ...others] = [1, 2, 3, 4, 5];
+//? Recoge los elementos restantes en un array
+//console.log(a,b,others)
+
+//! El REST siempre debe ser el último elemento
+// const [pizza, , risotto, ...otherFoood] = [
+//   ...restaurant.mainMenu,
+//   ...restaurant.starterMenu,
+// ];
+
+//? pizza = primer elemento
+//? risotto = tercer elemento
+//? otherFood = resto de elementos
+
+//console.log(pizza, risotto, otherFoood);
+
+//! ======================================
+//! REST EN OBJETOS
+//! ======================================
+
+//? Extrae una propiedad y agrupa las restantes
+// const { sat, ...weekdays } = restaurant.openingHours;
+
+//? sat = horario del sábado
+//? weekdays = resto de días
+
+//console.log(weekdays)
+
+//! ======================================
+//! REST EN FUNCIONES
+//! ======================================
+
+//? Permite recibir cantidad variable de argumentos
+
+// const add = function (...numbers) {
+//   let sum = 0;
+
+//   for (let i = 0; i < numbers.length; i++) {
+//     sum += numbers[i];
+//   }
+
+//   console.log(sum);
+// };
+
+//? numbers se convierte en un array
 
 //! ======================================
 //! SPREAD OPERATOR (...)
 //! ======================================
-//? Permite expandir elementos de un iterable (array, string, etc.)
 
-//* Copiar y expandir arrays
+//? Permite EXPANDIR elementos de un iterable
+//? (arrays, strings, maps, sets)
+
+//! ======================================
+//! SPREAD CON ARRAYS
+//! ======================================
+
 // const arr = [7, 8, 9];
 // const newArr = [1, 2, ...arr];
-// console.log(newArr);
-// Nota: ...arr expande los valores → [1,2,7,8,9]
 
-//* Expandir elementos
+//? ...arr expande los valores → [1,2,7,8,9]
+
+//! Expandir elementos individualmente
 // console.log(...newArr);
-// Nota: imprime cada elemento separado
 
-//* Agregar elementos a un array
+//? imprime 1 2 7 8 9
+
+//! Agregar elementos a un array
 // const newMenu = [...restaurant.mainMenu, 'Gnocci'];
-// Nota: se puede añadir al inicio o final
 
-//* Copiar un array
+//? agrega elemento sin modificar el original
+
+//! Copiar un array
 // const mainMenuCopy = [...restaurant.mainMenu];
-// Nota: copia superficial (shallow copy)
 
-//* Unir dos arrays
+//? crea una copia superficial (shallow copy)
+
+//! Unir arrays
 // const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-// Nota: muy usado para concatenar arrays
 
-//? Iterables: arrays, strings, maps, sets (NO objetos)
+//? muy usado para concatenar arrays
+
+//! ======================================
+//! SPREAD CON STRINGS
+//! ======================================
 
 // const str = 'jonas';
 // const letters = [...str, ' ', 'S.'];
-// console.log(letters);
-// Nota: convierte string en array de letras
 
+//? convierte string en array de caracteres
+
+// console.log(letters);
 
 //! ======================================
 //! FUNCIONES CON SPREAD
 //! ======================================
+
+//? Spread permite enviar un array como argumentos
 
 // const ingredients = [
 //   prompt("Ingrediente 1"),
@@ -105,49 +175,53 @@ const restaurant = {
 // ];
 
 // restaurant.orderPasta(...ingredients);
-// Nota: spread separa el array en argumentos
 
+//? ...ingredients separa el array en valores individuales
 
 //! ======================================
 //! SPREAD EN OBJETOS
 //! ======================================
 
-//* Crear nuevo objeto copiando propiedades
+//? Permite copiar propiedades de objetos
+
 // const newRestaurant = {
 //   foundedIn: 1998,
 //   ...restaurant,
 //   founder: 'Guiseppe',
 // };
 
-// Nota: spread copia propiedades del objeto
+//? copia todas las propiedades del objeto restaurant
 
-//* Copiar objeto
+//! Copiar objeto
 // const restaurantCopy = { ...restaurant };
-// restaurantCopy.name = 'Roma';
-// Nota: también es copia superficial
 
+// restaurantCopy.name = 'Roma';
+
+//? spread en objetos también es copia superficial
 
 //! ======================================
 //! DESTRUCTURING DE OBJETOS
 //! ======================================
-//? Permite extraer propiedades fácilmente
+
+//? Permite extraer propiedades de un objeto fácilmente
 
 // const { name, openingHours, categories } = restaurant;
-// Nota: crea variables con esos nombres
 
-//* Renombrar variables
+//? crea variables con esos nombres
+
+//! Renombrar variables
 // const {
 //   name: restaurantName,
 //   openingHours: hours,
 //   categories: tags,
 // } = restaurant;
 
-// Nota: name → restaurantName
+//? name → restaurantName
 
-//* Valores por defecto
+//! Valores por defecto
 // const { menu = [], starterMenu: starter = {} } = restaurant;
-// Nota: se usan si la propiedad no existe
 
+//? si la propiedad no existe usa el valor default
 
 //! ======================================
 //! MUTACIÓN DE VARIABLES
@@ -159,8 +233,8 @@ const restaurant = {
 // const obj = { a: 23, b: 7, c: 14 };
 
 // ({ a, b } = obj);
-// Nota: se usan paréntesis para evitar error de sintaxis
 
+//? paréntesis necesarios para evitar que JS lo interprete como bloque
 
 //! ======================================
 //! DESTRUCTURING ANIDADO
@@ -170,8 +244,7 @@ const restaurant = {
 //   fri: { open: o, close: c },
 // } = openingHours;
 
-// Nota: extrae propiedades dentro de objetos anidados
-
+//? extrae propiedades dentro de objetos anidados
 
 //! ======================================
 //! ARRAY DESTRUCTURING
@@ -180,28 +253,28 @@ const restaurant = {
 // const arr = [2, 3, 4];
 // const [x, y, z] = arr;
 
-// Nota: asigna cada posición a una variable
+//? asigna cada posición del array a una variable
 
-//* Saltar elementos
+//! Saltar elementos
 // let [main, , secondary] = restaurant.categories;
-// Nota: la coma salta un elemento
 
+//? la coma salta un elemento
 
 //! ======================================
 //! INTERCAMBIAR VARIABLES
 //! ======================================
 
 // [main, secondary] = [secondary, main];
-// Nota: forma moderna de swap sin variable temporal
 
+//? forma moderna de intercambiar valores
 
 //! ======================================
 //! MÚLTIPLES VALORES DE RETORNO
 //! ======================================
 
 // const [starter, mainCourse] = restaurant.order(2, 0);
-// Nota: útil cuando una función devuelve un array
 
+//? útil cuando una función devuelve un array
 
 //! ======================================
 //! DESTRUCTURING ANIDADO EN ARRAYS
@@ -210,16 +283,17 @@ const restaurant = {
 // const nested = [2, 4, [5, 6]];
 
 // const [i, , j] = nested;
+
 // const [i, j, [k, l]] = nested;
 
-// Nota: permite acceder a arrays dentro de arrays
-
+//? permite acceder a arrays dentro de arrays
 
 //! ======================================
 //! VALORES POR DEFECTO
 //! ======================================
 
 // const [p, q, r = 0] = [8, 9];
+
 // console.log(p, q, r);
 
-// Nota: si no existe valor → usa el default
+//? si no existe el valor usa el valor por defecto
