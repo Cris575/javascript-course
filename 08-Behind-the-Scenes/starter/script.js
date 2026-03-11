@@ -1,52 +1,49 @@
 'use strict';
 
-///////////////////////////////////////
-//* Scoping en la práctica
+//! ======================================
+//! SCOPING EN LA PRÁCTICA
+//! ======================================
 
 function calcAge(birthYear) {
 
-  const age = 2037 - birthYear; //? variable local del scope de la función
+  const age = 2037 - birthYear; //? variable local de la función
 
   function printAge() {
 
-    //* Cadena de scopes (scope chain)
-    //? printAge puede acceder a birthYear, age y firstName del scope externo
+    //! Scope Chain
+    //? printAge puede acceder a variables de su función padre
 
     let output = `${firstName}, tienes ${age}, naciste en ${birthYear}`;
     console.log(output);
 
     if (birthYear >= 1981 && birthYear <= 1996) {
 
-      //! var ignora el block scope (vive en el scope de la función)
+      //! var NO respeta el block scope
       var millenial = true;
 
-      //* Shadowing de variable
-      //? se crea una nueva variable con el mismo nombre que la externa
+      //! Shadowing
+      //? se crea una nueva variable con el mismo nombre
       const firstName = 'Steven';
 
-      //* Reasignación de variable del scope superior
+      //! Reasignación de variable externa
       output = 'NEW OUTPUT!';
 
       const str = `Oh, y eres millenial, ${firstName}`;
       console.log(str);
 
-      //* Función dentro de un bloque
-      //? en strict mode solo existe dentro de este bloque
+      //! función dentro de un bloque
       function add(a, b) {
         return a + b;
       }
     }
 
-    //console.log(str); //! Error: solo existe dentro del if
-    console.log(millenial); //! funciona porque var no respeta block scope
-
-    //console.log(add(2,3)); //! error en strict mode
-
+    //console.log(str); //! error porque vive solo dentro del bloque
+    console.log(millenial); //! funciona por usar var
     console.log(output);
+
   }
 
   printAge();
-
   return age;
 }
 
@@ -54,26 +51,30 @@ const firstName = 'Jonas';
 calcAge(1991);
 
 
-///////////////////////////////////////
-//* Hoisting y TDZ en la práctica
+//! ======================================
+//! HOISTING Y TEMPORAL DEAD ZONE
+//! ======================================
 
-//* Variables
+//? var se eleva con valor undefined
+console.log(me);
 
-console.log(me); //? var se eleva (hoisting) con valor undefined
-//console.log(job); //! Error: está en TDZ
-//console.log(year); //! Error: está en TDZ
+//console.log(job); //! ReferenceError
+//console.log(year); //! ReferenceError
 
 var me = 'Jonas';
 let job = 'teacher';
 const year = 1991;
 
 
-//* Funciones
+//! ======================================
+//! HOISTING EN FUNCIONES
+//! ======================================
 
-console.log(addDecl(2,3)); //! function declaration se eleva completamente
-//console.log(addExpr(2,3)); //! no se puede usar antes de declararla
-console.log(addArrow); //? undefined por hoisting de var
-//console.log(addArrow(2,3)); //! error si aún no se asigna
+console.log(addDecl(2,3)); //! funciona
+
+//console.log(addExpr(2,3)); //! error
+
+console.log(addArrow); //? undefined
 
 function addDecl(a,b){
   return a + b;
@@ -86,20 +87,24 @@ const addExpr = function(a,b){
 var addArrow = (a,b)=> a + b;
 
 
-//* Ejemplo clásico de bug con var
+//! ======================================
+//! BUG CLÁSICO POR HOISTING
+//! ======================================
 
 console.log(undefined);
 
-if(!numProducts) deleteShoppingCart(); //! undefined se evalúa como false
+if(!numProducts) deleteShoppingCart(); //! undefined es falsy
 
 var numProducts = 10;
 
 function deleteShoppingCart(){
-  console.log('Todos los productos eliminados!');
+  console.log('Todos los productos eliminados');
 }
 
 
-//* Variables en el objeto window
+//! ======================================
+//! VARIABLES EN WINDOW
+//! ======================================
 
 var x = 1;
 let y = 2;
@@ -110,16 +115,18 @@ console.log(y === window.y); //! false
 console.log(z === window.z); //! false
 
 
-///////////////////////////////////////
-//* La palabra clave this en la práctica
 
-console.log(this); //? en navegador apunta a window
+//! ======================================
+//! THIS EN FUNCIONES
+//! ======================================
+
+console.log(this); //? window en navegador
 
 const calcAge = function(birthYear){
 
   console.log(2037 - birthYear);
 
-  //! en strict mode this es undefined en funciones normales
+  //! en strict mode this es undefined
   console.log(this);
 
 };
@@ -127,18 +134,25 @@ const calcAge = function(birthYear){
 calcAge(1991);
 
 
+//! ======================================
+//! THIS EN ARROW FUNCTIONS
+//! ======================================
+
 const calcAgeArrow = birthYear => {
 
   console.log(2037 - birthYear);
 
-  //! arrow functions no tienen this propio
-  //! heredan el this del contexto donde se crean
+  //! hereda this del contexto superior
   console.log(this);
 
 };
 
 calcAgeArrow(1980);
 
+
+//! ======================================
+//! THIS EN OBJETOS
+//! ======================================
 
 const jonas = {
 
@@ -156,28 +170,28 @@ const jonas = {
 
 jonas.calcAge();
 
-
-const matilda = {
-
-  year:2017
-
-};
+const matilda = { year:2017 };
 
 matilda.calcAge = jonas.calcAge;
 
-matilda.calcAge(); //? ahora this apunta a matilda
+matilda.calcAge(); //? ahora this es matilda
 
+
+//! ======================================
+//! PERDER EL CONTEXTO DE THIS
+//! ======================================
 
 const f = jonas.calcAge;
 
-f(); //! this se pierde (undefined en strict mode)
+f(); //! this se vuelve undefined
 
 
 
-///////////////////////////////////////
-//* Funciones normales vs arrow functions
+//! ======================================
+//! FUNCIONES NORMALES VS ARROW
+//! ======================================
 
-const jonas = {
+const jonas2 = {
 
   firstName:'Jonas',
   year:1991,
@@ -186,8 +200,7 @@ const jonas = {
 
     console.log(2037 - this.year);
 
-    //* Arrow function hereda el this del método
-
+    //! arrow function hereda this del método
     const isMillenial = ()=>{
 
       console.log(this);
@@ -201,8 +214,8 @@ const jonas = {
   },
 
 
-  //! Error común
-  //! Arrow functions no deben usarse como métodos de objeto
+  //! ERROR COMÚN
+  //! arrow functions no deben usarse como métodos
 
   greet:()=>{
 
@@ -214,25 +227,27 @@ const jonas = {
 
 };
 
-jonas.greet();
-jonas.calcAge();
+jonas2.greet();
+jonas2.calcAge();
 
 
-//* keyword arguments
+//! ======================================
+//! ARGUMENTS EN FUNCIONES
+//! ======================================
 
-const addExpr = function(a,b){
+const addExpr2 = function(a,b){
 
-  console.log(arguments); //? disponible solo en funciones normales
+  console.log(arguments); //? disponible en funciones normales
 
   return a + b;
 
 };
 
-addExpr(2,5);
-addExpr(2,5,8,12);
+addExpr2(2,5);
+addExpr2(2,5,8,12);
 
 
-var addArrow = (a,b)=>{
+var addArrow2 = (a,b)=>{
 
   //! arrow functions no tienen arguments
   console.log(arguments);
@@ -241,12 +256,12 @@ var addArrow = (a,b)=>{
 
 };
 
-addArrow(2,5,8);
+addArrow2(2,5,8);
 
 
-
-///////////////////////////////////////
-//* Referencias de objetos (Shallow vs Deep Copy)
+//! ======================================
+//! REFERENCIAS DE OBJETOS
+//! ======================================
 
 const jessica1 = {
 
@@ -257,11 +272,10 @@ const jessica1 = {
 };
 
 
-//? Los objetos se pasan por referencia
+//? los objetos se pasan por referencia
 
 function marryPerson(originalPerson,newLastName){
 
-  //! se modifica el objeto original
   originalPerson.lastName = newLastName;
 
   return originalPerson;
@@ -274,6 +288,10 @@ console.log('Antes:',jessica1);
 console.log('Después:',marriedJessica);
 
 
+//! ======================================
+//! SHALLOW COPY
+//! ======================================
+
 const jessica = {
 
   firstName:'Jessica',
@@ -283,19 +301,18 @@ const jessica = {
 
 };
 
-
-//* Shallow Copy
-
-//? copia solo el primer nivel del objeto
+//? copia solo el primer nivel
 
 const jessicaCopy = {...jessica};
 
 jessicaCopy.lastName = 'Davis';
 
 
-//* Deep Copy
+//! ======================================
+//! DEEP COPY
+//! ======================================
 
-//? structuredClone crea una copia profunda
+//? copia profunda de todo el objeto
 
 const jessicaClone = structuredClone(jessica);
 
