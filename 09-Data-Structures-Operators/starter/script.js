@@ -61,6 +61,19 @@ const restaurant = {
 };
 
 //! ======================================
+//! NULLISH COALESCING OPERATOR (??)
+//! ======================================
+
+// restaurant.numGuests = 0;
+// const guestCorrect = restaurant.numGuests ?? 10;
+// console.log(guestCorrect);
+
+//! ?? devuelve el primer valor que NO sea null o undefined
+// const guestCorrect = restaurant.numGuests ?? 10;
+//? Si numGuests es null o undefined → usa 10
+//? Si numGuests tiene valor (incluso 0) → usa ese valor
+
+//! ======================================
 //! SHORT CIRCUITING (||)
 //! ======================================
 
