@@ -22,6 +22,23 @@ const mexicanFoods = new Set([
   'garlic',
 ]);
 
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const openingHours = {
+  [weekdays[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [weekdays[5]]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -29,46 +46,213 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-
-  order: function (statedIndex, mainIndex) {
+  openingHours,
+  order(statedIndex, mainIndex) {
     return [this.starterMenu[statedIndex], this.mainMenu[mainIndex]];
   },
-  orderDelivery: function ({ startedIndex = 0, mainIndex = 1, time, addess }) {
+  orderDelivery({ startedIndex = 0, mainIndex = 1, time, addess }) {
     console.log(startedIndex, mainIndex, time, addess);
   },
 
-  orderPasta: function (ing1, ing2, ing3) {
+  orderPasta(ing1, ing2, ing3) {
     console.log(ing1, ing2, ing3);
   },
-  orderPizza: function (mainIngredient, ...otherIngredients) {
+  orderPizza(mainIngredient, ...otherIngredients) {
     console.log(mainIngredient, otherIngredients);
   },
 };
 
-const rest1 = {
-  name: 'Carpi',
-  numGuest: 20,
-};
+//! ======================================
+//! OBJECT.KEYS()
+//! ======================================
 
-const rest2 = {
-  name: 'La Pizza ',
-  owner: 'Giovanni Rossi',
-};
+//! Object.keys() devuelve un array con las propiedades del objeto
+// const properties = Object.keys(openingHours);
+
+//? ejemplo del resultado:
+//? ['thu', 'fri', 'sat']
+
+// let openStr = `We are open on ${properties.length} days: `;
+
+// for (const day of properties) {
+//   openStr += `${day}, `;
+// }
+
+// console.log(openStr);
+
+//? properties.length → número de propiedades
+//? recorremos cada día del objeto
+
+//! ======================================
+//! OBJECT.VALUES()
+//! ======================================
+
+//! Object.values() devuelve los valores del objeto
+// const values = Object.values(openingHours);
+// console.log(values);
+
+//? ejemplo:
+//? [
+//?   { open: 12, close: 22 },
+//?   { open: 11, close: 23 },
+//?   { open: 0, close: 24 }
+//? ]
+
+//! usamos destructuring para extraer open y close
+// for (const { open, close } of values) {
+//   console.log(open, close);
+// }
+
+//? { open, close } extrae las propiedades del objeto
+
+//! ======================================
+//! OBJECT.ENTRIES()
+//! ======================================
+
+//! Object.entries() devuelve pares [key, value]
+// const entries = Object.entries(openingHours);
+
+// console.log(entries);
+
+//? ejemplo:
+//? [
+//?   ['thu', {open:12, close:22}],
+//?   ['fri', {open:11, close:23}],
+//?   ['sat', {open:0, close:24}]
+//? ]
+
+//! destructuring doble
+// for (const [day, { open, close }] of entries) {
+//   console.log(`On ${day} we open at ${open} and close at ${close}`);
+// }
+
+//? day → clave del objeto
+//? {open, close} → valores del objeto interno
+
+//! ======================================
+//! OPTIONAL CHAINING (?.)
+//! ======================================
+
+//! ?. evita errores cuando una propiedad no existe
+//? Si la propiedad es undefined o null → devuelve undefined
+//? En lugar de lanzar un error
+
+// console.log(restaurant.openingHours.mon?.open);
+// console.log(restaurant.openingHours?.mon?.open);
+
+//? Primera línea:
+//? si "mon" no existe → devuelve undefined
+
+//? Segunda línea:
+//? también protege si "openingHours" no existe
+
+//! ======================================
+//! OPTIONAL CHAINING CON PROPIEDADES DINÁMICAS
+//! ======================================
+
+// for (const day of weekdays) {
+//   //! accede dinámicamente a openingHours[day]
+//   const open = restaurant.openingHours[day]?.open ?? 'closed';
+
+//   console.log(`On ${day}, we open at ${open}`);
+// }
+
+//? [day] permite usar el valor de la variable como propiedad
+//? ?.open evita error si ese día no existe
+//? ?? 'closed' da un valor por defecto
+
+//! flujo:
+//? si existe open → usa ese valor
+//? si es undefined → usa "closed"
+
+//! ======================================
+//! OPTIONAL CHAINING CON MÉTODOS
+//! ======================================
+
+//! ?.() intenta ejecutar un método solo si existe
+
+// console.log(restaurant.order?.(0, 1) ?? 'Method does not exist');
+// console.log(restaurant.orderRisoto?.(0, 1) ?? 'Method does not exist');
+
+//? order existe → se ejecuta
+//? orderRisoto no existe → devuelve undefined
+//? entonces ?? devuelve "Method does not exist"
+
+//! ======================================
+//! OPTIONAL CHAINING CON ARRAYS
+//! ======================================
+
+// const user = [{ name: 'Jonas', email: 'hello@jonas.com' }];
+
+//! acceder a elementos del array de forma segura
+// console.log(user[0]?.name ?? 'User array empty');
+// console.log(user[1]?.name ?? 'User array empty');
+
+//? user[0] existe → imprime "Jonas"
+//? user[1] no existe → undefined
+//? ?? devuelve "User array empty"
+
+//! ======================================
+//! COMBINAR ARRAYS CON SPREAD (...)
+//! ======================================
+
+//! ... copia los elementos de un array dentro de otro
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// console.log(menu);
+
+//? El nuevo array "menu" contiene:
+//? primero los starterMenu
+//? luego los mainMenu
+
+//! ======================================
+//! ITERAR ARRAYS CON FOR...OF
+//! ======================================
+
+//! for...of recorre directamente los valores del array
+// for (const item of menu) {
+//   console.log(item);
+// }
+
+//? item representa cada elemento del array
+//? No devuelve el índice, solo el valor
+
+//! ======================================
+//! ARRAY.ENTRIES()
+//! ======================================
+
+//! entries() devuelve pares [index, value]
+
+// for (const item of menu.entries()) {
+//   const [index, str] = item;
+
+//   console.log(index, str);
+// }
+
+//? menu.entries() produce algo así:
+//? [0, 'Pizza']
+//? [1, 'Pasta']
+//? [2, 'Risotto']
+
+//! ======================================
+//! DESTRUCTURING PARA EXTRAER VALORES
+//! ======================================
+
+//! usamos destructuring para separar index y valor
+// const [index, str] = item;
+
+//? index → posición del elemento
+//? str → valor del elemento en el array
+
+// const rest1 = {
+//   name: 'Carpi',
+//   numGuest: 20,
+// };
+
+// const rest2 = {
+//   name: 'La Pizza ',
+//   owner: 'Giovanni Rossi',
+// };
 
 //! ======================================
 //! OR ASSIGNMENT OPERATOR (||=)
@@ -105,8 +289,8 @@ const rest2 = {
 
 //! &&= asigna el valor SOLO si el actual es truthy
 
-rest1.owner &&= '<NONUMOUS>';
-rest2.owner &&= '<NONUMOUS>';
+// rest1.owner &&= '<NONUMOUS>';
+// rest2.owner &&= '<NONUMOUS>';
 
 //? Si owner existe (truthy) → se reemplaza por '<NONUMOUS>'
 //? Si owner es falsy → no cambia
