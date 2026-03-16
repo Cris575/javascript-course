@@ -60,6 +60,57 @@ const restaurant = {
   },
 };
 
+const rest1 = {
+  name: 'Carpi',
+  numGuest: 20,
+};
+
+const rest2 = {
+  name: 'La Pizza ',
+  owner: 'Giovanni Rossi',
+};
+
+//! ======================================
+//! OR ASSIGNMENT OPERATOR (||=)
+//! ======================================
+
+// rest1.numGuest = rest1.numGuest || 10;
+// rest2.numGuest = rest2.numGuest || 10;
+
+//! ||= asigna el valor SOLO si el actual es falsy
+//? falsy: 0, '', null, undefined, false, NaN
+
+// rest1.numGuest ||= 10;
+// rest2.numGuest ||= 10;
+
+//? Si numGuest es falsy → se convierte en 10
+//? Si numGuest tiene valor truthy → se mantiene
+
+//! ======================================
+//! NULLISH ASSIGNMENT OPERATOR (??=)
+//! ======================================
+
+//! ??= asigna SOLO si el valor es null o undefined
+//? A diferencia de ||=, aquí 0 o '' SI se respetan
+
+// rest1.numGuest ??= 10;
+// rest2.numGuest ??= 10;
+
+//? Si numGuest es null o undefined → se convierte en 10
+//? Si tiene valor (incluso 0) → se mantiene
+
+//! ======================================
+//! AND ASSIGNMENT OPERATOR (&&=)
+//! ======================================
+
+//! &&= asigna el valor SOLO si el actual es truthy
+
+rest1.owner &&= '<NONUMOUS>';
+rest2.owner &&= '<NONUMOUS>';
+
+//? Si owner existe (truthy) → se reemplaza por '<NONUMOUS>'
+//? Si owner es falsy → no cambia
+
 //! ======================================
 //! NULLISH COALESCING OPERATOR (??)
 //! ======================================
