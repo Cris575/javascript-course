@@ -63,6 +63,66 @@ const restaurant = {
 };
 
 //! ======================================
+//! SET
+//! ======================================
+
+// const orderSet = new Set([
+//   'Pasta',
+//   'Pizza',
+//   'Pizza',
+//   'Risotto',
+//   'Pasta',
+//   'Pizza',
+//   'Pizza',
+// ]);
+
+//! Un Set es una colección de valores únicos (no permite duplicados)
+
+// console.log(orderSet);
+
+//! Crear un Set a partir de un string (cada letra será un valor único)
+// console.log(new Set('Jonas'));
+
+//! Propiedades y métodos básicos
+// console.log(orderSet.size); //? número de elementos únicos
+// console.log(orderSet.has('Pizza')); //? true si el elemento existe
+// console.log(orderSet.has('Bread')); //? false si no existe
+
+//! Agregar y eliminar elementos
+// orderSet.add('Garlic Bread');
+// orderSet.delete('Risotto');
+
+// console.log(orderSet);
+
+// orderSet.clear(); //? elimina todos los elementos del Set
+
+// console.log(orderSet);
+
+//! Iterar un Set
+// for (const element of orderSet) {
+//   console.log(element);
+// }
+
+//! ======================================
+//! EJEMPLO: ELIMINAR DUPLICADOS
+//! ======================================
+
+// const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+
+//! Convertimos el array a Set para eliminar duplicados
+// const staffUnique = [...new Set(staff)];
+
+// console.log(staffUnique);
+
+//! Contar valores únicos
+// console.log(
+//   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size,
+// );
+
+//! Contar letras únicas en un string
+// console.log(new Set('Cris').size);
+
+//! ======================================
 //! OBJECT.KEYS()
 //! ======================================
 
