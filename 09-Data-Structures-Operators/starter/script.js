@@ -66,15 +66,18 @@ const restaurant = {
 //! SET
 //! ======================================
 
+//! orderSet: Set con pedidos del restaurante
+//? Un Set elimina automáticamente los duplicados
 // const orderSet = new Set([
 //   'Pasta',
 //   'Pizza',
-//   'Pizza',
+//   'Pizza', //? duplicado → será ignorado
 //   'Risotto',
-//   'Pasta',
-//   'Pizza',
-//   'Pizza',
+//   'Pasta', //? duplicado → será ignorado
+//   'Pizza', //? duplicado → será ignorado
+//   'Pizza', //? duplicado → será ignorado
 // ]);
+//? resultado: Set(3) { 'Pasta', 'Pizza', 'Risotto' }
 
 //! Un Set es una colección de valores únicos (no permite duplicados)
 
