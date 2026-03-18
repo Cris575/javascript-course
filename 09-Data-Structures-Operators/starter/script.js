@@ -119,6 +119,62 @@ const restaurant = {
 // console.log(rest.get(document.querySelector('h1')));
 
 //! ======================================
+//! MAPS: ITERATION & CONVERSIONS
+//! ======================================
+
+//! Crear un Map usando un array de pares [key, value]
+// const question = new Map([
+//   ['question', 'Test'],
+//   [1, 'C'],
+//   [2, 'Java'],
+//   [3, 'JavaScript'],
+//   [true, 'Correct'],
+//   [false, 'Nop'],
+// ]);
+
+// console.log(question);
+
+//! ======================================
+//! OBJECT → MAP
+//! ======================================
+
+//? Object.entries() convierte un objeto en un array de pares [key,value]
+//? Esto permite crear un Map a partir de un objeto
+
+// console.log(Object.entries(openingHours));
+
+// const hoursMap = new Map(Object.entries(openingHours));
+// console.log(hoursMap);
+
+//! ======================================
+//! ITERAR UN MAP
+//! ======================================
+
+//? Los Maps son iterables, por lo que se pueden recorrer con for...of
+//? Cada elemento se obtiene como [key,value]
+
+// for (const [a, b] of question) {
+//   //! Filtrar solo las llaves que son números
+//   if (typeof a === 'number') {
+//     console.log(a, ':', b);
+//   }
+// }
+
+//! ======================================
+//! MAP → ARRAY
+//! ======================================
+
+//? El operador spread (...) convierte el Map en un array de pares [key,value]
+
+// console.log([...question]);
+
+//? Obtener solo las llaves del Map
+// console.log([...question.keys()]);
+
+//? Obtener solo los valores del Map
+// console.log([...question.values()]);
+
+//! ======================================
 //! SET
 //! ======================================
 
