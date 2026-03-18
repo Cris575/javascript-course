@@ -123,6 +123,51 @@ const restaurant = {
 // console.log(new Set('Cris').size);
 
 //! ======================================
+//! OPERACIONES CON SETS
+//! ======================================
+
+//! Intersección → elementos que existen en ambos sets
+// const commonFoods = italianFoods.intersection(mexicanFoods);
+
+// console.log('Intersection:', commonFoods);
+//? Set con elementos en común
+// console.log([...commonFoods]);
+//? Convertido a array
+
+//! Unión → todos los elementos sin duplicados
+// const italianMexicanFusion = italianFoods.union(mexicanFoods);
+
+// console.log(italianMexicanFusion);
+//? Set combinado sin duplicados
+
+//! Forma alternativa de hacer unión (manual)
+// console.log([...new Set([...italianFoods, ...mexicanFoods])]);
+//? Array sin duplicados
+
+//! Diferencia → elementos que están en italianFoods pero NO en mexicanFoods
+// const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+
+// console.log(uniqueItalianFoods);
+//? Solo comida italiana única
+
+//! Diferencia inversa → elementos que están en mexicanFoods pero NO en italianFoods
+// const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+
+// console.log(uniqueMexicanFoods);
+//? Solo comida mexicana única
+
+//! Diferencia simétrica → elementos que están en uno u otro, pero NO en ambos
+// const uniqueItalianAndMexicanFoods =
+// mexicanFoods.symmetricDifference(italianFoods);
+
+// console.log(uniqueItalianAndMexicanFoods);
+//? Exclusivos de cada set
+
+//! Verificar si NO tienen elementos en común
+// console.log(italianFoods.isDisjointFrom(mexicanFoods));
+//? true = no comparten nada
+
+//! ======================================
 //! OBJECT.KEYS()
 //! ======================================
 
