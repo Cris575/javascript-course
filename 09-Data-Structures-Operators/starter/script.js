@@ -47,11 +47,11 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
   openingHours,
-  order(statedIndex, mainIndex) {
-    return [this.starterMenu[statedIndex], this.mainMenu[mainIndex]];
+  order(starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
-  orderDelivery({ startedIndex = 0, mainIndex = 1, time, addess }) {
-    console.log(startedIndex, mainIndex, time, addess);
+  orderDelivery({ starterIndex = 0, mainIndex = 1, time, address }) {
+    console.log(starterIndex, mainIndex, time, address);
   },
 
   orderPasta(ing1, ing2, ing3) {
@@ -383,7 +383,7 @@ const restaurant = {
 //! ======================================
 
 //! ??= asigna SOLO si el valor es null o undefined
-//? A diferencia de ||=, aquí 0 o '' SI se respetan
+//? A diferencia de ||=, aquí 0 o '' SÍ se respetan
 
 // rest1.numGuest ??= 10;
 // rest2.numGuest ??= 10;
@@ -397,10 +397,10 @@ const restaurant = {
 
 //! &&= asigna el valor SOLO si el actual es truthy
 
-// rest1.owner &&= '<NONUMOUS>';
-// rest2.owner &&= '<NONUMOUS>';
+// rest1.owner &&= '<ANONYMOUS>';
+// rest2.owner &&= '<ANONYMOUS>';
 
-//? Si owner existe (truthy) → se reemplaza por '<NONUMOUS>'
+//? Si owner existe (truthy) → se reemplaza por '<ANONYMOUS>'
 //? Si owner es falsy → no cambia
 
 //! ======================================
@@ -497,7 +497,7 @@ const restaurant = {
 //console.log(a,b,others)
 
 //! El REST siempre debe ser el último elemento
-// const [pizza, , risotto, ...otherFoood] = [
+// const [pizza, , risotto, ...otherFood] = [
 //   ...restaurant.mainMenu,
 //   ...restaurant.starterMenu,
 // ];
@@ -506,7 +506,7 @@ const restaurant = {
 //? risotto = tercer elemento
 //? otherFood = resto de elementos
 
-//console.log(pizza, risotto, otherFoood);
+//console.log(pizza, risotto, otherFood);
 
 //! ======================================
 //! REST EN OBJETOS
