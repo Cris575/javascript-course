@@ -63,6 +63,62 @@ const restaurant = {
 };
 
 //! ======================================
+//! MAPS: FUNDAMENTALS
+//! ======================================
+
+//! Los Maps son una estructura de datos para guardar pares clave-valor
+//? Diferencia con Objetos: las llaves pueden ser de CUALQUIER tipo (objetos, arrays, etc.)
+
+// const rest = new Map();
+
+//! set() agrega elementos y devuelve el map (permite encadenamiento)
+// rest.set('name', 'Classcio Italiano');
+// rest.set(1, 'Firenze');
+// rest.set(2, 'Lisbon');
+
+// rest
+//   .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+//   .set('open', 11)
+//   .set('close', 23)
+//   .set(true, 'We are open :D')
+//   .set(false, 'We are closed :(');
+
+//! get() recupera el valor usando la llave
+// console.log(rest.get('name'));
+// console.log(rest.get(true));
+// console.log(rest.get(1));
+
+// const time = 21;
+// console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+//! has() verifica si existe una llave
+// console.log(rest.has('categories'));
+
+//! delete() elimina un elemento por su llave
+// rest.delete(2);
+// console.log(rest);
+
+//! size devuelve el número de elementos
+// console.log(rest.size);
+
+//! clear() elimina todo el contenido del map
+// rest.clear();
+
+//! Usar arrays como llaves
+// rest.set([1, 2], 'Test');
+// console.log(rest);
+// console.log(rest.get([1, 2])); //? undefined (son objetos diferentes en memoria)
+
+//! Para que funcione, se debe guardar la referencia en una variable
+// const arrMap = [1, 2];
+// rest.set(arrMap, 'Test');
+// console.log(rest.get(arrMap));
+
+//! Los elementos del DOM también pueden ser llaves
+// rest.set(document.querySelector('h1'), 'Heading');
+// console.log(rest.get(document.querySelector('h1')));
+
+//! ======================================
 //! SET
 //! ======================================
 
