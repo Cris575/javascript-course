@@ -63,6 +63,51 @@ const restaurant = {
 };
 
 //! ======================================
+//! WHICH DATA STRUCTURE TO USE?
+//! ======================================
+
+//? FUENTES DE DATOS:
+//? 1. Desde el propio programa: datos escritos directamente en el código (ej. mensajes de estado)
+//? 2. Desde la UI: datos ingresados por el usuario o datos escritos en el DOM (ej. tareas en una lista)
+//? 3. Desde fuentes externas: datos obtenidos de una API (ej. datos JSON)
+
+//! ARRAYS vs. SETS
+//? Usar ARRAYS cuando necesites una lista ordenada de valores (puede contener duplicados)
+//? Usar ARRAYS cuando necesites manipular datos (tiene muchos métodos)
+
+// const tasksArr = ['Code', 'Eat', 'Code'];
+
+//? Usar SETS cuando necesites trabajar con valores únicos
+//? Usar SETS cuando el alto rendimiento sea realmente importante
+//? Usar SETS para eliminar duplicados de arrays
+
+// const tasksSet = new Set(['Code', 'Eat', 'Code']);
+
+//! OBJECTS vs. MAPS
+//? Usar OBJECTS para un almacenamiento clave/valor más "tradicional"
+//? Usar OBJECTS cuando necesites incluir funciones (métodos)
+//? Usar OBJECTS cuando trabajes con JSON (puede convertirse a map después)
+//? Más fácil de escribir y acceder a valores con . y []
+
+// const taskObj = {
+//   task: 'Code',
+//   date: 'today',
+//   repeat: true,
+// };
+
+//? Usar MAPS para un mejor rendimiento
+//? Usar MAPS cuando las llaves necesiten tener cualquier tipo de datos (no solo strings)
+//? Usar MAPS cuando necesites mapear llaves a valores
+//? Usar MAPS cuando necesites llaves que NO sean strings
+//? Fácil de iterar y calcular el tamaño
+
+// const taskMap = new Map([
+//   ['task', 'Code'],
+//   ['date', 'today'],
+//   [false, 'Start coding!'],
+// ]);
+
+//! ======================================
 //! MAPS: FUNDAMENTALS
 //! ======================================
 
