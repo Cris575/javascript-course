@@ -62,91 +62,177 @@ const restaurant = {
   },
 };
 
+//! ======================================
+//! STRINGS: MÉTODOS DE TRANSFORMACIÓN
+//! ======================================
+
+//! toLowerCase() y toUpperCase() convierten el string a minúsculas/mayúsculas
+//? No modifican el string original, devuelven uno nuevo
 const airline = 'TAP Air Portugal';
-// const plane = 'A320';
+// const plane = 'A320'; //? línea comentada, no usada en esta sección
 
-console.log(airline.toLowerCase());
-console.log(airline.toUpperCase());
+console.log(airline.toLowerCase()); //? "tap air portugal"
+console.log(airline.toUpperCase()); //? "TAP AIR PORTUGAL"
 
+//! ======================================
+//! EJEMPLO: CORREGIR CAPITALIZACIÓN DE NOMBRES
+//! ======================================
+
+//! Código comentado para corregir la capitalización de un nombre
 // Fix capilazation in name
 // const passager = 'jOnAS';
 // const passagerLower = passager.toLowerCase();
 // const passagerCorrect = passagerLower[0].toUpperCase() + passagerLower.slice(1);
 // console.log(passagerCorrect);
 
-// Comparing emails
+//! ======================================
+//! EJEMPLO: COMPARAR EMAILS (CON TRIM)
+//! ======================================
+
+//! trim() elimina espacios en blanco al inicio y final del string
+//? Útil para normalizar inputs de usuario
 const email = 'hello@jonas.io';
-const loginEmail = '  Hello@Jonas.io \n';
+const loginEmail = '  Hello@Jonas.io \n'; //? email con espacios y salto de línea
 
-const lowerEmail = loginEmail.toLowerCase();
-const trimmedEmail = lowerEmail.trim();
-console.log(email === trimmedEmail);
+const lowerEmail = loginEmail.toLowerCase(); //? convertir a minúsculas
+const trimmedEmail = lowerEmail.trim(); //? eliminar espacios
+console.log(email === trimmedEmail); //? true - ahora coinciden
 
-// replacing
+//! ======================================
+//! STRINGS: MÉTODOS DE REEMPLAZO
+//! ======================================
+
+//! replace() reemplaza la primera ocurrencia de un substring
+//? replaceAll() reemplaza todas las ocurrencias
+//? También se puede usar expresiones regulares con /g
 const priceGB = '288,97£';
-const priceUS = priceGB.replace('£', '$').replace(',', '.');
+const priceUS = priceGB.replace('£', '$').replace(',', '.'); //? encadenar reemplazos
 
-console.log(priceUS);
+console.log(priceUS); //? "288.97$"
 
 const announcement =
   'All passengers come to boarding door 23. Boarding door 23!';
 
-console.log(announcement.replace('door', 'gate'));
-console.log(announcement.replaceAll('door', 'gate'));
-console.log(announcement.replace(/door/g, 'gate'));
+console.log(announcement.replace('door', 'gate')); //? reemplaza solo la primera
+console.log(announcement.replaceAll('door', 'gate')); //? reemplaza todas
+console.log(announcement.replace(/door/g, 'gate')); //? usando regex global
 
-// Booleans
+//! ======================================
+//! STRINGS: MÉTODOS BOOLEANOS
+//! ======================================
+
+//! includes(), startsWith(), endsWith() devuelven true/false
+//? Útiles para verificar contenido o patrones en strings
 const plane = 'Airbus A320neo';
-console.log(plane.includes('A320'));
-console.log(plane.includes('Boeing'));
-console.log(plane.startsWith('Air'));
-console.log(plane.startsWith('Aib'));
-console.log(plane.endsWith('neo'));
-console.log(plane.endsWith('Neo'));
+console.log(plane.includes('A320')); //? true - contiene "A320"
+console.log(plane.includes('Boeing')); //? false - no contiene "Boeing"
+console.log(plane.startsWith('Air')); //? true - comienza con "Air"
+console.log(plane.startsWith('Aib')); //? false - no comienza con "Aib"
+console.log(plane.endsWith('neo')); //? true - termina con "neo"
+console.log(plane.endsWith('Neo')); //? false - case sensitive
 
-//Split and join
-console.log('a+very+nice+string'.split('+'));
+//! ======================================
+//! STRINGS: SPLIT Y JOIN
+//! ======================================
 
-const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
-console.log(firstName, lastName);
+//! split() divide un string en un array usando un separador
+//? join() une elementos de un array en un string usando un separador
+console.log('a+very+nice+string'.split('+')); //? ["a", "very", "nice", "string"]
 
-const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
-console.log(newName);
+//! Destructuring para extraer partes del split
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' '); //? divide por espacio
+console.log(firstName, lastName); //? "Jonas", "Schmedtmann"
 
+//! join() para reconstruir el string
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' '); //? une con espacios
+console.log(newName); //? "Mr. Jonas SCHMEDTMANN"
+
+//! ======================================
+//! EJEMPLO: CAPITALIZAR NOMBRES (VERSIÓN 1)
+//! ======================================
+
+//! Función que capitaliza cada palabra de un nombre completo
 function capitalizeName1(name) {
-  const splitNmae = name.split(' ');
+  const splitNmae = name.split(' '); //? dividir por espacios
   let newName = '';
   for (const element of splitNmae) {
+    //? capitalizar primera letra de cada palabra
     newName += element.replace(element[0], element[0].toUpperCase()) + ' ';
   }
   console.log(newName);
 }
 
+//! ======================================
+//! EJEMPLO: CAPITALIZAR NOMBRES (VERSIÓN 2)
+//! ======================================
+
+//! Versión mejorada usando array y join
 function capitalizeName2(name) {
-  const splitNmae = name.split(' ');
+  const splitNmae = name.split(' '); //? dividir por espacios
   const namesUpper = [];
   for (const element of splitNmae) {
+    //? capitalizar y agregar al array
     namesUpper.push(element.replace(element[0], element[0].toUpperCase()));
   }
-  console.log(namesUpper.join(' '));
+  console.log(namesUpper.join(' ')); //? unir con espacios
 }
 
-capitalizeName1('jessica ann smith davis');
-capitalizeName2('jessica ann smith davis');
-capitalizeName1('jonas schmedtmann');
-capitalizeName2('jonas schmedtmann');
+//! Pruebas de las funciones
+capitalizeName1('jessica ann smith davis'); //? "Jessica Ann Smith Davis "
+capitalizeName2('jessica ann smith davis'); //? "Jessica Ann Smith Davis"
+capitalizeName1('jonas schmedtmann'); //? "Jonas Schmedtmann "
+capitalizeName2('jonas schmedtmann'); //? "Jonas Schmedtmann"
 
-//Padding
+//! ======================================
+//! STRINGS: PADDING
+//! ======================================
+
+//! padStart() y padEnd() agregan caracteres al inicio/final hasta alcanzar la longitud deseada
+//? Útil para formatear strings (fechas, números, etc.)
 const message = 'Go to gate 23!';
-console.log(message.padStart(25, '+'));
-console.log(message.padEnd(25, '+'));
-console.log('Cris'.padEnd(25, '+'));
+console.log(message.padStart(25, '+')); //? "+++++++++++++Go to gate 23!"
+console.log(message.padEnd(25, '+')); //? "Go to gate 23!+++++++++++++"
+console.log('Cris'.padEnd(25, '+')); //? "Cris+++++++++++++++++++++"
 
-console.log(message.padStart(35, '+').padEnd(36, '+'));
+//! Combinar padStart y padEnd
+console.log(message.padStart(35, '+').padEnd(36, '+')); //? centrado con +
 
-const maskCeditCard = function (number) {
-  const str = String;
+//! ======================================
+//! EJEMPLO: ENMASCARAR TARJETA DE CRÉDITO
+//! ======================================
+
+//! Función que enmascara todos los dígitos excepto los últimos 4
+const maskCreditCard = function (number) {
+  const str = number + ''; //? convertir a string
+  console.log(str.slice(-4).padStart(str.length, '*')); //? últimos 4, rellenar con *
 };
+
+//! Pruebas
+maskCreditCard(10923819723912); //? ************3912
+maskCreditCard('1092381972391287319870'); //? ******************9870
+
+//! ======================================
+//! STRINGS: REPEAT
+//! ======================================
+
+//! repeat() repite el string n veces
+//? Útil para crear patrones o mensajes repetitivos
+const message2 = 'Bad waether... All Departues Delayed... ';
+console.log(message2.repeat(2)); //? repite el mensaje 2 veces
+
+//! ======================================
+//! EJEMPLO: MOSTRAR AVIONES EN LÍNEA
+//! ======================================
+
+//! Función que muestra aviones en línea usando emojis repetidos
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
+};
+
+//! Pruebas
+planesInLine(5); //? There are 5 planes in line 🛩🛩🛩🛩🛩
+planesInLine(3); //? There are 3 planes in line 🛩🛩🛩
+planesInLine(12); //? There are 12 planes in line 🛩🛩🛩🛩🛩🛩🛩🛩🛩🛩🛩🛩
 
 //! ======================================
 //! STRINGS: FUNDAMENTALS
