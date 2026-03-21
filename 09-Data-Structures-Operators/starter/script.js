@@ -62,15 +62,98 @@ const restaurant = {
   },
 };
 
+const airline = 'TAP Air Portugal';
+// const plane = 'A320';
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+// Fix capilazation in name
+// const passager = 'jOnAS';
+// const passagerLower = passager.toLowerCase();
+// const passagerCorrect = passagerLower[0].toUpperCase() + passagerLower.slice(1);
+// console.log(passagerCorrect);
+
+// Comparing emails
+const email = 'hello@jonas.io';
+const loginEmail = '  Hello@Jonas.io \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+console.log(email === trimmedEmail);
+
+// replacing
+const priceGB = '288,97£';
+const priceUS = priceGB.replace('£', '$').replace(',', '.');
+
+console.log(priceUS);
+
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23!';
+
+console.log(announcement.replace('door', 'gate'));
+console.log(announcement.replaceAll('door', 'gate'));
+console.log(announcement.replace(/door/g, 'gate'));
+
+// Booleans
+const plane = 'Airbus A320neo';
+console.log(plane.includes('A320'));
+console.log(plane.includes('Boeing'));
+console.log(plane.startsWith('Air'));
+console.log(plane.startsWith('Aib'));
+console.log(plane.endsWith('neo'));
+console.log(plane.endsWith('Neo'));
+
+//Split and join
+console.log('a+very+nice+string'.split('+'));
+
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+console.log(firstName, lastName);
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+function capitalizeName1(name) {
+  const splitNmae = name.split(' ');
+  let newName = '';
+  for (const element of splitNmae) {
+    newName += element.replace(element[0], element[0].toUpperCase()) + ' ';
+  }
+  console.log(newName);
+}
+
+function capitalizeName2(name) {
+  const splitNmae = name.split(' ');
+  const namesUpper = [];
+  for (const element of splitNmae) {
+    namesUpper.push(element.replace(element[0], element[0].toUpperCase()));
+  }
+  console.log(namesUpper.join(' '));
+}
+
+capitalizeName1('jessica ann smith davis');
+capitalizeName2('jessica ann smith davis');
+capitalizeName1('jonas schmedtmann');
+capitalizeName2('jonas schmedtmann');
+
+//Padding
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+'));
+console.log(message.padEnd(25, '+'));
+console.log('Cris'.padEnd(25, '+'));
+
+console.log(message.padStart(35, '+').padEnd(36, '+'));
+
+const maskCeditCard = function (number) {
+  const str = String;
+};
+
 //! ======================================
 //! STRINGS: FUNDAMENTALS
 //! ======================================
 
 //! Los strings en JavaScript son inmutables (no se pueden modificar directamente)
 //? Pero podemos acceder a caracteres individuales y usar métodos para manipularlos
-
-// const airline = 'TAP Air Portugal';
-// const plane = 'A320';
 
 //! Acceder a caracteres individuales usando notación de corchetes []
 //? Similar a acceder a elementos de un array
