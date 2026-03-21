@@ -63,6 +63,68 @@ const restaurant = {
 };
 
 //! ======================================
+//! STRINGS: FUNDAMENTALS
+//! ======================================
+
+//! Los strings en JavaScript son inmutables (no se pueden modificar directamente)
+//? Pero podemos acceder a caracteres individuales y usar métodos para manipularlos
+
+// const airline = 'TAP Air Portugal';
+// const plane = 'A320';
+
+//! Acceder a caracteres individuales usando notación de corchetes []
+//? Similar a acceder a elementos de un array
+// console.log(plane[0]); //? 'A' - primer carácter
+// console.log(plane[1]); //? '3' - segundo carácter
+// console.log(plane[2]); //? '2' - tercer carácter
+// console.log('B737'[0]); //? 'B' - también funciona con strings literales
+
+//! Propiedad .length devuelve la longitud del string
+// console.log(airline.length); //? 15 - número total de caracteres
+// console.log('B737'.length); //? 4
+
+//! indexOf() encuentra la primera ocurrencia de un carácter o substring
+//? Devuelve el índice (posición) o -1 si no encuentra
+// console.log(airline.indexOf('r')); //? 6 - primera 'r' en "Portugal"
+// console.log(airline.lastIndexOf('r')); //? 10 - última 'r' en "Portugal"
+// console.log(airline.indexOf('Portugal')); //? 8 - inicio de "Portugal"
+// console.log(airline.indexOf('portugal')); //? -1 - case sensitive, no encuentra
+
+//! slice() extrae una porción del string sin modificar el original
+//? slice(inicio, fin) - fin es opcional, extrae hasta el final
+// console.log(airline.slice(4)); //? "Air Portugal" - desde índice 4 hasta el final
+// console.log(airline.slice(4, 7)); //? "Air" - desde 4 hasta 7 (no incluye 7)
+
+//! Extraer partes específicas usando indexOf y slice
+// console.log(airline.slice(0, airline.indexOf(' '))); //? "TAP" - primera palabra
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1)); //? "Portugal" - última palabra
+
+//! slice() con índices negativos cuenta desde el final
+// console.log(airline.slice(-2)); //? "al" - últimos 2 caracteres
+// console.log(airline.slice(1, -1)); //? "AP Air Portuga" - desde índice 1 hasta el penúltimo
+// console.log(airline.slice(-2)); //? línea comentada, ejemplo adicional
+
+//! ======================================
+//! EJEMPLO PRÁCTICO: VERIFICAR ASIENTOS DEL MEDIO
+//! ======================================
+
+//! Función que determina si un asiento es del medio en un avión
+//? Asientos terminan en 'B' o 'E' son del medio
+// const checkMidleSeat = function (seat) {
+//   //? Extrae el último carácter del asiento (letra del asiento)
+//   const s = seat.slice(-1);
+
+//   //? Verifica si es asiento del medio
+//   if (s === 'B' || s === 'E') console.log('middle seat');
+//   else console.log('lucky');
+// };
+
+//! Pruebas de la función
+// checkMidleSeat('11B'); //? middle seat
+// checkMidleSeat('23C'); //? lucky
+// checkMidleSeat('3E'); //? middle seat
+
+//! ======================================
 //! WHICH DATA STRUCTURE TO USE?
 //! ======================================
 
