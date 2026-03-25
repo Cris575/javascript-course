@@ -62,6 +62,41 @@ const restaurant = {
   },
 };
 
+//! ======================================
+//! EJERCICIO: FORMATEAR MENSAJE DE VUELOS
+//! ======================================
+
+//? El string `flights` contiene varias entradas separadas por '+'
+//? Cada entrada contiene campos separados por ';':
+//? _type_from_to_time (e.g. _Delayed_Departure;fao93766109;txl2133758440;11:25)
+for (const flight of flights.split('+')) {
+  //? Separa cada vuelo en los campos individuales
+  const word = flight.split(';');
+
+  //? Construye el mensaje formateado:
+  //? - Reemplaza '_' por espacios en el tipo de vuelo
+  //? - Convierte códigos de aeropuerto a mayúsculas (primeros 3 caracteres)
+  //? - Convierte la hora '11:25' a '11h25'
+  //? - Usa padStart para alinear texto hacia la derecha
+  console.log(
+    (
+      word[0].replaceAll('_', ' ') +
+      ' from ' +
+      word[1].slice(0, 3).toUpperCase() +
+      ' to ' +
+      word[2].slice(0, 3).toUpperCase() +
+      ' ' +
+      '(' +
+      word[3].replace(':', 'h') +
+      ')'
+    ).padStart(36),
+  );
+}
+
+//! ======================================
+//! EJERCICIO: CONVERTIR_CASO de variable (snake_case → camelCase)
+//! ======================================
+
 const listOfletters = [
   'underscore_case',
   'first_name',
@@ -71,17 +106,24 @@ const listOfletters = [
 ];
 
 const icons = '✅';
-const element = document.querySelector('ul');
+const element = document.querySelector('ul'); //? no se usa en la lógica, ejemplo de DOM
 
 for (let [key, item] of listOfletters.entries()) {
+  //? Cada item está en snake_case
+  //? Buscar el índice del guion bajo para dividir la palabra
   const index = item.indexOf('_');
-  const a = item.slice(index + 1, index + 2);
-  const b = item.slice(index + 2);
-  const c = item.slice(0, index);
-  console.log(
-    (c.toLowerCase() + a.toUpperCase() + b.toLowerCase()).padEnd(20) +
-      icons.repeat(key + 1),
-  );
+  const a = item.slice(index + 1, index + 2); //? primera letra de la segunda palabra
+  const b = item.slice(index + 2); //? resto de la segunda palabra
+  const c = item.slice(0, index); //? primera palabra
+
+  //? Convertir snake_case a camelCase:
+  //? - primera palabra en minúsculas
+  //? - segunda palabra capitalizando la primera letra
+  //? - añadir iconos según la posición
+  // console.log(
+  //   (c.toLowerCase() + a.toUpperCase() + b.toLowerCase()).padEnd(20) +
+  //     icons.repeat(key + 1),
+  // );
 }
 
 //! ======================================
