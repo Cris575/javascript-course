@@ -198,3 +198,85 @@
 //? transformer → recibe función
 //? greet → retorna función
 //? hig5 → callback
+
+//! ======================================
+//! MÉTODOS CALL / APPLY
+//! ======================================
+
+//? Cuando extraemos un método de un objeto
+//? se pierde el contexto (this)
+
+// const lufthansa = {
+//   airline: 'Lufthasa',
+//   aitaCode: 'LH',
+//   bookings: [],
+
+//   //! método que usa this
+//   book(flightNum, name) {
+//     console.log(
+//       `${name} booked a seat on ${this.airline} flight ${this.aitaCode}${flightNum}`,
+//     );
+
+//     this.bookings.push({
+//       flight: `${this.airline} flight ${this.aitaCode}${flightNum}`,
+//       name,
+//     });
+//   },
+// };
+
+//? ejecución normal del método
+// lufthansa.book(239, 'Jonas');
+// lufthansa.book(635, 'Jonas Smith');
+
+// console.log(lufthansa);
+
+//! ======================================
+//! REUTILIZAR MÉTODOS ENTRE OBJETOS
+//! ======================================
+
+//? otro objeto con estructura similar
+
+// const eurowings = {
+//   name: 'eurowings',
+//   aitaCode: 'EW',
+//   bookings: [],
+// };
+
+//? guardamos el método en una variable
+//? aquí se pierde el contexto "this"
+
+// const book = lufthansa.book;
+
+//! ======================================
+//! CALL METHOD
+//! ======================================
+
+//? call permite definir manualmente el this
+
+// book.call(eurowings, 23, 'Sarah');
+
+// console.log(eurowings);
+
+//? ahora usamos lufthansa nuevamente
+
+// book.call(lufthansa, 239, 'Mary Cooper');
+
+// console.log(lufthansa);
+
+//! ======================================
+//! APPLY METHOD
+//! ======================================
+
+//? apply recibe los argumentos en un array
+
+// const flightData = [583, 'Cooper'];
+
+// book.apply(lufthansa, flightData);
+
+//! ======================================
+//! SPREAD (FORMA MODERNA)
+//! ======================================
+
+//? hoy se usa call + spread
+
+// book.call(lufthansa, ...flightData);
