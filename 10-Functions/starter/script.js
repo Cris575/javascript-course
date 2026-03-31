@@ -342,7 +342,7 @@
 
 //! Sin bind → this sería el botón (error)
 //! Con bind → this apunta a lufthansa
-document;
+// document
 //   .querySelector('.buy')
 //   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
