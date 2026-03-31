@@ -280,3 +280,99 @@
 //? hoy se usa call + spread
 
 // book.call(lufthansa, ...flightData);
+
+//! ======================================
+//! BIND METHOD
+//! ======================================
+
+const lufthansa = {
+  airline: 'Lufthasa',
+  aitaCode: 'LH',
+  bookings: [],
+
+  //! Método para reservar vuelos
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.aitaCode}${flightNum}`,
+    );
+
+    this.bookings.push({
+      flight: `${this.airline} flight ${this.aitaCode}${flightNum}`,
+      name,
+    });
+  },
+};
+
+const eurowings = {
+  name: 'eurowings',
+  aitaCode: 'EW',
+  bookings: [],
+};
+
+//! Extraemos el método (pierde el this)
+const book = lufthansa.book;
+
+//! bind → fija el valor de this
+const bookEW = book.bind(eurowings);
+
+bookEW(23, 'Steven');
+console.log(eurowings); //? booking agregado correctamente
+
+//! ======================================
+//! PARTIAL APPLICATION CON BIND
+//! ======================================
+
+//! Predefinir argumentos
+const bookEW23 = book.bind(eurowings, 23);
+
+bookEW23('Cris'); //? solo pasamos el nombre
+bookEW23('Cris G');
+
+//! ======================================
+//! BIND CON EVENT LISTENERS
+//! ======================================
+
+lufthansa.planes = 300;
+
+lufthansa.buyPlane = function () {
+  console.log(this); //? apunta al objeto correcto gracias a bind
+  this.planes++;
+  console.log(this.planes);
+};
+
+//! Sin bind → this sería el botón (error)
+//! Con bind → this apunta a lufthansa
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+//! ======================================
+//! PARTIAL APPLICATION (FUNCIONES)
+//! ======================================
+
+//! Función para agregar impuestos
+const addTaxes = (rate = 0.23, value) => value + value * rate;
+
+console.log(addTaxes(0.1, 200)); //? 220
+
+//! bind para fijar el rate
+const addVAT = addTaxes.bind(null, 0.23);
+
+console.log(addVAT(100)); //? 123
+console.log(addVAT(23)); //? 28.29
+
+//! ======================================
+//! ALTERNATIVA: CLOSURES
+//! ======================================
+
+function addTaxes2(rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+}
+
+//! Creamos función con IVA fijo
+const addVAT2 = addTaxes2(0.23);
+
+console.log(addVAT2(100)); //? 123
+console.log(addVAT2(23)); //? 28.29
