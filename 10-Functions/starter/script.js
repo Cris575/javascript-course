@@ -463,10 +463,10 @@ GOOD LUCK 😀
 //? IIFE = función que se ejecuta inmediatamente
 //? se usa para crear un scope privado
 
-(function () {
-  console.log('Hola');
-  const isPrivate = 23;
-})();
+// (function () {
+//   console.log('Hola');
+//   const isPrivate = 23;
+// })();
 
 //? isPrivate NO es accesible fuera de la función
 // console.log(isPrivate); ❌ error
@@ -477,9 +477,9 @@ GOOD LUCK 😀
 
 //? misma idea pero con arrow function
 
-(() => {
-  console.log('Hola');
-})();
+// (() => {
+//   console.log('Hola');
+// })();
 
 //? también crea un scope separado
 
@@ -487,10 +487,10 @@ GOOD LUCK 😀
 //! BLOCK SCOPE (LET Y CONST)
 //! ======================================
 
-{
-  const isPrivate = 23;
-  var notPrivate = 0;
-}
+// {
+//   const isPrivate = 23;
+//   var notPrivate = 0;
+// }
 
 //? const y let → tienen block scope
 //? solo existen dentro de las llaves {}
@@ -504,7 +504,7 @@ GOOD LUCK 😀
 //? var IGNORA el block scope
 //? se vuelve accesible fuera del bloque
 
-console.log(notPrivate); // 0
+// console.log(notPrivate); // 0
 
 //! ======================================
 //! IDEA CLAVE
@@ -513,3 +513,69 @@ console.log(notPrivate); // 0
 //! IIFE → crea scope privado con funciones
 //! {} → crea scope con let y const
 //! var → NO respeta bloques (evitar usarlo)
+
+//Closures
+//! ======================================
+//! CLOSURES
+//! ======================================
+
+//? Un closure es cuando una función recuerda
+//? las variables de su entorno aunque ya terminó
+
+// const secureBooking = function () {
+//   let passengerCount = 0;
+
+//   //! función interna
+//   return function () {
+//     passengerCount++;
+//     console.log(`${passengerCount} passengers`);
+//   };
+// };
+
+//? secureBooking ya terminó de ejecutarse
+//? pero su variable sigue "viva" gracias al closure
+
+// const booker = secureBooking();
+
+//! booker es la función interna
+//? pero mantiene acceso a passengerCount
+
+//! ======================================
+//! USO DEL CLOSURE
+//! ======================================
+
+// booker(); // 1 passengers
+// booker(); // 2 passengers
+// booker(); // 3 passengers
+
+//? cada llamada incrementa el MISMO passengerCount
+//? no se reinicia porque el closure lo conserva
+
+//! ======================================
+//! INSPECCIONAR CLOSURE
+//! ======================================
+
+// console.dir(booker);
+
+//? muestra información interna de la función
+//? incluyendo [[Scopes]]
+//? ahí puedes ver el closure con passengerCount
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! closure = función + variables externas que recuerda
+
+//? aunque la función externa ya terminó,
+//? las variables siguen accesibles
+
+//! ======================================
+//! FORMA MENTAL DE ENTENDERLO
+//! ======================================
+
+//? booker "recuerda" passengerCount
+//? como si lo llevara en una mochila 🎒
+
+//? cada vez que ejecutas booker:
+//? usa y actualiza ese mismo valor
