@@ -410,30 +410,106 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 GOOD LUCK 😀
 */
 
-const poll = {
-  question: 'What is your favourite programming language?',
-  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
-  // This generates [0, 0, 0, 0]. More in the next section 😃
-  answers: new Array(4).fill(0),
-  registerNewAnswer() {
-    const options = this.options;
-    const value = prompt(options.join('\n'));
-    if (value > options.length) {
-      alert('Invalid value');
-      return;
-    }
-    this.answers[value] += 1;
-    this.displayResults();
-  },
-  displayResults(type = 'array') {
-    if (type === 'array') console.log(this.answers);
-    else console.log(this.answers.join(','));
-  },
-};
+// const poll = {
+//   question: 'What is your favourite programming language?',
+//   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//   // This generates [0, 0, 0, 0]. More in the next section 😃
+//   answers: new Array(4).fill(0),
+//   registerNewAnswer() {
+//     const options = this.options;
+//     const value = Number(prompt(this.question + '\n' + options.join('\n')));
+//     if (
+//       typeof value === 'number' &&
+//       value > options.length &&
+//       value < options.length
+//     ) {
+//       alert('Invalid value');
+//       return;
+//     }
+//     this.answers[value] += 1;
+//     poll.displayResults();
+//     poll.displayResults('string');
+//   },
+//   displayResults(type = 'array') {
+//     if (type === 'array') {
+//       console.log(this.answers || this.array);
+//     } else if (type === 'string') {
+//       const data = this.answers || this.string;
+//       console.log(data.join(', '));
+//     }
+//   },
+// };
 
-document
-  .querySelector('.poll')
-  .addEventListener('click', poll.registerNewAnswer.bind(poll));
+// document
+//   .querySelector('.poll')
+//   .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-poll.displayResults();
-poll.displayResults();
+// // const showData = poll.displayResults.bind(testData);
+
+// // showData();
+// // showData('string');
+// const testData = {
+//   string: [5, 2, 3],
+//   array: [1, 5, 3, 9, 6, 1],
+// };
+
+// poll.displayResults.call(testData);
+// poll.displayResults.call(testData, 'string');
+
+//! ======================================
+//! IIFE (Immediately Invoked Function Expression)
+//! ======================================
+
+//? IIFE = función que se ejecuta inmediatamente
+//? se usa para crear un scope privado
+
+(function () {
+  console.log('Hola');
+  const isPrivate = 23;
+})();
+
+//? isPrivate NO es accesible fuera de la función
+// console.log(isPrivate); ❌ error
+
+//! ======================================
+//! IIFE CON ARROW FUNCTION
+//! ======================================
+
+//? misma idea pero con arrow function
+
+(() => {
+  console.log('Hola');
+})();
+
+//? también crea un scope separado
+
+//! ======================================
+//! BLOCK SCOPE (LET Y CONST)
+//! ======================================
+
+{
+  const isPrivate = 23;
+  var notPrivate = 0;
+}
+
+//? const y let → tienen block scope
+//? solo existen dentro de las llaves {}
+
+// console.log(isPrivate); ❌ error
+
+//! ======================================
+//! VAR NO RESPETA BLOCK SCOPE
+//! ======================================
+
+//? var IGNORA el block scope
+//? se vuelve accesible fuera del bloque
+
+console.log(notPrivate); // 0
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! IIFE → crea scope privado con funciones
+//! {} → crea scope con let y const
+//! var → NO respeta bloques (evitar usarlo)
