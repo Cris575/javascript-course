@@ -579,3 +579,125 @@ GOOD LUCK 😀
 
 //? cada vez que ejecutas booker:
 //? usa y actualiza ese mismo valor
+
+// Example 1
+//! ======================================
+//! CLOSURES - EJEMPLO 1
+//! ======================================
+
+// let f;
+
+//? f se declara fuera (variable global)
+
+// const g = function () {
+//   const a = 23;
+
+//   //! f toma una nueva función
+//   f = function () {
+//     console.log(a * 2);
+//   };
+// };
+
+//? aquí a = 23 queda "capturado" en el closure
+
+// const h = function () {
+//   const b = 777;
+
+//   //! f se redefine con otro closure
+//   f = function () {
+//     console.log(b * 2);
+//   };
+// };
+
+// g();
+// f();
+//? usa el closure de g → a = 23 → 46
+
+// console.dir(f);
+//? muestra el [[Scopes]] → incluye a
+
+// h();
+// f();
+//? ahora usa el closure de h → b = 777 → 1554
+
+// console.dir(f);
+//? ahora el closure cambió → incluye b
+
+//! ======================================
+//! IDEA CLAVE (EJEMPLO 1)
+//! ======================================
+
+//? Un closure depende de DÓNDE se creó la función
+//? no de dónde se ejecuta
+
+//! f cambia su closure cada vez que se redefine
+
+//! ======================================
+//! CLOSURES - EJEMPLO 2 (ASYNC)
+//! ======================================
+
+// const boardPassengers = function (n, wait) {
+//   const perGroup = n / 3;
+
+//   //! función dentro de setTimeout (closure)
+//   setTimeout(() => {
+//     console.log(n);
+//     console.log(perGroup);
+//   }, wait * 1000);
+
+//   console.log(wait);
+// };
+
+//? variable global con mismo nombre
+// const perGroup = 1000;
+
+// boardPassengers(180, 3);
+
+//? imprime inmediatamente:
+//? 3
+
+//? después de 3 segundos:
+//? 180
+//? 60
+
+//! ======================================
+//! IDEA CLAVE (EJEMPLO 2)
+//! ======================================
+
+//? el closure usa la variable del scope donde fue creado
+//? NO usa la variable global
+
+//? aunque exista:
+// const perGroup = 1000;
+
+//? el setTimeout recuerda:
+// const perGroup = 60
+
+//! ======================================
+//! RESUMEN GENERAL
+//! ======================================
+
+//! Closure = función recuerda su entorno léxico
+
+//? incluso en:
+//? - funciones reasignadas (ejemplo 1)
+//? - funciones async (ejemplo 2)
+
+//! prioridad:
+//? 1. variables del closure
+//? 2. luego scope global
+
+const changeColor = (function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.body.addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
+
+  // return function () {
+  //   header.style.color = 'blue';
+  // };
+})();
+
+// document.body.addEventListener('click', changeColor);
