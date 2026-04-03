@@ -78,30 +78,30 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //! SLICE (NO MODIFICA EL ARRAY ORIGINAL)
 //! ======================================
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr = ['a', 'b', 'c', 'd', 'e'];
 
 //! slice(inicio, fin)
 //? devuelve una copia de una parte del array
 
-console.log(arr.slice(2));
+// console.log(arr.slice(2));
 //? ['c', 'd', 'e'] → desde índice 2 hasta el final
 
-console.log(arr.slice(2, 4));
+// console.log(arr.slice(2, 4));
 //? ['c', 'd'] → índice 2 hasta 4 (sin incluir 4)
 
-console.log(arr.slice(-2));
+// console.log(arr.slice(-2));
 //? ['d', 'e'] → últimos 2 elementos
 
-console.log(arr.slice(-1));
+// console.log(arr.slice(-1));
 //? ['e'] → último elemento
 
-console.log(arr.slice(1, -2));
+// console.log(arr.slice(1, -2));
 //? ['b', 'c'] → desde índice 1 hasta antes de los últimos 2
 
-console.log(arr.slice());
+// console.log(arr.slice());
 //? copia completa del array
 
-console.log([...arr]);
+// console.log([...arr]);
 //? otra forma de copiar (spread operator)
 
 //! ======================================
@@ -111,27 +111,27 @@ console.log([...arr]);
 //! splice(inicio, cantidad)
 //? elimina elementos directamente del array
 
-arr.splice(-1);
+// arr.splice(-1);
 //? elimina el último elemento
 
-console.log(arr);
+// console.log(arr);
 
-arr.splice(1, 2);
+// arr.splice(1, 2);
 //? elimina 2 elementos desde índice 1
 
-console.log(arr);
+// console.log(arr);
 
 //! ======================================
 //! REVERSE (MODIFICA EL ARRAY)
 //! ======================================
 
-arr = ['a', 'b', 'c', 'd', 'e'];
-const arr2 = ['a', 'b', 'c', 'd', 'e'];
+// arr = ['a', 'b', 'c', 'd', 'e'];
+// const arr2 = ['a', 'b', 'c', 'd', 'e'];
 
-console.log(arr.reverse());
+// console.log(arr.reverse());
 //? invierte el array original
 
-console.log(arr);
+// console.log(arr);
 //? ya está modificado
 
 //! ======================================
@@ -140,12 +140,12 @@ console.log(arr);
 
 //! une arrays
 
-const letter = arr.concat(arr2);
+// const letter = arr.concat(arr2);
 
-console.log(letter);
+// console.log(letter);
 //? nuevo array combinado
 
-console.log([...arr, ...arr2]);
+// console.log([...arr, ...arr2]);
 //? alternativa con spread
 
 //! ======================================
@@ -154,7 +154,7 @@ console.log([...arr, ...arr2]);
 
 //! convierte array a string
 
-console.log(letter.join('-'));
+// console.log(letter.join('-'));
 //? une los elementos con '-'
 //? ejemplo: 'e-d-c-b-a-a-b-c-d-e'
 
@@ -169,3 +169,64 @@ console.log(letter.join('-'));
 //? splice, reverse
 
 //! join → convierte a string
+
+//! ======================================
+//! MÉTODO .at()
+//! ======================================
+
+// const arr = [23, 11, 64];
+
+//! acceder a elementos por índice
+
+// console.log(arr[0]);
+// console.log(arr.at(0));
+
+//? ambos hacen lo mismo → primer elemento (23)
+
+//! ======================================
+//! ACCEDER AL ÚLTIMO ELEMENTO
+//! ======================================
+
+//! forma clásica
+// console.log(arr[arr.length - 1]);
+
+//! usando slice
+// console.log(arr.slice(-1)[0]);
+
+//! usando .at()
+// console.log(arr.at(-2));
+
+//? .at() permite usar índices negativos
+//? -1 → último
+//? -2 → penúltimo
+
+//! ======================================
+//! .at() CON STRINGS
+//! ======================================
+
+// console.log('jonas'.at(0));
+//? 'j' → primer carácter
+
+// console.log('jonas'.at(-1));
+//? 's' → último carácter
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! .at() funciona en arrays y strings
+//? permite índices negativos directamente
+
+//! equivalente:
+/// arr.at(-1) === arr[arr.length - 1]
+
+//! ======================================
+//! CUÁNDO USAR .at()
+//! ======================================
+
+//? cuando necesitas:
+//? - acceder al final fácilmente
+//? - código más limpio y legible
+
+//! especialmente útil:
+// const last = arr.at(-1);
