@@ -74,3 +74,98 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+//! ======================================
+//! SLICE (NO MODIFICA EL ARRAY ORIGINAL)
+//! ======================================
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+//! slice(inicio, fin)
+//? devuelve una copia de una parte del array
+
+console.log(arr.slice(2));
+//? ['c', 'd', 'e'] → desde índice 2 hasta el final
+
+console.log(arr.slice(2, 4));
+//? ['c', 'd'] → índice 2 hasta 4 (sin incluir 4)
+
+console.log(arr.slice(-2));
+//? ['d', 'e'] → últimos 2 elementos
+
+console.log(arr.slice(-1));
+//? ['e'] → último elemento
+
+console.log(arr.slice(1, -2));
+//? ['b', 'c'] → desde índice 1 hasta antes de los últimos 2
+
+console.log(arr.slice());
+//? copia completa del array
+
+console.log([...arr]);
+//? otra forma de copiar (spread operator)
+
+//! ======================================
+//! SPLICE (MODIFICA EL ARRAY ORIGINAL)
+//! ======================================
+
+//! splice(inicio, cantidad)
+//? elimina elementos directamente del array
+
+arr.splice(-1);
+//? elimina el último elemento
+
+console.log(arr);
+
+arr.splice(1, 2);
+//? elimina 2 elementos desde índice 1
+
+console.log(arr);
+
+//! ======================================
+//! REVERSE (MODIFICA EL ARRAY)
+//! ======================================
+
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['a', 'b', 'c', 'd', 'e'];
+
+console.log(arr.reverse());
+//? invierte el array original
+
+console.log(arr);
+//? ya está modificado
+
+//! ======================================
+//! CONCAT (NO MODIFICA)
+//! ======================================
+
+//! une arrays
+
+const letter = arr.concat(arr2);
+
+console.log(letter);
+//? nuevo array combinado
+
+console.log([...arr, ...arr2]);
+//? alternativa con spread
+
+//! ======================================
+//! JOIN
+//! ======================================
+
+//! convierte array a string
+
+console.log(letter.join('-'));
+//? une los elementos con '-'
+//? ejemplo: 'e-d-c-b-a-a-b-c-d-e'
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! NO mutan:
+//? slice, concat
+
+//! SI mutan:
+//? splice, reverse
+
+//! join → convierte a string
