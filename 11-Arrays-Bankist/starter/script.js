@@ -71,7 +71,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 //! ======================================
@@ -230,3 +230,95 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //! especialmente útil:
 // const last = arr.at(-1);
+
+//! ======================================
+//! FOR...OF VS FOREACH
+//! ======================================
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+
+//! ======================================
+//! FOR...OF
+//! ======================================
+
+//? permite usar break y continue
+//? más control del flujo
+
+for (const [index, movement] of movements.entries()) {
+
+  if (movement > 0) {
+    console.log("You deposited " + movement + " " + index);
+  } else {
+    console.log("You withdrew " + Math.abs(movement) + " " + index);
+  }
+}
+
+console.log('------------');
+
+
+
+//! ======================================
+//! FOREACH
+//! ======================================
+
+//? ejecuta una función por cada elemento
+//? más declarativo
+
+movements.forEach((movement, index, array) => {
+
+  if (movement > 0) {
+    console.log("You deposited " + movement + " " + index);
+  } else {
+    console.log("You withdrew " + Math.abs(movement) + " " + index);
+  }
+});
+
+//? parámetros:
+//? movement → valor
+//? index → posición
+//? array → array completo
+
+//! ======================================
+//! DIFERENCIAS CLAVE
+//! ======================================
+
+//! for...of:
+//? ✔ puedes usar break / continue
+//? ✔ más flexible
+//? ✔ mejor para lógica compleja
+
+//! forEach:
+//? ✔ más limpio y moderno
+//? ✔ ideal para operaciones simples
+//? ❌ NO permite break ni continue
+
+
+
+//! ======================================
+//! EJEMPLO IMPORTANTE
+//! ======================================
+
+//? esto NO funciona en forEach ❌
+/*
+movements.forEach(mov => {
+  if (mov < 0) break; // ERROR
+});
+*/
+
+//? pero sí en for...of ✔
+for (const mov of movements) {
+  if (mov < 0) break;
+}
+
+
+//! ======================================
+//! CUÁNDO USAR CADA UNO
+//! ======================================
+
+//! usa for...of:
+//? cuando necesitas control (break, continue)
+//? cuando la lógica es más compleja
+
+//! usa forEach:
+//? cuando solo quieres recorrer y hacer algo simple
