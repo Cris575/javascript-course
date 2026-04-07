@@ -61,15 +61,52 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">
+        ${i + 1} ${type}
+      </div>
+      <div class="movements__value">${mov}</div>
+    </div>
+    `;
+
+    //! ======================================
+    //! insertAdjacentHTML()
+    //! ======================================
+
+    //! inserta HTML en el DOM sin reemplazar el contenido existente
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+
+    //? containerMovements → elemento del DOM
+    //? html → string con HTML que quieres insertar
+
+    //! ======================================
+    //! POSICIONES POSIBLES
+    //! ======================================
+
+    //? 'beforebegin' → antes del elemento
+    //? 'afterbegin'  → dentro, al inicio
+    //? 'beforeend'   → dentro, al final
+  });
+};
+
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -235,8 +272,7 @@ const currencies = new Map([
 //! FOR...OF VS FOREACH
 //! ======================================
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //! ======================================
 //! FOR...OF
@@ -245,18 +281,16 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //? permite usar break y continue
 //? más control del flujo
 
-for (const [index, movement] of movements.entries()) {
+// for (const [index, movement] of movements.entries()) {
 
-  if (movement > 0) {
-    console.log("You deposited " + movement + " " + index);
-  } else {
-    console.log("You withdrew " + Math.abs(movement) + " " + index);
-  }
-}
+//   if (movement > 0) {
+//     console.log("You deposited " + movement + " " + index);
+//   } else {
+//     console.log("You withdrew " + Math.abs(movement) + " " + index);
+//   }
+// }
 
-console.log('------------');
-
-
+// console.log('------------');
 
 //! ======================================
 //! FOREACH
@@ -265,14 +299,14 @@ console.log('------------');
 //? ejecuta una función por cada elemento
 //? más declarativo
 
-movements.forEach((movement, index, array) => {
+// movements.forEach((movement, index, array) => {
 
-  if (movement > 0) {
-    console.log("You deposited " + movement + " " + index);
-  } else {
-    console.log("You withdrew " + Math.abs(movement) + " " + index);
-  }
-});
+//   if (movement > 0) {
+//     console.log("You deposited " + movement + " " + index);
+//   } else {
+//     console.log("You withdrew " + Math.abs(movement) + " " + index);
+//   }
+// });
 
 //? parámetros:
 //? movement → valor
@@ -293,8 +327,6 @@ movements.forEach((movement, index, array) => {
 //? ✔ ideal para operaciones simples
 //? ❌ NO permite break ni continue
 
-
-
 //! ======================================
 //! EJEMPLO IMPORTANTE
 //! ======================================
@@ -307,10 +339,9 @@ movements.forEach(mov => {
 */
 
 //? pero sí en for...of ✔
-for (const mov of movements) {
-  if (mov < 0) break;
-}
-
+// for (const mov of movements) {
+//   if (mov < 0) break;
+// }
 
 //! ======================================
 //! CUÁNDO USAR CADA UNO
@@ -322,3 +353,75 @@ for (const mov of movements) {
 
 //! usa forEach:
 //? cuando solo quieres recorrer y hacer algo simple
+
+//! ======================================
+//! MAP
+//! ======================================
+
+//? Map = colección de pares clave → valor
+
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+
+// //! forEach en Map
+// currencies.forEach(function (value, key, map) {
+//   console.log(`${key}: ${value}`);
+// });
+
+//? parámetros:
+//? value → valor
+//? key → clave
+//? map → el Map completo
+
+//? orden IMPORTANTE:
+//? (value, key) → diferente a arrays
+
+//! ======================================
+//! SET
+//! ======================================
+
+//? Set = colección de valores únicos (sin duplicados)
+
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+
+// console.log(currenciesUnique);
+
+//? resultado:
+//? Set {'USD', 'GBP', 'EUR'}
+
+//! forEach en Set
+// currenciesUnique.forEach(function (value, _, set) {
+//   console.log(`${_}: ${value}`);
+// });
+
+//? en Set NO hay keys
+//? por eso:
+//? value === key
+
+//? "_" se usa para indicar:
+//? "no me interesa este parámetro"
+
+//? equivalente real:
+//? (value, value, set)
+
+//! ======================================
+//! DIFERENCIAS CLAVE
+//! ======================================
+
+//! Map:
+//? clave → valor
+//? tiene keys y values diferentes
+
+//! Set:
+//? solo valores únicos
+//? no hay claves reales
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! Map → como un objeto mejorado
+//! Set → para eliminar duplicados
