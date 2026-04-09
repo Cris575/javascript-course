@@ -99,9 +99,18 @@ const displayMovements = function (movements) {
 displayMovements(account1.movements);
 
 const user = 'Steven Thomas Williams';
-const userName = user.toLocaleLowerCase().split(' ');
+const createUserNames = function (accs) {
+  accs.forEach(acc => {
+    acc.userName = acc.owner
+      .split(' ')
+      .map(value => value[0])
+      .join('')
+      .toUpperCase();
+  });
+};
 
-console.log(userName);
+createUserNames(accounts);
+// console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -431,19 +440,50 @@ movements.forEach(mov => {
 //! Map → como un objeto mejorado
 //! Set → para eliminar duplicados
 
+//! ======================================
+//! MAP()
+//! ======================================
+
+//? map() recorre un array
+//? y crea un NUEVO array transformando cada elemento
+
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 // const eurToUsd = 1.1;
+
+//! ======================================
+//! EJEMPLO: CONVERTIR MONEDA
+//! ======================================
+
+//? multiplica cada movimiento por el tipo de cambio
 
 // const movementsUSD = movements.map(mov => mov * eurToUsd);
 
 // console.log(movements);
 // console.log(movementsUSD);
 
+//? movements NO cambia
+//? map devuelve un nuevo array
+
+//! ======================================
+//! EQUIVALENTE CON FOR...OF
+//! ======================================
+
+//? map hace esto internamente
+
 // const movementsUSDfor = [];
+
 // for (const mov of movements) {
 //   movementsUSDfor.push(mov * eurToUsd);
 // }
+
 // console.log(movementsUSDfor);
+
+//! ======================================
+//! MAP PARA TRANSFORMAR TEXTO
+//! ======================================
+
+//? crear descripción para cada movimiento
 
 // const movementDescriptions = movements.map(
 //   (mov, index, arr) =>
@@ -451,3 +491,112 @@ movements.forEach(mov => {
 // );
 
 // console.log(movementDescriptions);
+
+//? mov → valor actual
+//? index → índice actual
+//? arr → array completo
+
+//! ======================================
+//! DIFERENCIA CON FOREACH
+//! ======================================
+
+//! forEach:
+//? solo recorre
+
+//! map:
+//? recorre y devuelve nuevo array
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! map = transformar datos
+
+//? 1 valor entra
+//? 1 nuevo valor sale
+
+//? misma cantidad de elementos,
+//? diferente contenido
+
+//! ======================================
+//! FILTER()
+//! ======================================
+
+//? filter() recorre un array
+//? y devuelve un NUEVO array
+//? solo con los elementos que cumplan la condición
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//! ======================================
+//! FILTRAR DEPÓSITOS
+//! ======================================
+
+//? conservar solo movimientos positivos
+
+// const deposit = movements.filter(function (mov, i, arr) {
+//   return mov > 0;
+// });
+
+//? parámetros:
+//? mov → valor actual
+//? i → índice actual
+//? arr → array completo
+
+//? si retorna true → se conserva
+//? si retorna false → se elimina
+
+// console.log(deposit);
+
+//? resultado:
+//? [200, 450, 3000, 70, 1300]
+
+//! ======================================
+//! FILTRAR RETIROS
+//! ======================================
+
+//? conservar solo movimientos negativos
+
+// const withdrawal = movements.filter(function (mov) {
+//   return mov < 0;
+// });
+
+// console.log(withdrawal);
+
+//? resultado:
+//? [-400, -650, -130]
+
+//! ======================================
+//! CÓMO FUNCIONA INTERNAMENTE
+//! ======================================
+
+//? filter hace algo similar a esto:
+
+// const depositsFor = [];
+
+// for (const mov of movements) {
+//   if (mov > 0) depositsFor.push(mov);
+// }
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! filter = seleccionar elementos por condición
+
+//? true → entra al nuevo array
+//? false → se ignora
+
+//! ======================================
+//! DIFERENCIA CON MAP
+//! ======================================
+
+//! map:
+//? transforma todos los elementos
+
+//! filter:
+//? elimina algunos elementos
+
+console.log(movements);
+
+const balance = movements.reduce(function () {});
