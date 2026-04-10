@@ -756,18 +756,28 @@ GOOD LUCK 😀
 // calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// PIPELINE
-const eurToUsd = 1.1;
-const totalDepositsUSD = movements
-  .filter(mov => mov > 0)
-  .map((mov, i, arr) => {
-    // console.log(arr);
-    return mov * eurToUsd;
-  })
-  // .map(mov => mov * eurToUsd)
-  .reduce((acc, mov, i, arr) => {
-    console.log(arr);
-    return (acc + mov, 0);
-  });
+// // PIPELINE
+// const eurToUsd = 1.1;
+// const totalDepositsUSD = movements
+//   .filter(mov => mov > 0)
+//   .map((mov, i, arr) => {
+//     return mov * eurToUsd;
+//   })
+//   .reduce((acc, mov, i, arr) => {
+//     console.log(arr);
+//     return (acc + mov, 0);
+//   });
 
 // - - - >
+
+// Find
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+
+console.log(account);
+
+for (const user of accounts) {
+  if (user.owner === 'Jessica Davis') console.log(user);
+}
