@@ -110,6 +110,13 @@ const createUserNames = function (accs) {
 };
 
 createUserNames(accounts);
+
+const calcPrintBalance = function (movement) {
+  const balance = movement.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = balance + ' €';
+};
+
+calcPrintBalance(account1.movements);
 // console.log(accounts);
 
 /////////////////////////////////////////////////
@@ -598,5 +605,96 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //? elimina algunos elementos
 
 console.log(movements);
+//! ======================================
+//! REDUCE()
+//! ======================================
 
-const balance = movements.reduce(function () {});
+//? reduce() recorre el array
+//? y reduce todos los elementos a un solo valor
+
+//! sintaxis:
+//? array.reduce((acc, cur, i, arr) => {}, valorInicial)
+
+//! ======================================
+//! SUMAR TODOS LOS ELEMENTOS
+//! ======================================
+
+//? acc = acumulador
+//? cur = valor actual
+
+const balance = movements.reduce((acc, cur, i, arr) => acc + cur, 0);
+
+console.log(balance);
+
+//? acc inicia en 0
+//? cada iteración suma el valor actual
+
+//! ======================================
+//! VISUALIZACIÓN DEL FLUJO
+//! ======================================
+
+//? Iteración 1:
+//? acc = 0
+//? cur = 200
+//? resultado = 200
+
+//? Iteración 2:
+//? acc = 200
+//? cur = 450
+//? resultado = 650
+
+//? Iteración 3:
+//? acc = 650
+//? cur = -400
+//? resultado = 250
+
+//? ... hasta terminar
+
+//! ======================================
+//! EQUIVALENTE CON FOR...OF
+//! ======================================
+
+//? reduce hace algo similar a esto:
+
+let balance2 = 0;
+
+for (const element of movements) {
+  balance2 += element;
+}
+
+console.log(balance2);
+
+//! ======================================
+//! ENCONTRAR VALOR MÁXIMO
+//! ======================================
+
+//? reduce también sirve para comparar valores
+
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+
+console.log(max);
+
+//? acc guarda temporalmente el número mayor encontrado
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! reduce = combinar todo en 1 valor
+
+//? ejemplos comunes:
+//? suma total
+//? promedio
+//? máximo / mínimo
+//? construir objetos / arrays
+
+//! ======================================
+//! DIFERENCIA CON MAP/FILTER
+//! ======================================
+
+//! map → transforma cada elemento
+//! filter → selecciona algunos
+//! reduce → combina todos en uno
