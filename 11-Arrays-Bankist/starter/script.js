@@ -144,6 +144,14 @@ const calcPrintBalance = function (movement) {
 calcPrintBalance(account1.movements);
 // console.log(accounts);
 
+// EVENT HANDLER
+let current;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  account.find(acc => acc.owner === inputLoginUsername.value);
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
