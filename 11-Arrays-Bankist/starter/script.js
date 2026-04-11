@@ -772,12 +772,73 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // Find
 
+//! ======================================
+//! FIND()
+//! ======================================
+
+//? find() recorre el array
+//? y devuelve el PRIMER elemento
+//? que cumpla la condición
+
+//! si no encuentra nada:
+//? devuelve undefined
+
+//! ======================================
+//! EJEMPLO: PRIMER RETIRO
+//! ======================================
+
 const firstWithdrawal = movements.find(mov => mov < 0);
+
+//? busca el primer número negativo
+
+console.log(firstWithdrawal);
+
+//? resultado:
+//? -400
+
+//! ======================================
+//! EJEMPLO: BUSCAR OBJETO
+//! ======================================
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 
 console.log(account);
 
+//? devuelve el primer objeto
+//? cuyo owner coincida
+
+//! ======================================
+//! EQUIVALENTE CON FOR...OF
+//! ======================================
+
+//? find hace algo similar a esto:
+
 for (const user of accounts) {
   if (user.owner === 'Jessica Davis') console.log(user);
 }
+
+//? PERO find se detiene apenas encuentra uno
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! find = encontrar UN elemento
+
+//? devuelve:
+//? el elemento completo
+
+//? NO devuelve:
+//? true / false
+
+//! ======================================
+//! DIFERENCIA CON FILTER
+//! ======================================
+
+//! filter:
+//? devuelve TODOS los que cumplan
+//? en un nuevo array
+
+//! find:
+//? devuelve SOLO el primero
+//? como valor individual
