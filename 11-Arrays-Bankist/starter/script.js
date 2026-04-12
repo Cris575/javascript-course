@@ -96,9 +96,7 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
-
-const calcDisplaySummary = function (movements) {
+const calcDisplaySummary = function (movements, interestRate) {
   const incomes = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
@@ -122,7 +120,7 @@ const calcDisplaySummary = function (movements) {
   labelSumInterest.textContent = `${interest} €`;
 };
 
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
 
 const createUserNames = function (accs) {
   accs.forEach(acc => {
@@ -141,15 +139,33 @@ const calcPrintBalance = function (movement) {
   labelBalance.textContent = balance + ' €';
 };
 
-calcPrintBalance(account1.movements);
+// calcPrintBalance(account1.movements);
 // console.log(accounts);
 
 // EVENT HANDLER
-let current;
+let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
-  account.find(acc => acc.owner === inputLoginUsername.value);
+  currentAccount = accounts.find(
+    acc => acc.userName === inputLoginUsername.value,
+  );
+  // console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    //Display UI and message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+    containerApp.style.opacity = 1;
+    //Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    //Display movements
+    displayMovements(currentAccount.movements);
+    //Display balance
+    calcPrintBalance(currentAccount.movements);
+    //Display summary
+    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+  }
 });
 
 /////////////////////////////////////////////////
@@ -795,11 +811,11 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //! EJEMPLO: PRIMER RETIRO
 //! ======================================
 
-const firstWithdrawal = movements.find(mov => mov < 0);
+// const firstWithdrawal = movements.find(mov => mov < 0);
 
 //? busca el primer número negativo
 
-console.log(firstWithdrawal);
+// console.log(firstWithdrawal);
 
 //? resultado:
 //? -400
@@ -808,9 +824,9 @@ console.log(firstWithdrawal);
 //! EJEMPLO: BUSCAR OBJETO
 //! ======================================
 
-const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 
-console.log(account);
+// console.log(account);
 
 //? devuelve el primer objeto
 //? cuyo owner coincida
@@ -821,9 +837,9 @@ console.log(account);
 
 //? find hace algo similar a esto:
 
-for (const user of accounts) {
-  if (user.owner === 'Jessica Davis') console.log(user);
-}
+// for (const user of accounts) {
+//   if (user.owner === 'Jessica Davis') console.log(user);
+// }
 
 //? PERO find se detiene apenas encuentra uno
 
