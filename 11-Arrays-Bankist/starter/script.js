@@ -197,6 +197,38 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // ADD movement
+    currentAccount.movements.push(amount);
+    // Update UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) == currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName,
+    );
+    console.log(index);
+
+    // Delete accpunt
+    accounts.splice(index, 1);
+    //Hide UI
+    containerApp.style.opacity = 0;
+  }
+
+  inputCloseUsername.value = inputClosePin.value = '';
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -895,3 +927,135 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //! find:
 //? devuelve SOLO el primero
 //? como valor individual
+
+//! ======================================
+//! FINDLAST()
+//! ======================================
+
+//? findLast() recorre el array desde el FINAL
+//? devuelve el PRIMER elemento que cumpla la condición
+
+// console.log(movements);
+
+// const lastWithdrawal = movements.findLast(mov => mov < 0);
+
+// console.log(lastWithdrawal);
+
+//? busca el último número negativo
+//? resultado:
+//? -130
+
+//! ======================================
+//! FINDLASTINDEX()
+//! ======================================
+
+//? devuelve el índice del último elemento que cumpla
+
+// const lastestLargeMovemnentIndex = movements.findLastIndex(
+//   mov => Math.abs(mov) > 1000,
+// );
+
+// console.log(lastestLargeMovemnentIndex);
+
+//? busca el último movimiento mayor a 1000 (en valor absoluto)
+
+//! ======================================
+//! USO DEL ÍNDICE
+//! ======================================
+
+// console.log(
+//   `Your latest large movement ${
+//     movements.length - lastestLargeMovemnentIndex
+//   } movements ago`,
+// );
+
+//? calcula hace cuántos movimientos ocurrió
+//? longitud - índice = distancia desde el final
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! find → busca desde el inicio
+//! findLast → busca desde el final
+
+//! findIndex → índice desde inicio
+//! findLastIndex → índice desde final
+
+//! ======================================
+//! INCLUDES()
+//! ======================================
+
+//? verifica si un valor existe (igualdad exacta)
+
+console.log(movements.includes(-130));
+
+//? true si existe, false si no
+
+//! ======================================
+//! SOME()
+//! ======================================
+
+//? some() verifica si AL MENOS UNO cumple la condición
+
+console.log(movements.some(mov => mov === -130));
+//? true si encuentra ese valor
+
+console.log(movements.some((mov, i) => mov > 5000));
+//? true si algún valor es mayor a 5000
+
+//! ======================================
+//! EVERY()
+//! ======================================
+
+//? every() verifica si TODOS cumplen la condición
+
+console.log(movements.every(mov => mov > 0));
+//? false porque hay negativos
+
+console.log(account4.movements.every(mov => mov > 0));
+//? true solo si todos son positivos
+
+//! ======================================
+//! CALLBACK REUTILIZABLE
+//! ======================================
+
+//? función separada para reutilizar lógica
+
+const deposit = mov => mov > 0;
+
+//! usando la misma función en varios métodos
+
+console.log(movements.some(deposit));
+//? true si hay al menos un depósito
+
+console.log(movements.every(deposit));
+//? true solo si TODOS son depósitos
+
+console.log(movements.filter(deposit));
+//? devuelve todos los depósitos
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! includes → busca valor exacto
+//! some → al menos uno cumple
+//! every → todos cumplen
+
+//! ======================================
+//! DIFERENCIAS IMPORTANTES
+//! ======================================
+
+//? includes:
+//? compara con ===
+
+//? some / every:
+//? usan condiciones (funciones)
+
+//! ======================================
+//! REGLA MENTAL RÁPIDA
+//! ======================================
+
+//! some → "¿hay alguno?"
+//! every → "¿todos?"
