@@ -1240,4 +1240,4 @@ console.log(breeds.every(breed => breed.averageWeight >= 10));
 console.log(breeds.some(breed => breed.activities.length >= 3));
 
 //-------------
-console.log(breeds.filter(dog => Math.max(dog.averageWeight)));
+console.log(Math.max(...breeds.map(dog => dog.averageWeight)));
