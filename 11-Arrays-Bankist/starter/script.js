@@ -61,9 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -228,6 +231,14 @@ btnClose.addEventListener('click', function (e) {
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  sorted = !sorted;
+  displayMovements(currentAccount.movements, sorted);
 });
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -1171,73 +1182,153 @@ BONUS: What's the average weight of the heaviest breed that likes to fetch? HINT
 TEST DATA:
 */
 
-const breeds = [
-  {
-    breed: 'German Shepherd',
-    averageWeight: 32,
-    activities: ['fetch', 'swimming'],
-  },
-  {
-    breed: 'Dalmatian',
-    averageWeight: 24,
-    activities: ['running', 'fetch', 'agility'],
-  },
-  {
-    breed: 'Labrador',
-    averageWeight: 28,
-    activities: ['swimming', 'fetch'],
-  },
-  {
-    breed: 'Beagle',
-    averageWeight: 12,
-    activities: ['digging', 'fetch'],
-  },
-  {
-    breed: 'Husky',
-    averageWeight: 26,
-    activities: ['running', 'agility', 'swimming'],
-  },
-  {
-    breed: 'Bulldog',
-    averageWeight: 36,
-    activities: ['sleeping'],
-  },
-  {
-    breed: 'Poodle',
-    averageWeight: 18,
-    activities: ['agility', 'fetch'],
-  },
-];
+// const breeds = [
+//   {
+//     breed: 'German Shepherd',
+//     averageWeight: 32,
+//     activities: ['fetch', 'swimming'],
+//   },
+//   {
+//     breed: 'Dalmatian',
+//     averageWeight: 24,
+//     activities: ['running', 'fetch', 'agility'],
+//   },
+//   {
+//     breed: 'Labrador',
+//     averageWeight: 28,
+//     activities: ['swimming', 'fetch'],
+//   },
+//   {
+//     breed: 'Beagle',
+//     averageWeight: 12,
+//     activities: ['digging', 'fetch'],
+//   },
+//   {
+//     breed: 'Husky',
+//     averageWeight: 26,
+//     activities: ['running', 'agility', 'swimming'],
+//   },
+//   {
+//     breed: 'Bulldog',
+//     averageWeight: 36,
+//     activities: ['sleeping'],
+//   },
+//   {
+//     breed: 'Poodle',
+//     averageWeight: 18,
+//     activities: ['agility', 'fetch'],
+//   },
+// ];
 
-const huskyWeight =
-  breeds.reduce((acc, crr) => crr?.averageWeight + acc, 0) / breeds.length;
-console.log(huskyWeight);
+// const huskyWeight =
+//   breeds.reduce((acc, crr) => crr?.averageWeight + acc, 0) / breeds.length;
+// console.log(huskyWeight);
 
-const dogBothActivities = breeds
-  .filter(
-    breed =>
-      breed.activities.includes('running') &&
-      breed.activities.includes('fetch'),
-  )
-  .at(0).breed;
+// const dogBothActivities = breeds
+//   .filter(
+//     breed =>
+//       breed.activities.includes('running') &&
+//       breed.activities.includes('fetch'),
+//   )
+//   .at(0).breed;
 
-console.log(dogBothActivities);
+// console.log(dogBothActivities);
 
-const allActivities = breeds.flatMap(act => act.activities);
-console.log(allActivities);
+// const allActivities = breeds.flatMap(act => act.activities);
+// console.log(allActivities);
 
-const uniqueActivities = new Set(allActivities);
-console.log(uniqueActivities);
+// const uniqueActivities = new Set(allActivities);
+// console.log(uniqueActivities);
 
-let swimmingAdjacent = breeds
-  .filter(breed => breed.activities.includes('swimming'))
-  .flatMap(act => act.activities);
+// let swimmingAdjacent = breeds
+//   .filter(breed => breed.activities.includes('swimming'))
+//   .flatMap(act => act.activities);
 
-swimmingAdjacent = new Set(swimmingAdjacent);
-console.log(swimmingAdjacent);
+// swimmingAdjacent = new Set(swimmingAdjacent);
+// console.log(swimmingAdjacent);
 
-console.log(breeds.every(breed => breed.averageWeight >= 10));
-console.log(breeds.some(breed => breed.activities.length >= 3));
+// console.log(breeds.every(breed => breed.averageWeight >= 10));
+// console.log(breeds.some(breed => breed.activities.length >= 3));
 
-//-------------
-console.log(Math.max(...breeds.map(dog => dog.averageWeight)));
+// //-------------
+// console.log(Math.max(...breeds.map(dog => dog.averageWeight)));
+
+//! ======================================
+//! SORT() CON STRINGS
+//! ======================================
+
+//? sort() ordena strings automáticamente (orden alfabético)
+
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+
+// console.log(owners.sort());
+
+//? resultado:
+//? ['Adam', 'Jonas', 'Martha', 'Zach']
+
+// console.log(owners);
+
+//? ⚠️ IMPORTANTE:
+//? sort() MODIFICA el array original
+
+//! ======================================
+//! SORT() CON NÚMEROS (PROBLEMA)
+//! ======================================
+
+// console.log(movements);
+
+//? sort() convierte números a strings
+//? y los ordena como texto ❌
+
+// ejemplo:
+//? [1, 2, 10] → [1, 10, 2]
+
+//! ======================================
+//! FUNCIÓN COMPARADORA
+//! ======================================
+
+//? return < 0 → A antes que B
+//? return > 0 → B antes que A
+
+// console.log(
+// movements.sort((a, b) => {
+// if (a > b) return 1;
+// if (b > a) return -1;
+// }),
+// );
+
+//? orden ASCENDENTE (menor a mayor)
+
+// console.log(
+//   movements.sort((a, b) => {
+//     if (a > b) return -1;
+//     if (b > a) return 1;
+//   }),
+// );
+
+//? orden DESCENDENTE (mayor a menor)
+
+//! ======================================
+//! FORMA SIMPLIFICADA
+//! ======================================
+
+//? ascendente
+// console.log(movements.sort((a, b) => a - b));
+
+//? descendente
+// console.log(movements.sort((a, b) => b - a));
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! sort:
+//? modifica el array original
+//? necesita función para números
+
+//! ======================================
+//! REGLA MENTAL RÁPIDA
+//! ======================================
+
+//! a - b → ascendente
+//! b - a → descendente
