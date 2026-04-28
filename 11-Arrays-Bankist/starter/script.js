@@ -1421,3 +1421,108 @@ TEST DATA:
 //?   even: [2, 4],
 //?   odd: [1, 3]
 //? }
+
+//! ======================================
+//! CREAR ARRAYS
+//! ======================================
+
+// const arr = [1, 2, 3, 4, 5, 6, 7];
+
+// console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+//? ambas formas crean el mismo array
+
+//! ======================================
+//! ARRAY VACÍO + FILL()
+//! ======================================
+
+//? new Array(7) crea un array con 7 espacios vacíos
+
+// const x = new Array(7);
+
+// console.log(x);
+//? [empty × 7]
+
+//! fill(valor, inicio, fin)
+// x.fill(1, 3);
+
+// console.log(x);
+
+//? rellena desde índice 3 hasta el final con 1
+
+//! ======================================
+//! MODIFICAR ARRAY EXISTENTE
+//! ======================================
+
+// arr.fill(23, 2, 6);
+
+// console.log(arr);
+
+//? reemplaza desde índice 2 hasta 6 (sin incluir 6)
+//? resultado:
+//? [1, 2, 23, 23, 23, 23, 7]
+
+//? ⚠️ fill() MODIFICA el array original
+
+//! ======================================
+//! ARRAY.FROM()
+//! ======================================
+
+//? crea arrays a partir de "array-like objects"
+
+// const y = Array.from({ length: 7 }, _ => 1);
+
+// console.log(y);
+
+//? crea:
+//? [1,1,1,1,1,1,1]
+
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+
+// console.log(z);
+
+//? usa el índice:
+//? [1,2,3,4,5,6,7]
+
+//! ======================================
+//! USO REAL: CONVERTIR NODELIST A ARRAY
+//! ======================================
+
+// labelBalance.addEventListener('click', function () {
+
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', '')),
+//   );
+
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+
+//   console.log(movementsUI);
+//   console.log(movementsUI2);
+// });
+
+//? querySelectorAll devuelve un NodeList (no array)
+//? Array.from lo convierte en array
+
+//? además permite transformar directamente (map integrado)
+
+//? spread (...) solo copia, NO transforma
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! fill → rellenar arrays
+//! Array.from → crear y transformar arrays
+
+//! ======================================
+//! DIFERENCIA IMPORTANTE
+//! ======================================
+
+//? Array.from:
+//? ✔ crea array
+//? ✔ transforma (como map)
+
+//? spread:
+//? ✔ copia
+//? ❌ no transforma directamente
