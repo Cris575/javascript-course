@@ -1336,24 +1336,88 @@ TEST DATA:
 
 //! a - b → ascendente
 //! b - a → descendente
+//! ======================================
+//! OBJECT.GROUPBY()
+//! ======================================
 
-console.log(movements);
+//? agrupa elementos de un array en un objeto
+//? según una condición o criterio
 
-const groupedMovements = Object.groupBy(movements, movement =>
-  movement > 0 ? 'deposits' : 'withdrawals',
-);
+// console.log(movements);
 
-console.log(groupedMovements);
+// const groupedMovements = Object.groupBy(movements, movement =>
+//   movement > 0 ? 'deposits' : 'withdrawals',
+// );
 
-const groupedByActivity = Object.groupBy(accounts, account => {
-  const movementCount = account.movements.length;
+// console.log(groupedMovements);
 
-  if (movementCount >= 8) return 'very active';
-  if (movementCount >= 4) return 'active';
-  if (movementCount >= 1) return 'moderate';
-  return 'inactive';
-});
-console.log(groupedByActivity);
+//? resultado:
+//? {
+//?   deposits: [200, 450, 3000, 70, 1300],
+//?   withdrawals: [-400, -650, -130]
+//? }
 
-const groupedAccounts = Object.groupBy(accounts, ({ type }) => type);
-console.log(groupedAccounts);
+//! ======================================
+//! AGRUPAR CON LÓGICA MÁS COMPLEJA
+//! ======================================
+
+//? agrupar cuentas según actividad
+
+// const groupedByActivity = Object.groupBy(accounts, account => {
+//   const movementCount = account.movements.length;
+
+//   if (movementCount >= 8) return 'very active';
+//   if (movementCount >= 4) return 'active';
+//   if (movementCount >= 1) return 'moderate';
+//   return 'inactive';
+// });
+
+// console.log(groupedByActivity);
+
+//? resultado:
+//? {
+//?   'very active': [...],
+//?   'active': [...],
+//?   'moderate': [...],
+//?   'inactive': [...]
+//? }
+
+//! ======================================
+//! AGRUPAR POR PROPIEDAD
+//! ======================================
+
+//? destructuring en parámetros
+
+// const groupedAccounts = Object.groupBy(accounts, ({ type }) => type);
+
+// console.log(groupedAccounts);
+
+//? agrupa por el valor de "type"
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! groupBy → agrupa elementos en categorías
+
+//? cada retorno de la función
+//? se convierte en una "clave" del objeto
+
+//! ======================================
+//! FORMA MENTAL
+//! ======================================
+
+//? "¿En qué grupo va este elemento?"
+
+//! lo que retornas → nombre del grupo
+
+//! ======================================
+//! EJEMPLO SIMPLE
+//! ======================================
+
+// [1, 2, 3, 4].groupBy(x => (x % 2 === 0 ? 'even' : 'odd'));
+
+//? {
+//?   even: [2, 4],
+//?   odd: [1, 3]
+//? }
