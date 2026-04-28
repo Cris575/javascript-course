@@ -1526,3 +1526,71 @@ TEST DATA:
 //? spread:
 //? ✔ copia
 //? ❌ no transforma directamente
+
+//! ======================================
+//! MÉTODOS INMUTABLES (NUEVOS)
+//! ======================================
+
+//? estos métodos NO modifican el array original
+//? devuelven una copia modificada
+
+// console.log(movements);
+
+//! ======================================
+//! TOREVERSED()
+//! ======================================
+
+//? igual que reverse()
+//? pero NO modifica el array original
+
+// const reverseMovements = movements.toReversed();
+
+// console.log(reverseMovements);
+//? array invertido
+
+// console.log(movements);
+//? se mantiene igual
+
+//! ======================================
+//! WITH()
+//! ======================================
+
+//? reemplaza un elemento por índice
+//? sin modificar el array original
+
+// const newMovements = movements.with(1, 2000);
+
+// console.log(newMovements);
+//? copia con el índice 1 cambiado
+
+// console.log(movements);
+//? original intacto
+
+//! ======================================
+//! OTROS MÉTODOS MODERNOS
+//! ======================================
+
+//! toSorted()
+//? igual que sort() pero sin mutar
+
+//! toSpliced()
+//? igual que splice() pero sin mutar
+
+//! ======================================
+//! COMPARACIÓN
+//! ======================================
+
+//! mutan (cambian el original):
+//? reverse(), sort(), splice(), fill()
+
+//! NO mutan (inmutables):
+//? toReversed(), toSorted(), toSpliced(), with()
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! métodos nuevos → trabajan con copias
+
+//? más seguros
+//? evitan bugs por cambios inesperados
