@@ -1594,3 +1594,124 @@ TEST DATA:
 
 //? más seguros
 //? evitan bugs por cambios inesperados
+
+//! ======================================
+//! 1. SUMA DE DEPÓSITOS
+//! ======================================
+
+//? obtener todos los movimientos → filtrar positivos → sumar
+
+const backDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+
+console.log(backDepositSum);
+
+//? pipeline:
+//? flatMap → junta todos los movimientos
+//? filter → solo depósitos
+//? reduce → suma total
+
+//! ======================================
+//! 2. CONTAR DEPÓSITOS >= 1000
+//! ======================================
+
+//? versión con reduce (más eficiente)
+
+const numDesposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDesposits1000);
+
+//? count = acumulador
+//? si cumple → incrementa
+//? si no → se mantiene
+
+//? ⚠️ ++count modifica directamente (side effect leve)
+//? alternativa más limpia:
+//? (cur >= 1000 ? count + 1 : count)
+
+//! ======================================
+//! 3. SUMAR DEPÓSITOS Y RETIROS
+//! ======================================
+
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      //! usa clave dinámica
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+
+      return sums;
+    },
+    {
+      deposits: 0,
+      withdrawals: 0,
+    },
+  );
+
+//? resultado:
+//? { deposits: X, withdrawals: Y }
+
+//? destructuring para extraer directamente
+
+//! ======================================
+//! 4. TITLE CASE (STRINGS)
+//! ======================================
+
+const convertTititleCase = function (title) {
+  const exceptions = ['a', 'an', 'the', 'and', 'but', 'or', 'on', 'in', 'with'];
+
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(a => (exceptions.includes(a) ? a : capitalize(a)))
+    .join(' ');
+
+  return titleCase;
+};
+
+//? flujo:
+//? toLowerCase → todo minúsculas
+//? split → separar palabras
+//? map → capitalizar excepto excepciones
+//? join → reconstruir string
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! chaining = pipeline de datos
+
+//? flatMap → obtener datos
+//? filter → seleccionar
+//? map → transformar
+//? reduce → resumir
+
+//! ======================================
+//! NIVEL PRO (LO QUE YA ESTÁS HACIENDO)
+//! ======================================
+
+//? evitar arrays intermedios
+//? usar reduce para múltiples cosas
+//? escribir código declarativo
+
+//! ======================================
+//! DETALLE IMPORTANTE
+//! ======================================
+
+//? este código:
+cur >= 1000 ? ++count : count;
+
+//? es mejor como:
+cur >= 1000 ? count + 1 : count;
+
+//? evita mutaciones innecesarias
+
+console.log(deposits, withdrawals);
+
+console.log(convertTititleCase('this is a nice title'));
