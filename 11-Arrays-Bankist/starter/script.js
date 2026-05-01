@@ -1336,6 +1336,7 @@ TEST DATA:
 
 //! a - b → ascendente
 //! b - a → descendente
+
 //! ======================================
 //! OBJECT.GROUPBY()
 //! ======================================
@@ -1764,6 +1765,29 @@ dogs.forEach(dog => {
 
 console.log(dogs);
 
-const sarahDog = dogs.filter(x => x.owners.includes('Sarah'));
+const sarahDog = dogs.filter(x => x.owners.includes('John'));
 
-console.log(sarahDog.curFood);
+console.log(sarahDog[0].curFood > sarahDog[0].recFood);
+
+const ownersTooMuch = dogs
+  .filter(x => x.curFood > x.recFood)
+  .flatMap(x => x.owners);
+const ownersTooLittle = dogs
+  .filter(x => x.curFood < x.recFood)
+  .flatMap(x => x.owners);
+console.log(ownersTooMuch, ownersTooLittle);
+
+// Matilda and Alice and Bob's dogs eat too much!
+
+console.log(ownersTooMuch.join(' and ') + "'s dogs eat too much");
+console.log(ownersTooMuch.join(' and ') + "'s dogs eat too little!");
+
+console.log(dogs.some(x => x.curFood === x.recFood));
+console.log(
+  dogs.every(x => x.curFood > x.recFood * 1.1 && x.curFood < x.recFood * 0.9),
+);
+
+const a = dogs.filter(
+  x => x.curFood < x.recFood * 1.1 && x.curFood > x.recFood * 0.9,
+);
+console.log(a);
