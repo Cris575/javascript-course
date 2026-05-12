@@ -92,8 +92,8 @@ const displayMovements = function (movements, sort = false) {
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
+          i + 1
+        } ${type}</div>
         <div class="movements__value">${mov}€</div>
       </div>
     `;
@@ -160,11 +160,11 @@ btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
 
   currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
+    acc => acc.username === inputLoginUsername.value,
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -182,9 +182,9 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
-    acc => acc.username === inputTransferTo.value
+    acc => acc.username === inputTransferTo.value,
   );
   inputTransferAmount.value = inputTransferTo.value = '';
 
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = +inputLoanAmount.value;
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -223,10 +223,10 @@ btnClose.addEventListener('click', function (e) {
 
   if (
     inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     const index = accounts.findIndex(
-      acc => acc.username === currentAccount.username
+      acc => acc.username === currentAccount.username,
     );
     console.log(index);
     // .indexOf(23)
@@ -251,3 +251,161 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+//! ======================================
+//! NÚMEROS EN JAVASCRIPT
+//! ======================================
+
+//? todos los números en JS son "Number"
+//? no existe diferencia entre int y float
+
+console.log(23 === 23.0);
+
+//? true
+//? ambos son el mismo tipo de dato
+
+//! ======================================
+//! SISTEMA BINARIO
+//! ======================================
+
+//? las computadoras trabajan en binario
+//? base 2 → 0 y 1
+
+// Base 10 → 0-9
+// Binary (base 2) → 0-1
+
+//! ======================================
+//! PROBLEMAS DE PRECISIÓN
+//! ======================================
+
+//? algunos decimales no pueden representarse exactamente en binario
+
+console.log(0.1 + 0.2);
+
+//? 0.30000000000000004
+
+console.log(0.1 + 0.2 === 0.3);
+
+//? false
+
+//! ocurre por precisión de coma flotante (floating point)
+
+//! ======================================
+//! CONVERSIÓN A NÚMERO
+//! ======================================
+
+//? Number() convierte string a número
+
+console.log(Number('23'));
+
+//? operador + también convierte
+
+console.log(+'23');
+
+//! ======================================
+//! PARSEINT()
+//! ======================================
+
+//? extrae enteros desde strings
+
+console.log(Number.parseInt('30px', 10));
+
+//? 30
+
+console.log(Number.parseInt('e23', 10));
+
+//? NaN
+//? no empieza con número
+
+//! ======================================
+//! PARSEFLOAT()
+//! ======================================
+
+//? extrae números decimales
+
+console.log(Number.parseInt(' 2.5rem '));
+
+//? 2
+
+console.log(Number.parseFloat(' 2.5rem '));
+
+//? 2.5
+
+//? parseFloat global también existe
+// console.log(parseFloat(' 2.5rem '));
+
+//! ======================================
+//! NUMBER.ISNAN()
+//! ======================================
+
+//? verifica si el valor es NaN
+
+console.log(Number.isNaN(20));
+//? false
+
+console.log(Number.isNaN('20'));
+//? false
+
+console.log(Number.isNaN(+'20x'));
+//? true
+
+console.log(Number.isNaN(23 / 0));
+//? false → Infinity NO es NaN
+
+console.log(Number.isNaN(NaN));
+//? true
+
+//! ======================================
+//! NUMBER.ISFINITE()
+//! ======================================
+
+//? verifica si es un número finito REAL
+
+console.log(Number.isFinite(20));
+//? true
+
+console.log(Number.isFinite('20'));
+//? false → string
+
+console.log(Number.isFinite(+'20x'));
+//? false → NaN
+
+console.log(Number.isFinite(Infinity));
+//? false
+
+console.log(Number.isFinite(23 / 0));
+//? false → Infinity
+
+//! ======================================
+//! NUMBER.ISINTEGER()
+//! ======================================
+
+//? verifica si es entero
+
+console.log(Number.isInteger(2));
+//? true
+
+console.log(Number.isInteger(23.0));
+//? true → sigue siendo entero
+
+console.log(Number.isInteger(23 / 0));
+//? false → Infinity
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! JS usa IEEE 754 para números
+//? todos son floating point
+
+//! ======================================
+//! DIFERENCIAS IMPORTANTES
+//! ======================================
+
+//! isNaN()
+//? verifica NaN
+
+//! isFinite()
+//? verifica números válidos y finitos
+
+//! isInteger()
+//? verifica enteros
