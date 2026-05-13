@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
           i + 1
         } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -111,12 +111,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(+inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -258,7 +258,7 @@ btnSort.addEventListener('click', function (e) {
 //? todos los números en JS son "Number"
 //? no existe diferencia entre int y float
 
-console.log(23 === 23.0);
+// console.log(23 === 23.0);
 
 //? true
 //? ambos son el mismo tipo de dato
@@ -279,11 +279,11 @@ console.log(23 === 23.0);
 
 //? algunos decimales no pueden representarse exactamente en binario
 
-console.log(0.1 + 0.2);
+// console.log(0.1 + 0.2);
 
 //? 0.30000000000000004
 
-console.log(0.1 + 0.2 === 0.3);
+// console.log(0.1 + 0.2 === 0.3);
 
 //? false
 
@@ -295,11 +295,11 @@ console.log(0.1 + 0.2 === 0.3);
 
 //? Number() convierte string a número
 
-console.log(Number('23'));
+// console.log(Number('23'));
 
 //? operador + también convierte
 
-console.log(+'23');
+// console.log(+'23');
 
 //! ======================================
 //! PARSEINT()
@@ -307,11 +307,11 @@ console.log(+'23');
 
 //? extrae enteros desde strings
 
-console.log(Number.parseInt('30px', 10));
+// console.log(Number.parseInt('30px', 10));
 
 //? 30
 
-console.log(Number.parseInt('e23', 10));
+// console.log(Number.parseInt('e23', 10));
 
 //? NaN
 //? no empieza con número
@@ -322,11 +322,11 @@ console.log(Number.parseInt('e23', 10));
 
 //? extrae números decimales
 
-console.log(Number.parseInt(' 2.5rem '));
+// console.log(Number.parseInt(' 2.5rem '));
 
 //? 2
 
-console.log(Number.parseFloat(' 2.5rem '));
+// console.log(Number.parseFloat(' 2.5rem '));
 
 //? 2.5
 
@@ -339,19 +339,19 @@ console.log(Number.parseFloat(' 2.5rem '));
 
 //? verifica si el valor es NaN
 
-console.log(Number.isNaN(20));
+// console.log(Number.isNaN(20));
 //? false
 
-console.log(Number.isNaN('20'));
+// console.log(Number.isNaN('20'));
 //? false
 
-console.log(Number.isNaN(+'20x'));
+// console.log(Number.isNaN(+'20x'));
 //? true
 
-console.log(Number.isNaN(23 / 0));
+// console.log(Number.isNaN(23 / 0));
 //? false → Infinity NO es NaN
 
-console.log(Number.isNaN(NaN));
+// console.log(Number.isNaN(NaN));
 //? true
 
 //! ======================================
@@ -360,19 +360,19 @@ console.log(Number.isNaN(NaN));
 
 //? verifica si es un número finito REAL
 
-console.log(Number.isFinite(20));
+// console.log(Number.isFinite(20));
 //? true
 
-console.log(Number.isFinite('20'));
+// console.log(Number.isFinite('20'));
 //? false → string
 
-console.log(Number.isFinite(+'20x'));
+// console.log(Number.isFinite(+'20x'));
 //? false → NaN
 
-console.log(Number.isFinite(Infinity));
+// console.log(Number.isFinite(Infinity));
 //? false
 
-console.log(Number.isFinite(23 / 0));
+// console.log(Number.isFinite(23 / 0));
 //? false → Infinity
 
 //! ======================================
@@ -381,13 +381,13 @@ console.log(Number.isFinite(23 / 0));
 
 //? verifica si es entero
 
-console.log(Number.isInteger(2));
+// console.log(Number.isInteger(2));
 //? true
 
-console.log(Number.isInteger(23.0));
+// console.log(Number.isInteger(23.0));
 //? true → sigue siendo entero
 
-console.log(Number.isInteger(23 / 0));
+// console.log(Number.isInteger(23 / 0));
 //? false → Infinity
 
 //! ======================================
@@ -409,3 +409,173 @@ console.log(Number.isInteger(23 / 0));
 
 //! isInteger()
 //? verifica enteros
+//! ======================================
+//! RAÍZ CUADRADA Y POTENCIAS
+//! ======================================
+
+console.log(Math.sqrt(25));
+
+//? raíz cuadrada → 5
+
+console.log(25 ** (1 / 2));
+
+//? otra forma de sacar raíz cuadrada
+
+console.log(8 ** (1 / 3));
+
+//? raíz cúbica → 2
+
+//! ======================================
+//! MATH.MAX()
+//! ======================================
+
+//? devuelve el número más grande
+
+console.log(Math.max(5, 18, 23, 11, 2));
+
+//? 23
+
+console.log(Math.max(5, 18, '23', 11, 2));
+
+//? convierte strings numéricos automáticamente → 23
+
+console.log(Math.max(5, 18, '23px', 11, 2));
+
+//? NaN → no puede convertir "23px"
+
+//! ======================================
+//! MATH.MIN()
+//! ======================================
+
+//? devuelve el número más pequeño
+
+console.log(Math.min(5, 18, 23, 11, 2));
+
+//! ======================================
+//! USO DE PI
+//! ======================================
+
+//? fórmula del área del círculo
+//? π * r²
+
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+//? parseFloat extrae el 10
+
+//! ======================================
+//! RANDOM()
+//! ======================================
+
+//? Math.random()
+//? genera número entre 0 y 1 (sin incluir 1)
+
+console.log(Math.trunc(Math.random() * 6) + 1);
+
+//? número entre 1 y 6
+
+//! ======================================
+//! RANDOM ENTRE MIN Y MAX
+//! ======================================
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+console.log(randomInt(10, 20));
+console.log(randomInt(0, 3));
+
+//? fórmula típica para rangos aleatorios
+
+//! ======================================
+//! REDONDEO DE ENTEROS
+//! ======================================
+
+//! Math.round()
+//? redondea al entero más cercano
+
+console.log(Math.round(23.3));
+//? 23
+
+console.log(Math.round(23.9));
+//? 24
+
+//! ======================================
+//! MATH.CEIL()
+//! ======================================
+
+//? redondea hacia ARRIBA
+
+console.log(Math.ceil(23.3));
+//? 24
+
+console.log(Math.ceil(23.9));
+//? 24
+
+//! ======================================
+//! MATH.FLOOR()
+//! ======================================
+
+//? redondea hacia ABAJO
+
+console.log(Math.floor(23.3));
+//? 23
+
+console.log(Math.floor('23.9'));
+//? convierte string y redondea → 23
+
+//! ======================================
+//! MATH.TRUNC()
+//! ======================================
+
+//? elimina decimales
+//? NO redondea
+
+console.log(Math.trunc(23.3));
+//? 23
+
+//! ======================================
+//! DIFERENCIA NEGATIVOS
+//! ======================================
+
+console.log(Math.trunc(-23.3));
+//? -23
+
+console.log(Math.floor(-23.3));
+//? -24
+
+//! floor siempre baja más
+//! trunc solo elimina decimales
+
+//! ======================================
+//! TOFIXED()
+//! ======================================
+
+//? redondea decimales
+//? devuelve STRING
+
+console.log((2.7).toFixed(0));
+//? "3"
+
+console.log((2.7).toFixed(3));
+//? "2.700"
+
+console.log((2.345).toFixed(2));
+//? "2.35"
+
+//! ======================================
+//! CONVERTIR TOFIXED A NUMBER
+//! ======================================
+
+//? + convierte string a número
+
+console.log(+(2.345).toFixed(2));
+
+//? 2.35
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! round → más cercano
+//! ceil → arriba
+//! floor → abajo
+//! trunc → cortar decimales
