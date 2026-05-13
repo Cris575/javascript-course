@@ -413,15 +413,15 @@ btnSort.addEventListener('click', function (e) {
 //! RAÍZ CUADRADA Y POTENCIAS
 //! ======================================
 
-console.log(Math.sqrt(25));
+// console.log(Math.sqrt(25));
 
 //? raíz cuadrada → 5
 
-console.log(25 ** (1 / 2));
+// console.log(25 ** (1 / 2));
 
 //? otra forma de sacar raíz cuadrada
 
-console.log(8 ** (1 / 3));
+// console.log(8 ** (1 / 3));
 
 //? raíz cúbica → 2
 
@@ -431,15 +431,15 @@ console.log(8 ** (1 / 3));
 
 //? devuelve el número más grande
 
-console.log(Math.max(5, 18, 23, 11, 2));
+// console.log(Math.max(5, 18, 23, 11, 2));
 
 //? 23
 
-console.log(Math.max(5, 18, '23', 11, 2));
+// console.log(Math.max(5, 18, '23', 11, 2));
 
 //? convierte strings numéricos automáticamente → 23
 
-console.log(Math.max(5, 18, '23px', 11, 2));
+// console.log(Math.max(5, 18, '23px', 11, 2));
 
 //? NaN → no puede convertir "23px"
 
@@ -449,7 +449,7 @@ console.log(Math.max(5, 18, '23px', 11, 2));
 
 //? devuelve el número más pequeño
 
-console.log(Math.min(5, 18, 23, 11, 2));
+// console.log(Math.min(5, 18, 23, 11, 2));
 
 //! ======================================
 //! USO DE PI
@@ -458,7 +458,7 @@ console.log(Math.min(5, 18, 23, 11, 2));
 //? fórmula del área del círculo
 //? π * r²
 
-console.log(Math.PI * Number.parseFloat('10px') ** 2);
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
 //? parseFloat extrae el 10
 
@@ -469,7 +469,7 @@ console.log(Math.PI * Number.parseFloat('10px') ** 2);
 //? Math.random()
 //? genera número entre 0 y 1 (sin incluir 1)
 
-console.log(Math.trunc(Math.random() * 6) + 1);
+// console.log(Math.trunc(Math.random() * 6) + 1);
 
 //? número entre 1 y 6
 
@@ -477,11 +477,11 @@ console.log(Math.trunc(Math.random() * 6) + 1);
 //! RANDOM ENTRE MIN Y MAX
 //! ======================================
 
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+// const randomInt = (min, max) =>
+// Math.floor(Math.random() * (max - min + 1) + min);
 
-console.log(randomInt(10, 20));
-console.log(randomInt(0, 3));
+// console.log(randomInt(10, 20));
+// console.log(randomInt(0, 3));
 
 //? fórmula típica para rangos aleatorios
 
@@ -492,10 +492,10 @@ console.log(randomInt(0, 3));
 //! Math.round()
 //? redondea al entero más cercano
 
-console.log(Math.round(23.3));
+// console.log(Math.round(23.3));
 //? 23
 
-console.log(Math.round(23.9));
+// console.log(Math.round(23.9));
 //? 24
 
 //! ======================================
@@ -504,10 +504,10 @@ console.log(Math.round(23.9));
 
 //? redondea hacia ARRIBA
 
-console.log(Math.ceil(23.3));
+// console.log(Math.ceil(23.3));
 //? 24
 
-console.log(Math.ceil(23.9));
+// console.log(Math.ceil(23.9));
 //? 24
 
 //! ======================================
@@ -516,10 +516,10 @@ console.log(Math.ceil(23.9));
 
 //? redondea hacia ABAJO
 
-console.log(Math.floor(23.3));
+// console.log(Math.floor(23.3));
 //? 23
 
-console.log(Math.floor('23.9'));
+// console.log(Math.floor('23.9'));
 //? convierte string y redondea → 23
 
 //! ======================================
@@ -529,17 +529,17 @@ console.log(Math.floor('23.9'));
 //? elimina decimales
 //? NO redondea
 
-console.log(Math.trunc(23.3));
+// console.log(Math.trunc(23.3));
 //? 23
 
 //! ======================================
 //! DIFERENCIA NEGATIVOS
 //! ======================================
 
-console.log(Math.trunc(-23.3));
+// console.log(Math.trunc(-23.3));
 //? -23
 
-console.log(Math.floor(-23.3));
+// console.log(Math.floor(-23.3));
 //? -24
 
 //! floor siempre baja más
@@ -552,13 +552,13 @@ console.log(Math.floor(-23.3));
 //? redondea decimales
 //? devuelve STRING
 
-console.log((2.7).toFixed(0));
+// console.log((2.7).toFixed(0));
 //? "3"
 
-console.log((2.7).toFixed(3));
+// console.log((2.7).toFixed(3));
 //? "2.700"
 
-console.log((2.345).toFixed(2));
+// console.log((2.345).toFixed(2));
 //? "2.35"
 
 //! ======================================
@@ -567,7 +567,7 @@ console.log((2.345).toFixed(2));
 
 //? + convierte string a número
 
-console.log(+(2.345).toFixed(2));
+// console.log(+(2.345).toFixed(2));
 
 //? 2.35
 
@@ -579,3 +579,42 @@ console.log(+(2.345).toFixed(2));
 //! ceil → arriba
 //! floor → abajo
 //! trunc → cortar decimales
+
+console.log(5 % 2);
+console.log(5 / 2); // 5 = 2 * 2 + 1
+
+console.log(8 % 3);
+console.log(8 / 3); // 8 = 2 * 3 + 2
+
+console.log(6 % 2);
+console.log(6 / 2);
+
+console.log(7 % 2);
+console.log(7 / 2);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(8));
+console.log(isEven(23));
+console.log(isEven(514));
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
+
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const priceCents = 345_99;
+console.log(priceCents);
+
+const tranferFee1 = 15_00;
+const tranferFee2 = 1_500;
+
+const PI = 3.1415;
+console.log(PI);
+
+console.log(Number('20000'));
+console.log(Number.parseInt('20_000'));
