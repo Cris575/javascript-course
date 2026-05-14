@@ -586,37 +586,37 @@ btnSort.addEventListener('click', function (e) {
 
 //? devuelve el RESTO de una división
 
-console.log(5 % 2);
+// console.log(5 % 2);
 
 //? 1
 
-console.log(5 / 2);
+// console.log(5 / 2);
 
 //? 2.5
 //? 5 = 2 * 2 + 1
 
-console.log(8 % 3);
+// console.log(8 % 3);
 
 //? 2
 
-console.log(8 / 3);
+// console.log(8 / 3);
 
 //? 2.666...
 //? 8 = 2 * 3 + 2
 
-console.log(6 % 2);
+// console.log(6 % 2);
 
 //? 0 → divisible exactamente
 
-console.log(6 / 2);
+// console.log(6 / 2);
 
 //? 3
 
-console.log(7 % 2);
+// console.log(7 % 2);
 
 //? 1 → sobra 1
 
-console.log(7 / 2);
+// console.log(7 / 2);
 
 //? 3.5
 
@@ -626,30 +626,30 @@ console.log(7 / 2);
 
 //? si el resto es 0 → es par
 
-const isEven = n => n % 2 === 0;
+// const isEven = n => n % 2 === 0;
 
-console.log(isEven(8));
+// console.log(isEven(8));
 //? true
 
-console.log(isEven(23));
+// console.log(isEven(23));
 //? false
 
-console.log(isEven(514));
+// console.log(isEven(514));
 //? true
 
 //! ======================================
 //! USO REAL DEL MODULO
 //! ======================================
 
-labelBalance.addEventListener('click', function () {
-  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
-    //! filas pares
-    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+// labelBalance.addEventListener('click', function () {
+// [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//! filas pares
+// if (i % 2 === 0) row.style.backgroundColor = 'orangered';
 
-    //! múltiplos de 3
-    if (i % 3 === 0) row.style.backgroundColor = 'blue';
-  });
-});
+//! múltiplos de 3
+// if (i % 3 === 0) row.style.backgroundColor = 'blue';
+// });
+// });
 
 //? útil para patrones repetitivos
 
@@ -659,35 +659,35 @@ labelBalance.addEventListener('click', function () {
 
 //? "_" mejora legibilidad en números grandes
 
-const diameter = 287_460_000_000;
+// const diameter = 287_460_000_000;
 
-console.log(diameter);
+// console.log(diameter);
 
 //? mismo valor:
 //? 287460000000
 
-const priceCents = 345_99;
+// const priceCents = 345_99;
 
-console.log(priceCents);
+// console.log(priceCents);
 
 //? 34599
 //? NO representa decimal
 
-const tranferFee1 = 15_00;
+// const tranferFee1 = 15_00;
 //? 1500
 
-const tranferFee2 = 1_500;
+// const tranferFee2 = 1_500;
 //? 1500
 
 //! ======================================
 //! NO FUNCIONA EN STRINGS
 //! ======================================
 
-console.log(Number('20000'));
+// console.log(Number('20000'));
 
 //? 20000
 
-console.log(Number.parseInt('20_000'));
+// console.log(Number.parseInt('20_000'));
 
 //? 20
 //? parseInt se detiene en "_"
@@ -705,3 +705,151 @@ console.log(Number.parseInt('20_000'));
 
 //? n % 2 === 0 → par
 //? n % 2 !== 0 → impar
+
+//! ======================================
+//! LÍMITE DE PRECISIÓN EN JAVASCRIPT
+//! ======================================
+
+//? JS usa Number (IEEE 754)
+//? solo puede representar enteros seguros hasta:
+
+// console.log(2 ** 53 - 1);
+
+//? 9007199254740991
+
+// console.log(Number.MAX_SAFE_INTEGER);
+
+//? mismo valor
+
+//! ======================================
+//! PROBLEMAS DESPUÉS DEL LÍMITE
+//! ======================================
+
+// console.log(2 ** 53 + 1);
+// console.log(2 ** 53 + 2);
+// console.log(2 ** 53 + 3);
+// console.log(2 ** 53 + 4);
+// console.log(2 ** 53 + 5);
+
+//? después del límite:
+//? JS pierde precisión
+
+//? algunos números empiezan
+//? a repetirse o redondearse
+
+//! ======================================
+//! BIGINT
+//! ======================================
+
+//? BigInt permite trabajar
+//? con enteros gigantes sin perder precisión
+
+// console.log(
+// 123465464231598745643213568123465464231598745643213568n
+// );
+
+//? la "n" convierte el número en BigInt
+
+//! ======================================
+//! CREAR BIGINT
+//! ======================================
+
+// console.log(
+// // BigInt(123465464231598745643213568123465464231598745643213568n)
+// );
+
+//? también se puede usar BigInt()
+
+//! ======================================
+//! OPERACIONES CON BIGINT
+//! ======================================
+
+// console.log(1000n + 1000n);
+
+//? 2000n
+
+// console.log(
+// 123465464231598745643213568123465464231598745643213568n * 2n
+// );
+
+//? operaciones normales funcionan
+
+//! ======================================
+//! NO MEZCLAR NUMBER Y BIGINT
+//! ======================================
+
+// const huge = 1235456468848848488448484n;
+// const num = 23;
+
+//? ❌ error:
+//? huge * num
+
+//? ✔ convertir primero
+// console.log(huge * BigInt(num));
+
+//! ======================================
+//! MATH NO FUNCIONA CON BIGINT
+//! ======================================
+
+// console.log(Math.sqrt(16n));
+
+//? Math trabaja con Number
+//? no con BigInt
+
+//! ======================================
+//! COMPARACIONES
+//! ======================================
+
+// console.log(20n > 15);
+
+//? true
+
+// console.log(20n === 20);
+
+//? false
+//? tipos distintos
+
+// console.log(typeof 20n);
+
+//? bigint
+
+// console.log(20n == '20');
+
+//? true
+//? == hace coerción
+
+//! ======================================
+//! BIGINT + STRINGS
+//! ======================================
+
+// console.log(huge + ' is REALLY big!!!');
+
+//? BigInt se convierte a string
+
+//! ======================================
+//! DIVISIONES
+//! ======================================
+
+//? BigInt elimina decimales
+
+// console.log(10n / 3n);
+
+//? 3n
+
+// console.log(10 / 3);
+
+//? 3.333333333...
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! Number:
+//? rápido
+//? soporta decimales
+//? límite de precisión
+
+//! BigInt:
+//? enteros gigantes
+//? precisión exacta
+//? NO soporta decimales
