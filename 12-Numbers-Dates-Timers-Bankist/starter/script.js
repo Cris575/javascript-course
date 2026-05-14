@@ -580,41 +580,128 @@ btnSort.addEventListener('click', function (e) {
 //! floor → abajo
 //! trunc → cortar decimales
 
+//! ======================================
+//! OPERADOR RESTO (%)
+//! ======================================
+
+//? devuelve el RESTO de una división
+
 console.log(5 % 2);
-console.log(5 / 2); // 5 = 2 * 2 + 1
+
+//? 1
+
+console.log(5 / 2);
+
+//? 2.5
+//? 5 = 2 * 2 + 1
 
 console.log(8 % 3);
-console.log(8 / 3); // 8 = 2 * 3 + 2
+
+//? 2
+
+console.log(8 / 3);
+
+//? 2.666...
+//? 8 = 2 * 3 + 2
 
 console.log(6 % 2);
+
+//? 0 → divisible exactamente
+
 console.log(6 / 2);
 
+//? 3
+
 console.log(7 % 2);
+
+//? 1 → sobra 1
+
 console.log(7 / 2);
 
+//? 3.5
+
+//! ======================================
+//! DETECTAR NÚMEROS PARES
+//! ======================================
+
+//? si el resto es 0 → es par
+
 const isEven = n => n % 2 === 0;
+
 console.log(isEven(8));
+//? true
+
 console.log(isEven(23));
+//? false
+
 console.log(isEven(514));
+//? true
+
+//! ======================================
+//! USO REAL DEL MODULO
+//! ======================================
 
 labelBalance.addEventListener('click', function () {
   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    //! filas pares
     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+
+    //! múltiplos de 3
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
 });
 
+//? útil para patrones repetitivos
+
+//! ======================================
+//! NUMERIC SEPARATORS (_)
+//! ======================================
+
+//? "_" mejora legibilidad en números grandes
+
 const diameter = 287_460_000_000;
+
 console.log(diameter);
 
+//? mismo valor:
+//? 287460000000
+
 const priceCents = 345_99;
+
 console.log(priceCents);
 
-const tranferFee1 = 15_00;
-const tranferFee2 = 1_500;
+//? 34599
+//? NO representa decimal
 
-const PI = 3.1415;
-console.log(PI);
+const tranferFee1 = 15_00;
+//? 1500
+
+const tranferFee2 = 1_500;
+//? 1500
+
+//! ======================================
+//! NO FUNCIONA EN STRINGS
+//! ======================================
 
 console.log(Number('20000'));
+
+//? 20000
+
 console.log(Number.parseInt('20_000'));
+
+//? 20
+//? parseInt se detiene en "_"
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! % → resto de división
+//! _ → solo separador visual
+
+//! ======================================
+//! REGLA MENTAL
+//! ======================================
+
+//? n % 2 === 0 → par
+//? n % 2 !== 0 → impar
