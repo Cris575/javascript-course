@@ -853,3 +853,143 @@ btnSort.addEventListener('click', function (e) {
 //? enteros gigantes
 //? precisión exacta
 //? NO soporta decimales
+
+// Create a date
+
+//! ======================================
+//! DATE()
+//! ======================================
+
+//? Date representa fechas y tiempo en JS
+
+const now = new Date();
+
+console.log(now);
+
+//? fecha y hora actual
+
+//! ======================================
+//! CREAR FECHAS DESDE STRINGS
+//! ======================================
+
+console.log(new Date('May 14 2026 16:25:07'));
+
+console.log(new Date('Dec 24, 2015'));
+
+console.log(new Date(account1.movementsDates[0]));
+
+//? JS intenta parsear el string automáticamente
+
+//! ======================================
+//! CREAR FECHAS MANUALMENTE
+//! ======================================
+
+//! new Date(year, month, day, hour, minute)
+
+console.log(new Date(2037, 10, 19, 15, 23));
+
+//? ⚠️ los meses empiezan en 0
+//? 10 = noviembre
+
+//! ======================================
+//! AUTOCORRECCIÓN DE FECHAS
+//! ======================================
+
+console.log(new Date(2037, 10, 31));
+
+//? noviembre no tiene 31 días
+//? JS ajusta automáticamente
+
+//! ======================================
+//! TIMESTAMPS
+//! ======================================
+
+//? timestamp = milisegundos desde:
+//? Jan 1 1970 UTC
+
+console.log(new Date(0));
+
+//? fecha inicial UNIX
+
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+//? 3 días después
+
+console.clear();
+
+//! ======================================
+//! MÉTODOS GET
+//! ======================================
+
+const future = new Date(2037, 10, 19, 15, 23);
+
+console.log(future);
+
+console.log(future.getFullYear());
+
+//? año → 2037
+
+// console.log(future.getYear());
+//? obsoleto ❌
+
+console.log(future.getDate());
+
+//? día del mes
+
+console.log(future.getDay());
+
+//? día de la semana
+//? 0 = domingo
+
+console.log(future.getHours());
+
+console.log(future.getMinutes());
+
+console.log(future.getSeconds());
+
+//! ======================================
+//! FORMATO ISO
+//! ======================================
+
+console.log(future.toISOString());
+
+//? formato estándar internacional
+
+//! ======================================
+//! GETTIME()
+//! ======================================
+
+//? devuelve timestamp en milisegundos
+
+console.log(future.getTime());
+
+//! ======================================
+//! CREAR FECHA DESDE TIMESTAMP
+//! ======================================
+
+console.log(new Date(2142278580000));
+
+//! ======================================
+//! DATE.NOW()
+//! ======================================
+
+//? timestamp actual
+
+console.log(Date.now());
+
+//! ======================================
+//! MÉTODOS SET
+//! ======================================
+
+//? modificar fechas existentes
+
+future.setFullYear(2040);
+
+console.log(future);
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! Date internamente guarda:
+//? milisegundos desde 1970
