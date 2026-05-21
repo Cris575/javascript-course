@@ -81,19 +81,28 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, '0');
+    const month = `${date.getMonth() + 1}`.padStart(2, '0');
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/'${year}'`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
           i + 1
         } ${type}</div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +151,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +163,20 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+
+// AKE ALWAYS LOGGED IN
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, '0');
+const month = `${now.getMonth() + 1}`.padStart(2, '0');
+const year = now.getFullYear();
+const hour = now.getHours();
+const min = now.getMinutes();
+
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -198,6 +221,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +238,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // Add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -244,7 +274,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
@@ -409,7 +439,8 @@ btnSort.addEventListener('click', function (e) {
 
 //! isInteger()
 //? verifica enteros
-//! ======================================
+
+// ! ======================================
 //! RAÍZ CUADRADA Y POTENCIAS
 //! ======================================
 
@@ -862,9 +893,9 @@ btnSort.addEventListener('click', function (e) {
 
 //? Date representa fechas y tiempo en JS
 
-const now = new Date();
+// const now = new Date();
 
-console.log(now);
+// console.log(now);
 
 //? fecha y hora actual
 
@@ -872,11 +903,11 @@ console.log(now);
 //! CREAR FECHAS DESDE STRINGS
 //! ======================================
 
-console.log(new Date('May 14 2026 16:25:07'));
+// console.log(new Date('May 14 2026 16:25:07'));
 
-console.log(new Date('Dec 24, 2015'));
+// console.log(new Date('Dec 24, 2015'));
 
-console.log(new Date(account1.movementsDates[0]));
+// console.log(new Date(account1.movementsDates[0]));
 
 //? JS intenta parsear el string automáticamente
 
@@ -886,7 +917,7 @@ console.log(new Date(account1.movementsDates[0]));
 
 //! new Date(year, month, day, hour, minute)
 
-console.log(new Date(2037, 10, 19, 15, 23));
+// console.log(new Date(2037, 10, 19, 15, 23));
 
 //? ⚠️ los meses empiezan en 0
 //? 10 = noviembre
@@ -895,7 +926,7 @@ console.log(new Date(2037, 10, 19, 15, 23));
 //! AUTOCORRECCIÓN DE FECHAS
 //! ======================================
 
-console.log(new Date(2037, 10, 31));
+// console.log(new Date(2037, 10, 31));
 
 //? noviembre no tiene 31 días
 //? JS ajusta automáticamente
@@ -907,51 +938,51 @@ console.log(new Date(2037, 10, 31));
 //? timestamp = milisegundos desde:
 //? Jan 1 1970 UTC
 
-console.log(new Date(0));
+// console.log(new Date(0));
 
 //? fecha inicial UNIX
 
-console.log(new Date(3 * 24 * 60 * 60 * 1000));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
 
 //? 3 días después
 
-console.clear();
+// console.clear();
 
 //! ======================================
 //! MÉTODOS GET
 //! ======================================
 
-const future = new Date(2037, 10, 19, 15, 23);
+// const future = new Date(2037, 10, 19, 15, 23);
 
-console.log(future);
+// console.log(future);
 
-console.log(future.getFullYear());
+// console.log(future.getFullYear());
 
 //? año → 2037
 
 // console.log(future.getYear());
 //? obsoleto ❌
 
-console.log(future.getDate());
+// console.log(future.getDate());
 
 //? día del mes
 
-console.log(future.getDay());
+// console.log(future.getDay());
 
 //? día de la semana
 //? 0 = domingo
 
-console.log(future.getHours());
+// console.log(future.getHours());
 
-console.log(future.getMinutes());
+// console.log(future.getMinutes());
 
-console.log(future.getSeconds());
+// console.log(future.getSeconds());
 
 //! ======================================
 //! FORMATO ISO
 //! ======================================
 
-console.log(future.toISOString());
+// console.log(future.toISOString());
 
 //? formato estándar internacional
 
@@ -961,13 +992,13 @@ console.log(future.toISOString());
 
 //? devuelve timestamp en milisegundos
 
-console.log(future.getTime());
+// console.log(future.getTime());
 
 //! ======================================
 //! CREAR FECHA DESDE TIMESTAMP
 //! ======================================
 
-console.log(new Date(2142278580000));
+// console.log(new Date(2142278580000));
 
 //! ======================================
 //! DATE.NOW()
@@ -975,7 +1006,7 @@ console.log(new Date(2142278580000));
 
 //? timestamp actual
 
-console.log(Date.now());
+// console.log(Date.now());
 
 //! ======================================
 //! MÉTODOS SET
@@ -983,9 +1014,9 @@ console.log(Date.now());
 
 //? modificar fechas existentes
 
-future.setFullYear(2040);
+// future.setFullYear(2040);
 
-console.log(future);
+// console.log(future);
 
 //! ======================================
 //! IDEA CLAVE
