@@ -85,7 +85,7 @@ const formatMovementsDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
   const dayPassed = calcDaysPassed(new Date(), date);
-  console.log(dayPassed);
+  // console.log(dayPassed);
 
   if (dayPassed === 0) return 'Today';
   if (dayPassed === 1) return 'Yesterday';
@@ -190,28 +190,53 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
-///////////////////////////////////////
-// Event handlers
-let currentAccount;
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    // In each call, print the reaining time to UI.
+    labelTimer.textContent = `${min}:${sec}`;
 
-// AKE ALWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+    // When 0 seconds, stop timer and log out user.
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+    // Decrese 1s
+    time--;
+  };
+  // Set timer to 5 minutes
+  let time = 300;
 
-const options = {
-  hour: 'numeric',
-  minute: 'numeric',
-  day: 'numeric',
-  month: 'numeric',
-  year: 'numeric',
-  // weekday: 'long',
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
 };
 
-// const locale = navigator.language;
-const locale = currentAccount.locale;
+///////////////////////////////////////
+// Event handlers
+let currentAccount, timer;
 
-const now = new Intl.DateTimeFormat(locale, options).format(new Date());
+// AKE ALWAYS LOGGED IN
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
+
+// const options = {
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   day: 'numeric',
+//   month: 'numeric',
+//   year: 'numeric',
+//   // weekday: 'long',
+// };
+
+// // const locale = navigator.language;
+// const locale = currentAccount.locale;
+
+// const now = new Intl.DateTimeFormat(locale, options).format(new Date());
 // const day = `${now.getDate()}`.padStart(2, '0');
 // const month = `${now.getMonth() + 1}`.padStart(2, '0');
 // const year = now.getFullYear();
@@ -219,7 +244,7 @@ const now = new Intl.DateTimeFormat(locale, options).format(new Date());
 // const min = now.getMinutes();
 
 // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
-labelDate.textContent = now;
+// labelDate.textContent = now;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -228,7 +253,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value,
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
 
   if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
@@ -240,6 +265,9 @@ btnLogin.addEventListener('click', function (e) {
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
+
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
 
     // Update UI
     updateUI(currentAccount);
@@ -270,6 +298,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -288,6 +320,10 @@ btnLoan.addEventListener('click', function (e) {
 
       // Update UI
       updateUI(currentAccount);
+
+      // Reset timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 2500);
   }
   inputLoanAmount.value = '';
@@ -314,6 +350,9 @@ btnClose.addEventListener('click', function (e) {
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
+
+  // Reset timer
+  clearInterval(timer);
 });
 
 let sorted = false;
@@ -1070,36 +1109,119 @@ btnSort.addEventListener('click', function (e) {
 //! Date internamente guarda:
 //? milisegundos desde 1970
 
-// const future = new Date(2037, 10, 19, 15, 23);
-// console.log(+future);
+//! ======================================
+//! CONVERTIR DATE A NÚMERO
+//! ======================================
 
-// const calcDaysPassed = (date1, date2) =>
-//   Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
+//? "+" convierte Date a timestamp
+//? (milisegundos desde 1970)
 
-// const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 14));
+const future = new Date(2037, 10, 19, 15, 23);
 
-// console.log(days1);
+console.log(+future);
+
+//! ======================================
+//! CALCULAR DÍAS ENTRE FECHAS
+//! ======================================
+
+//? restar fechas devuelve milisegundos
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
+
+//? 1000 → ms a segundos
+//? 60 → segundos a minutos
+//? 60 → minutos a horas
+//? 24 → horas a días
+
+const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 14));
+
+console.log(days1);
+
+//? 0 días
+
+//! ======================================
+//! INTL.NUMBERFORMAT()
+//! ======================================
+
+//? formatea números según región/localización
 
 // const num = 3884764.23;
-// const _options = {
+
+// const options = {
 //   style: 'currency',
-//   unit: 'celsius',
-//   currency: 'EUR',
-//   // useGrouping: false,
+
+//! otras opciones:
+// style:'unit'
+// unit:'celsius'
+
+// currency: 'EUR',
+
+// useGrouping:false
 // };
-// console.log(new Intl.NumberFormat('en-US', _options).format(num));
-// console.log(new Intl.NumberFormat('de-DE', _options).format(num));
-// console.log(new Intl.NumberFormat('ar-SY', _options).format(num));
-// console.log(new Intl.NumberFormat(navigator.language, _options).format(num));
 
-const ingredients = ['olives', 'spinach'];
-const pizzaTimer = setTimeout((ing1, ing2) => {
-  console.log(`Here is your pizza ${ing1} and ${ing2}`, ...ingredients);
-}, 3000);
+// console.log(new Intl.NumberFormat('en-US', options).format(num));
 
-if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+//? €3,884,764.23
 
-setInterval(function () {
-  const now = new Date();
-  console.log(now);
-}, 1000);
+// console.log(new Intl.NumberFormat('de-DE', options).format(num));
+
+//? 3.884.764,23 €
+
+// console.log(new Intl.NumberFormat('ar-SY', options).format(num));
+
+// console.log(new Intl.NumberFormat(navigator.language, options).format(num));
+
+//? usa idioma del navegador
+
+//! ======================================
+//! SETTIMEOUT()
+//! ======================================
+
+//? ejecuta una función una vez
+//? después de cierto tiempo
+
+// const ingredients = ['olives', 'spinach'];
+
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2) => {
+//     console.log(`Here is your pizza ${ing1} and ${ing2}`, ...ingredients);
+//   },
+
+//   3000,
+
+//   ...ingredients,
+// );
+
+//? espera 3 segundos
+
+//! ======================================
+//! CLEARTIMEOUT()
+//! ======================================
+
+//? cancela timeout antes de ejecutarse
+
+// if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+//? la pizza nunca llega 😄
+
+//! ======================================
+//! SETINTERVAL()
+//! ======================================
+
+//? ejecuta una función repetidamente
+
+// setInterval(function () {
+//   const now = new Date();
+
+//   console.log(now);
+// }, 1000);
+
+//? cada segundo imprime la hora actual
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! setTimeout → una sola vez
+//! setInterval → repetidamente
