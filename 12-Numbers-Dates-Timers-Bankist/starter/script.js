@@ -1116,9 +1116,9 @@ btnSort.addEventListener('click', function (e) {
 //? "+" convierte Date a timestamp
 //? (milisegundos desde 1970)
 
-const future = new Date(2037, 10, 19, 15, 23);
+// const future = new Date(2037, 10, 19, 15, 23);
 
-console.log(+future);
+// console.log(+future);
 
 //! ======================================
 //! CALCULAR DÍAS ENTRE FECHAS
@@ -1126,17 +1126,17 @@ console.log(+future);
 
 //? restar fechas devuelve milisegundos
 
-const calcDaysPassed = (date1, date2) =>
-  Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
+// const calcDaysPassed = (date1, date2) =>
+// Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
 
 //? 1000 → ms a segundos
 //? 60 → segundos a minutos
 //? 60 → minutos a horas
 //? 24 → horas a días
 
-const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 14));
+// const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 14));
 
-console.log(days1);
+// console.log(days1);
 
 //? 0 días
 
