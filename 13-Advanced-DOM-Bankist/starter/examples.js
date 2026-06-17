@@ -200,3 +200,177 @@ document
     console.log('');
     message.remove();
   });
+
+//! ======================================
+//! MODIFICAR ESTILOS
+//! ======================================
+
+//? modificar estilos inline desde JavaScript
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+//! ======================================
+//! STYLE SOLO LEE ESTILOS INLINE
+//! ======================================
+
+//? si la propiedad viene del CSS
+//? style NO la mostrará
+
+console.log(message.style.height);
+
+//? ''
+
+console.log(message.style.backgroundColor);
+
+//? '#37383d'
+
+console.log(message.style.color);
+
+//? ''
+//? porque viene del CSS
+
+//! ======================================
+//! GETCOMPUTEDSTYLE()
+//! ======================================
+
+//? obtiene los estilos finales calculados
+
+console.log(getComputedStyle(message).height);
+
+console.log(getComputedStyle(message).color);
+
+//? funciona aunque el estilo venga del CSS
+
+//! ======================================
+//! MODIFICAR USANDO VALOR ACTUAL
+//! ======================================
+
+//? aumentar altura actual en 40px
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
+
+//? parseFloat elimina "px"
+//? luego volvemos a agregarlo
+
+//! ======================================
+//! CSS CUSTOM PROPERTIES
+//! ======================================
+
+//? modificar variables CSS
+
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+//? cambia la variable global del CSS
+
+//! ======================================
+//! ATRIBUTOS HTML
+//! ======================================
+
+const logo = document.querySelector('.nav__logo');
+
+console.log(logo.src);
+
+console.log(logo.alt);
+
+console.log(logo.id);
+
+console.log(logo.className);
+
+//! ======================================
+//! SETATTRIBUTE()
+//! ======================================
+
+//? crear o modificar atributos
+
+logo.setAttribute('company', 'Bankist');
+
+//? atributo personalizado
+
+//! ======================================
+//! GETATTRIBUTE()
+//! ======================================
+
+//? obtiene el valor real del HTML
+
+console.log(logo.getAttribute('src'));
+
+//! ======================================
+//! DIFERENCIA IMPORTANTE
+//! ======================================
+
+console.log(logo.src);
+
+//? URL absoluta completa
+
+console.log(logo.getAttribute('src'));
+
+//? valor original del HTML
+
+//! ======================================
+//! LINKS
+//! ======================================
+
+const link = document.querySelector('.nav__link--btn');
+
+console.log(link.href);
+
+//? URL absoluta
+
+console.log(link.getAttribute('href'));
+
+//? valor original definido en HTML
+
+//! ======================================
+//! DATA ATTRIBUTES
+//! ======================================
+
+// HTML:
+//? data-version-number="3.0"
+
+console.log(logo.dataset.versionNumber);
+
+//? acceso mediante dataset
+
+//! ======================================
+//! MANEJO DE CLASES
+//! ======================================
+
+//? agregar clase
+
+logo.classList.add('c');
+
+//? eliminar clase
+
+logo.classList.remove('c');
+
+//? agregar si no existe
+//? quitar si existe
+
+logo.classList.toggle('c');
+
+//? devuelve true o false
+
+logo.classList.contains('c');
+
+//! ======================================
+//! NO RECOMENDADO
+//! ======================================
+
+logo.className = 'Jonas';
+
+//? reemplaza TODAS las clases existentes
+//? puede romper estilos
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! style → estilos inline
+//! getComputedStyle → estilos finales
+
+//! getAttribute → valor HTML original
+//! property (.src, .href) → valor procesado
+
+//! classList → forma segura de manejar clases
