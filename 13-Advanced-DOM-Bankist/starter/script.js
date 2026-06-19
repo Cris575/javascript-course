@@ -30,75 +30,34 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//------- Code -------
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
-const header = document.querySelector('.header');
+btnScrollTo.addEventListener('click', function (event) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
 
-const allSections = document.querySelectorAll('.section');
+  console.log(event.target.getBoundingClientRect());
 
-const allButtons = document.getElementsByTagName('button');
+  console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
 
-const message = document.createElement('div');
+  console.log(
+    'Height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth,
+  );
 
-message.classList.add('cookie-message');
+  // Scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY,
+  // );
 
-message.innerHTML =
-  'We use cookies <button class="btn btn--close-cookie">Got it!</button>';
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
 
-header.after(message);
-
-const copy = message.cloneNode(true);
-
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
-
-// Styles
-
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
-
-//Solo funciona si los estilos estan establecsidos en el css
-console.log(message.style.height);
-
-console.log(message.style.backgroundColor);
-
-//Solo funciona si los estilos estan establecsidos en el css
-console.log(message.style.color);
-
-console.log(getComputedStyle(message).height);
-console.log(getComputedStyle(message).color);
-
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
-
-document.documentElement.style.setProperty('--color-primary', 'orangered');
-
-// Attributes
-
-const logo = document.querySelector('.nav__logo');
-console.log(logo.src);
-console.log(logo.alt);
-console.log(logo.id);
-console.log(logo.className);
-logo.setAttribute('comppany', 'Bankist');
-
-console.log(logo.getAttribute('src'));
-
-const link = document.querySelector('.nav__link--btn');
-console.log(link.href);
-console.log(link.getAttribute('href'));
-
-// data attibutes
-console.log(logo.dataset.versionNumber);
-
-// Classes
-logo.classList.add('c');
-logo.classList.remove('c');
-logo.classList.toggle('c');
-logo.classList.contains('c');
-
-// Don't use
-logo.className = 'Jonas';
+  section1.scrollIntoView({ behavior: 'smooth' });
+});

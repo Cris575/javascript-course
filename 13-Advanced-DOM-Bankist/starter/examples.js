@@ -374,3 +374,147 @@ logo.className = 'Jonas';
 //! property (.src, .href) → valor procesado
 
 //! classList → forma segura de manejar clases
+
+//! ======================================
+//! SCROLLING HASTA UNA SECCIÓN
+//! ======================================
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (event) {
+  const s1coords = section1.getBoundingClientRect();
+
+  console.log(s1coords);
+
+  //! ======================================
+  //! GETBOUNDINGCLIENTRECT()
+  //! ======================================
+
+  //? devuelve información sobre la posición
+  //? y tamaño de un elemento
+
+  //? top
+  //? left
+  //? right
+  //? bottom
+  //? width
+  //? height
+
+  //? todas las medidas son relativas
+  //? al viewport (área visible)
+
+  console.log(event.target.getBoundingClientRect());
+
+  //? posición del botón pulsado
+
+  //! ======================================
+  //! SCROLL ACTUAL
+  //! ======================================
+
+  //? distancia desplazada desde el inicio
+  //? de la página
+
+  console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
+
+  //? scrollX → horizontal
+  //? scrollY → vertical
+
+  //! ======================================
+  //! VIEWPORT
+  //! ======================================
+
+  //? tamaño visible de la ventana
+
+  console.log(
+    'Height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth,
+  );
+
+  //? altura visible
+  //? anchura visible
+
+  //! ======================================
+  //! SCROLL MANUAL (ANTIGUO)
+  //! ======================================
+
+  //? mover la ventana a coordenadas específicas
+
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY,
+  // );
+
+  //! ======================================
+  //! SCROLL SUAVE (ANTIGUO)
+  //! ======================================
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+
+  //! ======================================
+  //! SCROLL MODERNO
+  //! ======================================
+
+  //? desplaza automáticamente
+  //? hasta el elemento
+
+  section1.scrollIntoView({
+    behavior: 'smooth',
+  });
+});
+
+//! ======================================
+//! GETBOUNDINGCLIENTRECT()
+//! EJEMPLO
+//! ======================================
+
+//? si el elemento está 800px debajo
+//? del viewport
+
+// {
+//   top: 800,
+//   left: 0,
+//   width: 1000,
+//   height: 600
+// }
+
+//! ======================================
+//! DIFERENCIA IMPORTANTE
+//! ======================================
+
+//! getBoundingClientRect()
+//? posición respecto al viewport
+
+//! window.scrollY
+//? posición respecto al documento completo
+
+//! ======================================
+//! MÉTODO RECOMENDADO
+//! ======================================
+
+//? antes:
+//? scrollTo()
+
+//? ahora:
+section1.scrollIntoView({
+  behavior: 'smooth',
+});
+
+//? más limpio
+//? más legible
+//? menos cálculos
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! getBoundingClientRect()
+//? dónde está el elemento
+
+//! scrollIntoView()
+//? llevar la pantalla hasta él
