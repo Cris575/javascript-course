@@ -518,3 +518,112 @@ section1.scrollIntoView({
 
 //! scrollIntoView()
 //? llevar la pantalla hasta él
+
+//! ======================================
+//! EVENT LISTENERS
+//! ======================================
+
+//? seleccionar elemento
+
+const h1 = document.querySelector('h1');
+
+//! ======================================
+//! CALLBACK FUNCTION
+//! ======================================
+
+//? función que se ejecutará cuando ocurra el evento
+
+const alertH1 = function (event) {
+  alert('addEventListener: Great!');
+};
+
+//! ======================================
+//! ADDEVENTLISTENER()
+//! ======================================
+
+//? agregar un listener al elemento
+
+h1.addEventListener('mouseenter', alertH1);
+
+//? mouseenter se dispara cuando
+//? el cursor entra al elemento
+
+//! ======================================
+//! REMOVEEVENTLISTENER()
+//! ======================================
+
+//? elimina un listener previamente registrado
+
+setTimeout(() => {
+  h1.removeEventListener('mouseenter', alertH1);
+}, 3000);
+
+//? después de 3 segundos
+//? el evento deja de existir
+
+//! ======================================
+//! IMPORTANTE
+//! ======================================
+
+//? removeEventListener necesita
+//? EXACTAMENTE la misma referencia
+
+// ✔ funciona
+h1.addEventListener('mouseenter', alertH1);
+h1.removeEventListener('mouseenter', alertH1);
+
+// ❌ no funciona
+h1.removeEventListener('mouseenter', function () {
+  alert('Hello');
+});
+
+//! ======================================
+//! EVENT OBJECT
+//! ======================================
+
+//? el parámetro event contiene
+//? información sobre el evento
+
+const alertH1 = function (event) {
+  console.log(event);
+
+  alert('addEventListener: Great!');
+};
+
+//? event.target → elemento que disparó el evento
+//? event.type → tipo de evento
+//? event.clientX → posición X del mouse
+//? event.clientY → posición Y del mouse
+
+//! ======================================
+//! MOUSEENTER
+//! ======================================
+
+//? se ejecuta UNA VEZ cuando el mouse entra
+
+h1.addEventListener('mouseenter', alertH1);
+
+//? parecido a hover
+
+//! ======================================
+//! VERSIÓN ANTIGUA
+//! ======================================
+
+//? no recomendada
+
+h1.onmouseenter = function () {
+  alert('Hello');
+};
+
+//? solo permite UN handler
+//? addEventListener permite varios
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! addEventListener → agregar evento
+//! removeEventListener → quitar evento
+
+//? guardar la función en una variable
+//? permite eliminarla después

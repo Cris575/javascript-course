@@ -61,3 +61,21 @@ btnScrollTo.addEventListener('click', function (event) {
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = function (event) {
+  alert('addEventListener: Great1');
+};
+
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => {
+  h1.removeEventListener('mouseenter', alertH1);
+}, 3000);
+
+// old
+
+// h1.onmouseenter = function (event) {
+//   alert('addEventListener: Great1');
+// }
