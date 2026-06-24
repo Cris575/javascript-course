@@ -35,9 +35,9 @@ const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (event) {
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
+  // console.log(s1coords);
 
-  console.log(event.target.getBoundingClientRect());
+  // console.log(event.target.getBoundingClientRect());
 
   console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
 
@@ -48,10 +48,10 @@ btnScrollTo.addEventListener('click', function (event) {
   );
 
   // Scrolling
-  // window.scrollTo(
-  //   s1coords.left + window.scrollX,
-  //   s1coords.top + window.scrollY,
-  // );
+  window.scrollTo(
+    s1coords.left + window.scrollX,
+    s1coords.top + window.scrollY,
+  );
 
   // window.scrollTo({
   //   left: s1coords.left + window.scrollX,
@@ -59,23 +59,35 @@ btnScrollTo.addEventListener('click', function (event) {
   //   behavior: 'smooth',
   // });
 
-  section1.scrollIntoView({ behavior: 'smooth' });
+  // section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-const h1 = document.querySelector('h1');
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
 
-const alertH1 = function (event) {
-  alert('addEventListener: Great1');
-};
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
-h1.addEventListener('mouseenter', alertH1);
+document
+  .querySelector('.nav__link')
+  .addEventListener('click', function (event) {
+    this.style.backgroundColor = randomColor();
+    console.log('LINK: ', event.target, event.currentTarget);
 
-setTimeout(() => {
-  h1.removeEventListener('mouseenter', alertH1);
-}, 3000);
+    //Stop propagation
+    // event.stopPropagation();
+  });
 
-// old
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (event) {
+    this.style.backgroundColor = randomColor();
+    console.log('CONTAINER: ', event.target, event.currentTarget);
+  });
 
-// h1.onmouseenter = function (event) {
-//   alert('addEventListener: Great1');
-// }
+document.querySelector('.nav').addEventListener('click', function (event) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV: ', event.target, event.currentTarget);
+});
+
+// console.log(randomColor());
