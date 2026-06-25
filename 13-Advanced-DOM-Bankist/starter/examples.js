@@ -773,3 +773,178 @@ event.stopPropagation();
 
 //! captura ↓
 //! bubbling ↑
+
+//! ======================================
+//! EVENT DELEGATION
+//! ======================================
+
+//? técnica para manejar eventos
+//? desde un elemento padre
+
+//? en lugar de agregar un listener
+//? a cada elemento hijo
+
+//! ======================================
+//! FORMA TRADICIONAL
+//! ======================================
+
+//? un listener por cada link
+
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (event) {
+//
+//     event.preventDefault();
+//
+//     const id = this.getAttribute('href');
+//
+//     document
+//       .querySelector(id)
+//       .scrollIntoView({ behavior: 'smooth' });
+//
+//   });
+// });
+
+//? funciona
+//? pero crea muchos listeners
+
+//! ======================================
+//! EVENT DELEGATION GLOBAL
+//! ======================================
+
+//? escuchar clicks en todo el documento
+
+// document.addEventListener('click', function (event) {
+//
+//   const e = event.target;
+//
+//   if (e.classList.contains('nav__link')) {
+//
+//     event.preventDefault();
+//
+//     const id = e.getAttribute('href');
+//
+//     document
+//       .querySelector(id)
+//       .scrollIntoView({ behavior: 'smooth' });
+//   }
+// });
+
+//? funciona
+//? pero escucha TODOS los clicks de la página
+
+//! ======================================
+//! EVENT DELEGATION CORRECTA
+//! ======================================
+
+//? escuchar en el padre común
+
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (event) {
+    const e = event.target;
+
+    event.preventDefault();
+
+    if (e.classList.contains('nav__link')) {
+      const id = e.getAttribute('href');
+
+      document.querySelector(id).scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  });
+
+//! ======================================
+//! CÓMO FUNCIONA
+//! ======================================
+
+//? 1. click en un link
+
+//? 2. el evento ocurre en el link
+
+//? 3. el evento burbujea al padre
+
+//? 4. el padre captura el evento
+
+//? 5. event.target indica
+//?    qué hijo fue pulsado
+
+//! ======================================
+//! LOS 3 PASOS DE EVENT DELEGATION
+//! ======================================
+
+//! 1. agregar listener al padre
+
+document.querySelector('.nav__links');
+
+//! 2. determinar qué elemento originó el evento
+
+event.target;
+
+//! 3. aplicar lógica solo si coincide
+
+if (e.classList.contains('nav__link')) {
+  // ...
+}
+
+//! ======================================
+//! EVENT.TARGET
+//! ======================================
+
+//? elemento donde ocurrió el click
+
+const e = event.target;
+
+//? si haces click en:
+//? <a class="nav__link">
+
+//? e será ese enlace
+
+//! ======================================
+//! CLASSLIST.CONTAINS()
+//! ======================================
+
+//? verifica si el elemento tiene la clase
+
+if (e.classList.contains('nav__link')) {
+  // ejecutar código
+}
+
+//! ======================================
+//! PREVENTDEFAULT()
+//! ======================================
+
+//? evita comportamiento por defecto
+
+event.preventDefault();
+
+//? evita que el navegador
+//? navegue automáticamente al href
+
+//! ======================================
+//! SCROLL SUAVE
+//! ======================================
+
+document.querySelector(id).scrollIntoView({
+  behavior: 'smooth',
+});
+
+//! ======================================
+//! VENTAJAS
+//! ======================================
+
+//? menos listeners
+
+//? mejor rendimiento
+
+//? funciona con elementos
+//? agregados dinámicamente
+
+//? código más limpio
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! escuchar en el padre
+//! actuar sobre el hijo

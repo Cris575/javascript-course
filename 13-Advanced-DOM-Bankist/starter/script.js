@@ -7,7 +7,10 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
+// Modal window
 const openModal = function () {
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
@@ -30,34 +33,15 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+// Button Scrollin
 
-btnScrollTo.addEventListener('click', function (event) {
-  const s1coords = section1.getBoundingClientRect();
-  // console.log(s1coords);
-
-  // console.log(event.target.getBoundingClientRect());
-
-  console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
-
-  console.log(
-    'Height/width viewport',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth,
-  );
-
-  // Scrolling
-  window.scrollTo(
-    s1coords.left + window.scrollX,
-    s1coords.top + window.scrollY,
-  );
-
-  // window.scrollTo({
-  //   left: s1coords.left + window.scrollX,
-  //   top: s1coords.top + window.scrollY,
-  //   behavior: 'smooth',
-  // });
-
-  // section1.scrollIntoView({ behavior: 'smooth' });
-});
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (event) {
+    const e = event.target;
+    event.preventDefault();
+    if (e.classList.contains('nav__link')) {
+      const id = e.getAttribute('href');
+      document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
