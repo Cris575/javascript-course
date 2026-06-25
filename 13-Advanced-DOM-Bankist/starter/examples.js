@@ -627,3 +627,149 @@ h1.onmouseenter = function () {
 
 //? guardar la función en una variable
 //? permite eliminarla después
+
+//! ======================================
+//! FUNCIONES AUXILIARES
+//! ======================================
+
+//? genera un número aleatorio entre min y max
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+//? genera un color RGB aleatorio
+
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},
+       ${randomInt(0, 255)},
+       ${randomInt(0, 255)})`;
+
+//! ======================================
+//! PROPAGACIÓN DE EVENTOS
+//! ======================================
+
+//? cuando ocurre un evento:
+//? 1. Capturing phase ↓
+//? 2. Target phase 🎯
+//? 3. Bubbling phase ↑
+
+//! ======================================
+//! LISTENER DEL LINK
+//! ======================================
+
+//? por defecto addEventListener escucha
+//? en la fase de bubbling
+
+document
+  .querySelector('.nav__link')
+  .addEventListener('click', function (event) {
+    this.style.backgroundColor = randomColor();
+
+    console.log('LINK:', event.target, event.currentTarget);
+
+    // event.stopPropagation();
+  });
+
+//! ======================================
+//! LISTENER DEL CONTENEDOR
+//! ======================================
+
+//? también escucha en bubbling
+
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (event) {
+    this.style.backgroundColor = randomColor();
+
+    console.log('CONTAINER:', event.target, event.currentTarget);
+  });
+
+//! ======================================
+//! LISTENER DEL NAV
+//! ======================================
+
+//? tercer parámetro = true
+//? escucha durante la fase de captura
+
+document.querySelector('.nav').addEventListener(
+  'click',
+  function (event) {
+    this.style.backgroundColor = randomColor();
+
+    console.log('NAV:', event.target, event.currentTarget);
+  },
+  true,
+);
+
+//! ======================================
+//! EVENT.TARGET
+//! ======================================
+
+//? elemento donde ocurrió el click
+
+console.log(event.target);
+
+//! ======================================
+//! EVENT.CURRENTTARGET
+//! ======================================
+
+//? elemento que tiene el listener
+
+console.log(event.currentTarget);
+
+//? normalmente es igual a this
+
+console.log(this === event.currentTarget);
+
+//! ======================================
+//! EJEMPLO DE PROPAGACIÓN
+//! ======================================
+
+//? click en .nav__link
+
+// Capturing ↓
+// nav
+
+// Target 🎯
+// nav__link
+
+// Bubbling ↑
+// nav__links
+// nav
+
+//! ======================================
+//! ORDEN DE EJECUCIÓN
+//! ======================================
+
+//? debido a que nav usa captura:
+
+// 1. NAV
+// 2. LINK
+// 3. CONTAINER
+
+//? si nav NO usara captura:
+
+// 1. LINK
+// 2. CONTAINER
+// 3. NAV
+
+//! ======================================
+//! STOPPROPAGATION()
+//! ======================================
+
+//? detiene la propagación
+
+event.stopPropagation();
+
+//? evita que el evento siga
+//? hacia los elementos padre
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! target → dónde ocurrió el evento
+//! currentTarget → quién lo está manejando
+
+//! captura ↓
+//! bubbling ↑
