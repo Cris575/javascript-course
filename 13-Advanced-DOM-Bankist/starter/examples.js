@@ -948,3 +948,139 @@ document.querySelector(id).scrollIntoView({
 
 //! escuchar en el padre
 //! actuar sobre el hijo
+
+//! ======================================
+//! DOM TRAVERSING
+//! ======================================
+
+//? recorrer el DOM desde un elemento
+//? hacia hijos, padres o hermanos
+
+const h1 = document.querySelector('h1');
+
+//! ======================================
+//! BAJAR EN EL DOM (CHILDREN)
+//! ======================================
+
+//? buscar elementos descendientes
+
+console.log(h1.querySelectorAll('.highlight'));
+
+//? todos los elementos con la clase
+//? .highlight dentro del h1
+
+console.log(h1.childNodes);
+
+//? TODOS los nodos hijos
+//? (elementos, texto, comentarios, etc.)
+
+console.log(h1.children);
+
+//? solo elementos HTML hijos
+
+h1.firstElementChild.style.color = 'white';
+
+//? primer elemento hijo
+
+h1.lastElementChild.style.color = 'orangered';
+
+//? último elemento hijo
+
+//! ======================================
+//! SUBIR EN EL DOM (PARENTS)
+//! ======================================
+
+console.log(h1.parentNode);
+
+//? nodo padre
+
+console.log(h1.parentElement);
+
+//? elemento padre
+
+//! ======================================
+//! CLOSEST()
+//! ======================================
+
+//? busca el ancestro más cercano
+//? que coincida con el selector
+
+h1.closest('.header').style.background = 'red';
+
+//? encuentra el .header más cercano
+
+h1.closest('h1').style.background = 'blue';
+
+//? devuelve el propio h1
+//? porque también coincide
+
+//! ======================================
+//! HERMANOS (SIBLINGS)
+//! ======================================
+
+//? elementos hermanos
+
+console.log(h1.previousElementSibling);
+
+//? hermano anterior
+
+console.log(h1.nextElementSibling);
+
+//? hermano siguiente
+
+//! ======================================
+//! NODOS HERMANOS
+//! ======================================
+
+//? incluye nodos de texto
+
+console.log(h1.previousSibling);
+
+console.log(h1.nextSibling);
+
+//! ======================================
+//! RECORRER TODOS LOS HERMANOS
+//! ======================================
+
+console.log(h1.parentElement.children);
+
+//? colección de todos los hijos
+//? del padre del h1
+
+[...h1.parentElement.children].forEach(function (el) {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
+
+//? reduce el tamaño de todos
+//? excepto el h1
+
+//! ======================================
+//! CHILDNODES VS CHILDREN
+//! ======================================
+
+//! childNodes
+//? devuelve TODOS los nodos
+//? texto, comentarios y elementos
+
+//! children
+//? devuelve solo elementos HTML
+
+//! ======================================
+//! PARENTNODE VS PARENTELEMENT
+//! ======================================
+
+//! parentNode
+//? devuelve cualquier nodo padre
+
+//! parentElement
+//? devuelve únicamente un elemento HTML
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! querySelectorAll() → bajar
+//! parentElement → subir
+//! closest() → buscar ancestro
+//! previousElementSibling() → hermano anterior
+//! nextElementSibling() → hermano siguiente
