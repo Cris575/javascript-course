@@ -26,6 +26,21 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
+// Menu fade animation
+const handlerHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const sibings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    sibings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+
+    logo.style.opacity = this;
+  }
+};
+
 for (let i = 0; i < btnsOpenModal.length; i++)
   btnsOpenModal[i].addEventListener('click', openModal);
 
@@ -72,13 +87,10 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-// Menu fade animation
+// Paassing "argumnet" into handler
+// El objeto del evento (e) se pasa automáticamente como el primer argumento que recibe la función.
+nav.addEventListener('mouseover', handlerHover.bind(0.5));
 
-nav.addEventListener('mouseover', function (e) {
-  if (e.target.classList.contains('nav__link')) {
-    const cliked = e.target;
-    const sibings = link.closest('.nav');
-  }
-});
+nav.addEventListener('mouseout', handlerHover.bind(1));
 
-nav.addEventListener('mouseout', function (e) {});
+// https://developer.mozilla.org/es/docs/Web/API/EventTarget/addEventListener#usecapture
