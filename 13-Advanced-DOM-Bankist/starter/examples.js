@@ -1363,3 +1363,133 @@ rootMargin: `-${navHeight}px`;
 
 //! observar el header
 //! para decidir cuándo fijar el nav
+
+//! ======================================
+//! REVEAL SECTIONS
+//! ======================================
+
+//? mostrar las secciones
+//? conforme aparecen en pantalla
+
+const allSections = document.querySelectorAll('.section');
+
+//! ======================================
+//! CALLBACK DEL OBSERVER
+//! ======================================
+
+//? se ejecuta cuando una sección
+//? cambia su visibilidad
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+
+  //! si aún no es visible
+  //! salir inmediatamente
+
+  if (!entry.isIntersecting) return;
+
+  //! hacer visible la sección
+
+  entry.target.classList.remove('section--hidden');
+
+  //! dejar de observarla
+  //! para mejorar rendimiento
+
+  observer.unobserve(entry.target);
+};
+
+//! ======================================
+//! CREAR OBSERVER
+//! ======================================
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  //! viewport
+
+  root: null,
+
+  //! ejecutar cuando el 15%
+  //! sea visible
+
+  threshold: 0.15,
+});
+
+//! ======================================
+//! OBSERVAR TODAS LAS SECCIONES
+//! ======================================
+
+allSections.forEach(function (section) {
+  //! comenzar a observar
+
+  sectionObserver.observe(section);
+
+  //! ocultar inicialmente
+
+  section.classList.add('section--hidden');
+});
+
+//! ======================================
+//! ENTRY.TARGET
+//! ======================================
+
+//? elemento observado
+//? que activó el callback
+
+entry.target;
+
+//! ======================================
+//! ENTRY.ISINTERSECTING
+//! ======================================
+
+//? true
+//? la sección ya es visible
+
+//? false
+//? aún no aparece
+
+//! ======================================
+//! UNOBSERVE()
+//! ======================================
+
+//? deja de observar un elemento
+
+observer.unobserve(entry.target);
+
+//? el callback ya no volverá
+//? a ejecutarse para esa sección
+
+//! ======================================
+//! FLUJO
+//! ======================================
+
+//? 1. ocultar todas las secciones
+
+//? 2. observar cada una
+
+//? 3. hacer scroll
+
+//? 4. una sección entra al viewport
+
+//? 5. quitar section--hidden
+
+//? 6. dejar de observar
+
+//! ======================================
+//! CSS (EJEMPLO)
+//! ======================================
+
+// .section--hidden {
+//   opacity: 0;
+//   transform: translateY(8rem);
+// }
+
+//? al quitar la clase,
+//? la sección aparece con transición
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! observar
+//! → detectar visibilidad
+//! → mostrar
+//! → dejar de observar
