@@ -1084,3 +1084,282 @@ console.log(h1.parentElement.children);
 //! closest() → buscar ancestro
 //! previousElementSibling() → hermano anterior
 //! nextElementSibling() → hermano siguiente
+
+//! ======================================
+//! STICKY NAVIGATION (FORMA TRADICIONAL)
+//! ======================================
+
+//? obtener la posición inicial de la sección
+
+const initialCoords = section1.getBoundingClientRect();
+
+//! ======================================
+//! SCROLL
+//! ======================================
+
+//? escuchar el desplazamiento
+//? de la ventana
+
+window.addEventListener('scroll', function () {
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
+
+//? cuando el scroll supera
+//? la posición inicial de section1,
+//? el menú se vuelve fijo
+
+//! ======================================
+//! PROBLEMA DE ESTA TÉCNICA
+//! ======================================
+
+//? el evento scroll se ejecuta
+//? MUCHAS veces por segundo
+
+//? puede afectar el rendimiento
+
+//? por eso existe:
+//? Intersection Observer API
+
+//! ======================================
+//! INTERSECTION OBSERVER API
+//! ======================================
+
+//? observa cuándo un elemento
+//? entra o sale del viewport
+//? sin usar el evento scroll
+
+//! ======================================
+//! CALLBACK DEL OBSERVER
+//! ======================================
+
+//? se ejecuta cada vez que cambia
+//? el estado de intersección
+
+const obsCallback = function (entries, observer) {
+  entries.forEach(entry => console.log(entry));
+};
+
+//? entries → elementos observados
+//? observer → el propio observador
+
+//! ======================================
+//! OPCIONES DEL OBSERVER
+//! ======================================
+
+const obsOptions = {
+  //! elemento de referencia
+
+  root: null,
+
+  //? null = viewport
+
+  //! porcentaje visible necesario
+  //! para disparar el callback
+
+  threshold: [0, 0.2],
+
+  //? 0 → cuando entra o sale
+  //? 0.2 → cuando el 20% es visible
+};
+
+//! ======================================
+//! CREAR OBSERVER
+//! ======================================
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+
+//! ======================================
+//! OBSERVAR ELEMENTO
+//! ======================================
+
+//? comenzar a observar section1
+
+observer.observe(section1);
+
+//! ======================================
+//! ENTRY
+//! ======================================
+
+//? cada entry contiene información útil
+
+// entry.target
+//? elemento observado
+
+// entry.isIntersecting
+//? true si es visible
+
+// entry.intersectionRatio
+//? porcentaje visible
+
+// entry.boundingClientRect
+//? posición del elemento
+
+//! ======================================
+//! ROOT
+//! ======================================
+
+//? root: null
+
+//? usa el viewport
+
+//? también puede ser:
+
+// root: document.querySelector('.container')
+
+//? observa respecto a otro contenedor
+
+//! ======================================
+//! THRESHOLD
+//! ======================================
+
+//? threshold: 0
+
+// callback cuando aparece
+// o desaparece
+
+//? threshold: 1
+
+// callback cuando el elemento
+// está completamente visible
+
+//? threshold: [0, 0.5, 1]
+
+// callback en cada uno
+// de esos porcentajes
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! scroll → se ejecuta constantemente
+
+//! IntersectionObserver
+//? solo se ejecuta cuando cambia
+//? la visibilidad del elemento
+
+//! ======================================
+//! STICKY NAVIGATION
+//! CON INTERSECTION OBSERVER
+//! ======================================
+
+//? elemento que será observado
+
+const header = document.querySelector('.header');
+
+//! ======================================
+//! ALTURA DEL NAV
+//! ======================================
+
+//? obtener la altura del menú
+
+const navHeight = nav.getBoundingClientRect().height;
+
+console.log(navHeight);
+
+//! ======================================
+//! CALLBACK DEL OBSERVER
+//! ======================================
+
+//? se ejecuta cuando cambia
+//? la visibilidad del header
+
+const stickyNav = function (entries) {
+  //! solo estamos observando
+  //! un elemento
+
+  const [entry] = entries;
+
+  //! cuando el header deja de verse
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+//! ======================================
+//! CREAR OBSERVER
+//! ======================================
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  //! viewport
+
+  root: null,
+
+  //! ejecutar cuando cruza el 0%
+
+  threshold: 0,
+
+  //! adelantar el punto de activación
+
+  rootMargin: `-${navHeight}px`,
+});
+
+//! ======================================
+//! COMENZAR A OBSERVAR
+//! ======================================
+
+//? observar el header
+
+headerObserver.observe(header);
+
+//! ======================================
+//! ENTRY.ISINTERSECTING
+//! ======================================
+
+//? true
+//? el elemento está visible
+
+//? false
+//? el elemento salió del viewport
+
+//! ======================================
+//! ROOTMARGIN
+//! ======================================
+
+//? modifica el tamaño del viewport
+//? usado por el observer
+
+rootMargin: `-${navHeight}px`;
+
+//? reduce el viewport hacia arriba
+//? en la altura del menú
+
+//? así el sticky se activa
+//? justo antes de que el nav
+//? llegue al borde superior
+
+//! ======================================
+//! THRESHOLD
+//! ======================================
+
+//? threshold: 0
+
+// callback cuando el elemento
+// entra o sale del viewport
+
+//! ======================================
+//! FLUJO
+//! ======================================
+
+//? 1. observar el header
+
+//? 2. hacer scroll
+
+//? 3. el header sale del viewport
+
+//? 4. isIntersecting = false
+
+//? 5. agregar clase sticky
+
+//? 6. volver arriba
+
+//? 7. isIntersecting = true
+
+//? 8. quitar clase sticky
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! observar el header
+//! para decidir cuándo fijar el nav

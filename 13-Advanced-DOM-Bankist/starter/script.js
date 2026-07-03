@@ -96,40 +96,21 @@ nav.addEventListener('mouseout', handlerHover.bind(1));
 // https://developer.mozilla.org/es/docs/Web/API/EventTarget/addEventListener#usecapture
 
 // Stiky navigation
-// const initialCoords = section1.getBoundingClientRect();
 
-// window.addEventListener('scroll', function () {
-//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
-//   else nav.classList.remove('sticky');
-// });
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
 
-// Intersection Observer API
-// Eata funcion se llamaras cada vez que el elemento sea observado por el elemto root que sea definido
-const obsCallback = function (entries, observer) {
-  // entries.forEach(entry => console.log(entry));
+const stickyNav = function (entries) {
+  const [entriy] = entries;
+  if (!entriy.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
 };
 
-const obsOptions = {
+const headerOberser = new IntersectionObserver(stickyNav, {
   root: null,
-  threshold: /*0.1*/ [0, 0.2], // Es el limite de observasion // 0% Que el evento se activara cada que se mueva la vista
-};
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
 
-const observer = new IntersectionObserver(obsCallback, obsOptions);
-
-observer.observe(section1);
-
-const obsCallback2 = function (entries, observer) {
-  entries.forEach(entry => console.log(entry));
-
-  // if (entry.isIntersecting) nav.classList.add('sticky');
-  // else nav.classList.remove('sticky');
-};
-
-const obsOptions2 = {
-  root: null,
-  threshold: /*0.1*/ 1, // Es el limite de observasion // 0% Que el evento se activara cada que se mueva la vista
-};
-
-const observer2 = new IntersectionObserver(obsCallback2, obsOptions2);
-
-observer2.observe(nav);
+headerOberser.observe(header);
