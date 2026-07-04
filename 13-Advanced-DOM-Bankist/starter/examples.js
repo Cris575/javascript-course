@@ -1493,3 +1493,142 @@ observer.unobserve(entry.target);
 //! → detectar visibilidad
 //! → mostrar
 //! → dejar de observar
+
+//! ======================================
+//! REVEAL SECTIONS
+//! ======================================
+
+//? mostrar las secciones
+//? cuando entren al viewport
+
+const allSections = document.querySelectorAll('.section');
+
+//! ======================================
+//! CALLBACK DEL OBSERVER
+//! ======================================
+
+//? se ejecuta cada vez que una o más
+//? secciones cambian su visibilidad
+
+const revealSection = function (entries, observer) {
+  console.log(entries);
+
+  //! entries es un arreglo
+  //! de objetos IntersectionObserverEntry
+
+  entries.forEach(entry => {
+    //! ignorar las secciones
+    //! que aún no son visibles
+
+    if (!entry.isIntersecting) return;
+
+    //! mostrar la sección
+
+    entry.target.classList.remove('section--hidden');
+
+    //! dejar de observarla
+    //! ya no es necesario
+
+    observer.unobserve(entry.target);
+  });
+};
+
+//! ======================================
+//! CREAR OBSERVER
+//! ======================================
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+
+  //! ejecutar cuando el 15%
+  //! de la sección sea visible
+
+  threshold: 0.15,
+});
+
+//! ======================================
+//! OBSERVAR TODAS LAS SECCIONES
+//! ======================================
+
+allSections.forEach(function (section) {
+  //! comenzar a observar
+
+  sectionObserver.observe(section);
+
+  //! ocultar inicialmente
+
+  section.classList.add('section--hidden');
+});
+
+//! ======================================
+//! ¿QUÉ ES ENTRIES?
+//! ======================================
+
+//? entries es un arreglo porque
+//? un mismo observer puede estar
+//? observando varios elementos
+
+// [
+//   IntersectionObserverEntry,
+//   IntersectionObserverEntry,
+//   ...
+// ]
+
+//! ======================================
+//! CADA ENTRY CONTIENE
+//! ======================================
+
+// entry.target
+//? elemento observado
+
+// entry.isIntersecting
+//? indica si es visible
+
+// entry.intersectionRatio
+//? porcentaje visible
+
+// entry.boundingClientRect
+//? posición del elemento
+
+// entry.time
+//? momento en que ocurrió el cambio
+
+//! ======================================
+//! ¿POR QUÉ FOREACH?
+//! ======================================
+
+//? el callback puede recibir
+//? varias entradas al mismo tiempo
+
+entries.forEach(entry => {
+  // procesar cada sección
+});
+
+//! ======================================
+//! DIFERENCIA CON LA VERSIÓN ANTERIOR
+//! ======================================
+
+//? antes
+
+const [entry] = entries;
+
+//? solo se procesaba
+//? la primera entrada
+
+//? ahora
+
+entries.forEach(entry => {
+  // procesa TODAS las entradas
+});
+
+//? más genérico y reutilizable
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! entries
+//! → lista de cambios detectados
+
+//! entry
+//! → información de un elemento observado
