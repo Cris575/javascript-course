@@ -1632,3 +1632,163 @@ entries.forEach(entry => {
 
 //! entry
 //! → información de un elemento observado
+
+//! ======================================
+//! LAZY LOADING DE IMÁGENES
+//! ======================================
+
+//? cargar imágenes únicamente
+//? cuando estén cerca del viewport
+
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+//? selecciona solo las imágenes
+//? que tienen el atributo data-src
+
+//! ======================================
+//! CALLBACK DEL OBSERVER
+//! ======================================
+
+//? se ejecuta cuando una imagen
+//? cambia su visibilidad
+
+const loadImg = function (entries, observer) {
+  entries.forEach(entry => {
+    //! si la imagen aún no es visible
+    //! no hacer nada
+
+    if (!entry.isIntersecting) return;
+
+    //! ======================================
+    //! REEMPLAZAR LA IMAGEN
+    //! ======================================
+
+    //? cambiar la imagen de baja calidad
+    //? por la imagen original
+
+    entry.target.src = entry.target.dataset.src;
+
+    //! ======================================
+    //! ELIMINAR EFECTO BORROSO
+    //! ======================================
+
+    //? quitar la clase de desenfoque
+
+    entry.target.classList.remove('lazy-img');
+
+    //! ======================================
+    //! DEJAR DE OBSERVAR
+    //! ======================================
+
+    observer.unobserve(entry.target);
+  });
+};
+
+//! ======================================
+//! CREAR OBSERVER
+//! ======================================
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  //! viewport
+
+  root: null,
+
+  //! apenas entra al viewport
+
+  threshold: 0,
+
+  //! comenzar a cargar
+  //! 150px antes de que aparezca
+
+  rootMargin: '150px',
+});
+
+//! ======================================
+//! OBSERVAR TODAS LAS IMÁGENES
+//! ======================================
+
+imgTargets.forEach(img => imgObserver.observe(img));
+
+//! ======================================
+//! DATASET
+//! ======================================
+
+// HTML:
+//
+// <img
+//   src="img-low.jpg"
+//   data-src="img.jpg"
+// >
+
+//? data-src se accede mediante:
+
+entry.target.dataset.src;
+
+//! ======================================
+//! ¿POR QUÉ USAR DATA-SRC?
+//! ======================================
+
+//? src
+//? imagen pequeña (rápida)
+
+//? data-src
+//? imagen original (alta calidad)
+
+//? solo se carga cuando es necesaria
+
+//! ======================================
+//! ROOTMARGIN
+//! ======================================
+
+//? amplía o reduce el área
+//? donde se activa el observer
+
+rootMargin: '150px';
+
+//? empieza a cargar la imagen
+//? antes de que sea visible
+
+//? mejora la experiencia
+//? porque la imagen ya estará lista
+//? cuando el usuario llegue a ella
+
+//! ======================================
+//! UNOBSERVE()
+//! ======================================
+
+//? la imagen solo necesita
+//? cargarse una vez
+
+observer.unobserve(entry.target);
+
+//! ======================================
+//! FLUJO
+//! ======================================
+
+//? 1. cargar imagen pequeña
+
+//? 2. observar la imagen
+
+//? 3. el usuario hace scroll
+
+//? 4. la imagen entra al área
+//?    definida por rootMargin
+
+//? 5. reemplazar src
+
+//? 6. quitar efecto borroso
+
+//? 7. dejar de observar
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! src
+//! → imagen inicial
+
+//! data-src
+//! → imagen real
+
+//! IntersectionObserver
+//! → decide cuándo cargarla
