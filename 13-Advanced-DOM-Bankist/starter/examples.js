@@ -1792,3 +1792,537 @@ observer.unobserve(entry.target);
 
 //! IntersectionObserver
 //! → decide cuándo cargarla
+
+//! ======================================
+//! SLIDER (CARRUSEL)
+//! ======================================
+
+//? seleccionar elementos del slider
+
+const slides = document.querySelectorAll('.slide');
+
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+const dotContainer = document.querySelector('.dots');
+
+//! ======================================
+//! VARIABLES DEL SLIDER
+//! ======================================
+
+//? diapositiva actual
+
+let curSlide = 0;
+
+//? número total de diapositivas
+
+const maxSlide = slides.length;
+
+const slider = document.querySelector('.slider');
+
+// slider.style.transform = 'scale(0.4)';
+// slider.style.overflow = 'visible';
+
+//! ======================================
+//! CREAR INDICADORES (DOTS)
+//! ======================================
+
+//? crear un punto por cada diapositiva
+
+const createDots = function () {
+  slides.forEach(function (_, i) {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot"
+        data-slide="${i}">
+      </button>`,
+    );
+  });
+};
+
+//! ======================================
+//! ACTIVAR DOT
+//! ======================================
+
+//? resaltar el punto correspondiente
+//? a la diapositiva actual
+
+const activateDot = function (slide) {
+  //! quitar el estado activo
+  //! de todos los puntos
+
+  document
+    .querySelectorAll('.dots__dot')
+    .forEach(dot => dot.classList.remove('dots__dot--active'));
+
+  //! activar el punto actual
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
+
+//! ======================================
+//! CREAR DOTS
+//! ======================================
+
+createDots();
+
+//! ======================================
+//! MOVER A UNA DIAPOSITIVA
+//! ======================================
+
+//? posicionar todas las diapositivas
+
+const goToSlide = function (slide) {
+  slides.forEach(function (s, i) {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+
+  activateDot(slide);
+};
+
+//? estado inicial
+
+goToSlide(0);
+
+//! ======================================
+//! ¿CÓMO FUNCIONA translateX?
+//! ======================================
+
+//? slide = 0
+
+// slide 0 → 0%
+// slide 1 → 100%
+// slide 2 → 200%
+
+//? slide = 1
+
+// slide 0 → -100%
+// slide 1 → 0%
+// slide 2 → 100%
+
+//? siempre la diapositiva actual
+//? queda en translateX(0%)
+
+//! ======================================
+//! SIGUIENTE DIAPOSITIVA
+//! ======================================
+
+const nextSlide = function () {
+  //! si estamos en la última
+  //! volver al inicio
+
+  if (curSlide === maxSlide - 1) curSlide = 0;
+  else curSlide++;
+
+  goToSlide(curSlide);
+};
+
+//! ======================================
+//! DIAPOSITIVA ANTERIOR
+//! ======================================
+
+const prevSlide = function () {
+  //! si estamos en la primera
+  //! ir a la última
+
+  if (curSlide === 0) curSlide = maxSlide - 1;
+  else curSlide--;
+
+  goToSlide(curSlide);
+};
+
+//! ======================================
+//! BOTONES DEL SLIDER
+//! ======================================
+
+//? siguiente
+
+btnRight.addEventListener('click', nextSlide);
+
+//? anterior
+
+btnLeft.addEventListener('click', prevSlide);
+
+//! ======================================
+//! NAVEGACIÓN CON TECLADO
+//! ======================================
+
+//? ArrowRight → siguiente
+
+//? ArrowLeft → anterior
+
+document.addEventListener('keydown', function (e) {
+  e.key === 'ArrowRight' && nextSlide();
+
+  e.key === 'ArrowLeft' && prevSlide();
+});
+
+//! ======================================
+//! EVENT DELEGATION EN LOS DOTS
+//! ======================================
+
+//? escuchar todos los botones
+//? desde su contenedor
+
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    //! obtener el número
+    //! del slide
+
+    curSlide = Number(e.target.dataset.slide);
+
+    goToSlide(curSlide);
+  }
+});
+
+//! ======================================
+//! DATASET
+//! ======================================
+
+// HTML:
+//
+// <button
+//   data-slide="2">
+// </button>
+
+//? acceder al atributo
+
+e.target.dataset.slide;
+
+//! ======================================
+//! FLUJO DEL SLIDER
+//! ======================================
+
+//? 1. crear dots
+
+//? 2. mostrar slide inicial
+
+//? 3. usuario pulsa botón
+
+//? 4. actualizar curSlide
+
+//? 5. mover diapositivas
+
+//? 6. actualizar dot activo
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! curSlide
+//! → controla el estado
+
+//! translateX()
+//! → mueve las diapositivas
+
+//! activateDot()
+//! → sincroniza los indicadores
+
+//! ======================================
+//! CICLO DE VIDA DE UNA PÁGINA
+//! ======================================
+
+//? existen eventos que indican
+//? en qué etapa se encuentra
+//? la carga del documento
+
+//! ======================================
+//! DOMContentLoaded
+//! ======================================
+
+//? se dispara cuando el HTML
+//? ha sido completamente cargado
+//? y convertido en el DOM
+
+//? NO espera a que terminen de cargar
+//? imágenes, videos o estilos
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log(e);
+});
+
+//! ======================================
+//! LOAD
+//! ======================================
+
+//? se dispara cuando TODOS los recursos
+//? de la página han terminado de cargar
+
+//? incluye:
+//? ✔ HTML
+//? ✔ CSS
+//? ✔ JavaScript
+//? ✔ imágenes
+//? ✔ fuentes
+//? ✔ videos
+//? ✔ iframes
+
+window.addEventListener('load', function (e) {
+  console.log(e);
+});
+
+//! ======================================
+//! BEFOREUNLOAD
+//! ======================================
+
+//? se ejecuta justo antes
+//? de abandonar la página
+
+//? útil para advertir al usuario
+//? sobre cambios sin guardar
+
+// window.addEventListener(
+//   'beforeunload',
+//   function (e) {
+
+//     e.preventDefault();
+
+//     console.log(e);
+
+//     //! algunos navegadores
+//     //! requieren asignar un valor
+//     //! para mostrar el diálogo
+
+//     e.returnValue = '';
+
+//   }
+// );
+
+//! ======================================
+//! ORDEN DE EJECUCIÓN
+//! ======================================
+
+// 1. Se descarga el HTML
+// 2. Se crea el DOM
+// 3. DOMContentLoaded
+// 4. Se cargan imágenes,
+//    fuentes y demás recursos
+// 5. load
+// 6. El usuario usa la página
+// 7. beforeunload (si sale)
+
+//! ======================================
+//! ¿CUÁNDO USAR CADA UNO?
+//! ======================================
+
+//! DOMContentLoaded
+
+//? inicializar la aplicación
+//? agregar eventos
+//? manipular el DOM
+
+//! load
+
+//? trabajar con imágenes
+//? tamaños reales de elementos
+//? recursos externos
+
+//! beforeunload
+
+//? evitar perder información
+//? antes de cerrar o recargar
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! DOMContentLoaded
+//! → el DOM está listo
+
+//! load
+//! → toda la página está lista
+
+//! beforeunload
+//! → el usuario está por salir
+
+///! ======================================
+//! CARGA DE SCRIPTS EN HTML
+//! ======================================
+
+//? Existen tres formas principales
+//? de cargar un archivo JavaScript:
+//
+//? 1. Normal
+//? 2. async
+//? 3. defer
+
+//! ======================================
+//! SCRIPT NORMAL
+//! ======================================
+
+// HTML:
+//
+// <script src="script.js"></script>
+
+/*
+  HEAD
+
+  1. El navegador comienza
+     a analizar el HTML.
+
+  2. Cuando encuentra el
+     <script>, detiene el
+     procesamiento del HTML.
+
+  3. Descarga el archivo JS
+     (si aún no está descargado).
+
+  4. Ejecuta el JavaScript.
+
+  5. Continúa analizando
+     el resto del HTML.
+
+  Resultado:
+  El HTML queda bloqueado
+  mientras el script se descarga
+  y se ejecuta.
+*/
+
+/*
+  BODY (al final)
+
+  1. Se analiza casi todo
+     el HTML.
+
+  2. Se encuentra el script.
+
+  3. Se ejecuta.
+
+  Como el DOM ya está casi listo,
+  el bloqueo es mucho menor.
+*/
+
+//! ======================================
+//! SCRIPT ASYNC
+//! ======================================
+
+// HTML:
+//
+// <script async src="script.js"></script>
+
+/*
+  HEAD
+
+  1. El navegador analiza
+     el HTML.
+
+  2. El JavaScript se descarga
+     en paralelo.
+
+  3. Cuando termina de descargarse,
+     el navegador DETIENE el HTML.
+
+  4. Ejecuta inmediatamente
+     el script.
+
+  5. Continúa analizando
+     el HTML.
+
+  Resultado:
+  ✔ Descarga paralela.
+  ✖ La ejecución puede interrumpir
+    el análisis del HTML.
+*/
+
+/*
+  BODY
+
+  Aunque esté al final,
+  async sigue ejecutándose
+  tan pronto termina
+  la descarga.
+
+  No garantiza el orden
+  entre varios scripts.
+*/
+
+//! ======================================
+//! SCRIPT DEFER
+//! ======================================
+
+// HTML:
+//
+// <script defer src="script.js"></script>
+
+/*
+  HEAD
+
+  1. El navegador analiza
+     el HTML.
+
+  2. El script se descarga
+     en paralelo.
+
+  3. El HTML nunca se detiene.
+
+  4. Cuando el DOM termina
+     de construirse,
+     el script se ejecuta.
+
+  Resultado:
+  ✔ Descarga paralela.
+  ✔ No bloquea el HTML.
+  ✔ Espera a que el DOM
+    esté listo.
+*/
+
+/*
+  BODY
+
+  Si el script ya está
+  al final del body,
+  defer aporta muy poco,
+  porque el DOM prácticamente
+  ya está construido.
+*/
+
+//! ======================================
+//! ASYNC VS DEFER
+//! ======================================
+
+// async
+//? descarga en paralelo
+//? ejecuta inmediatamente
+//? NO mantiene el orden
+//? puede interrumpir el HTML
+
+// defer
+//? descarga en paralelo
+//? ejecuta al terminar el DOM
+//? mantiene el orden
+//? no bloquea el HTML
+
+//! ======================================
+//! ¿CUÁNDO USAR CADA UNO?
+//! ======================================
+
+//! Script normal
+//? solo para ejemplos
+//? o scripts muy pequeños
+
+//! async
+//? analytics
+//? publicidad
+//? scripts independientes
+
+//! defer
+//? aplicaciones web
+//? scripts que manipulan el DOM
+//? varios archivos JS
+
+//! ======================================
+//! IDEA CLAVE
+//! ======================================
+
+//! Normal
+//! → descarga y ejecuta bloqueando
+
+//! async
+//! → descarga en paralelo
+//! → ejecuta inmediatamente
+
+//! defer
+//! → descarga en paralelo
+//! → ejecuta al finalizar el DOM
